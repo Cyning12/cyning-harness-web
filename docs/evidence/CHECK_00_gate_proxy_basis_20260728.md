@@ -67,6 +67,7 @@
 | 2026-07-28 ~13:48 | （合入） | web-obs-demo-self-upgrade | quality 绿 · `gh pr merge 23 --squash --delete-branch` → https://github.com/Cyning12/cyning-harness-web/pull/23 · `d4e7f8f` | MERGED | 00 |
 | 2026-07-28 ~13:52 | （合入） | web-obs-demo-self-upgrade | quality 绿 · merge #24 squash · KPI Task_KPI%=92 | MERGED | 00 |
 | 2026-07-28 ~13:53 | （关账） | web-obs-demo-self-upgrade | KPI%=92；`task close --yes`（**勿** `--target .`）→ `docs/tasks/done/` · CLOSE PASS | post-E CLOSED | 00 |
+| 2026-07-28 ~14:26 | （热修合入） | md-link-nav | 维护者验收通过 · quality 绿 · merge #26 squash → https://github.com/Cyning12/cyning-harness-web/pull/26 · `f6703cf` · 证据 `docs/evidence/md_link_nav_20260728.md` | MERGED · 关账 | 00 |
 
 ---
 
