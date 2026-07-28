@@ -14,7 +14,7 @@
 | `upgrade @2.22.2`（跨版） | OK · `from_version`=**`2.22.1`**（正确） |
 | bump pin + check-harness-pin | PASS |
 | 同版二次 `upgrade`（未 commit） | **S5 拒 apply**（工作区有 pin/manifest 脏）· 符合既有闸 |
-| 同版二次 `upgrade`（commit 后） | 见下 · 验 U1：`from_version` **仍为** `2.22.1` |
+| 同版二次 `upgrade`（commit 后） | **U1 PASS** · `from_version` 仍为 **`2.22.1`**（不为 null）· `upgraded_at` 刷新 |
 | lint 默认 / `--strict` | PASS |
 | wiki export | OK · warnings 0 |
 
