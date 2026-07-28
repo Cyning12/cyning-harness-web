@@ -33,10 +33,9 @@
 
 ## 待 00
 
-- 填 `### KPI（00）`（`KPI_RUBRIC_v1_3`）
-- 润色 `### 经验总结`（40 已草稿 ≥3 条）
-- `harness task close` · `git mv` → `docs/tasks/done/`
-- 合并本 close 分支 PR（若开）入 `main`
+- [x] 填 `### KPI（00）`（`KPI_RUBRIC_v1_3` · Task_KPI%=92）
+- [x] 确认 `### 经验总结`
+- [ ] 合并 close PR #2 → `harness task close` · `git mv` → `docs/tasks/done/`
 
 ---
 

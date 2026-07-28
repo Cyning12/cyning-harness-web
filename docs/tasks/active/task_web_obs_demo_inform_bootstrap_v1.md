@@ -1,6 +1,6 @@
 # Task：Inform bootstrap · 模块表 + 消费者本体（A0）
 
-> **状态**：`in_progress`  
+> **状态**：`ready_to_close`  
 > **Phase**：`A0`（先于脚手架改码）  
 > **关联 SPEC**：[`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../../spec/SPEC-cyning-harness-web-obs-demo_v1.md)（`approved` · skip_10_spec）  
 > **关联图谱**：本棒产出 `docs/_tech_graph/`（S0 骨架）  
@@ -151,19 +151,34 @@ Epic 已签收。绿野仓在脚手架（Phase A）改码前，先完成 **Infor
 
 ### KPI（00）
 
-（`kpi_aggregator: CLOSE` · 关账回溯 · 至少 `Task_KPI%: N` 或 D1–D5 / 四维 1–5）  
-**40 不填分数** — 留给 00 / CLOSE 聚合。
+| 项 | 值 |
+|----|-----|
+| **kpi_rubric** | `KPI_RUBRIC_v1_3` |
+| **kpi_aggregator** | `CLOSE` |
+| **Task_KPI%** | `92` |
+| **语义状态** | `pass` · A0 Inform 闭环（交付/闸/证据齐；无 CI 为约定内） |
+
+| 大维 | 档位 | 说明 |
+|------|------|------|
+| D1 交付 | pass | task/invoke10·30·40/自检/CLOSE 摘要齐；验收勾选与交付一致 |
+| D2 判断 | pass | J-gate/J-scope/J-evidence 正确；图谱闸拆出 task 表避免硬拒；无代签越权到终验 |
+| D3 上下文 | pass | SPEC A0 / GUIDANCE 边界 / AUTH·CHECK 指针可读 |
+| D4 合规 | pass | PR squash #1；无 allow-*-gap；无 Vue 越 Phase |
+| D5 结果 | pass | Inform 真值入 main；`HG-GRAPH-MODULES=approved`；关账预备 PR #2 |
+
+**judgment_notes**：无 warn/fail 大维。残留仅可选 `02_version.md` 未建（非阻塞）。
 
 ---
 
 ### 经验总结
 
-（`experience_capture: required` · 40 草稿 · 可给 CLOSE/00 润色）
+（`experience_capture: required` · 40 草稿 · 00 关账确认）
 
 1. **A0 与图谱闸拆开**：本 task 闸表不写 `HG-GRAPH-MODULES=pending`，避免产品硬拒 Inform 30；模块表由 30 写出、合入后 00 在 `01_struct` 人签表代签 — 适合「图谱即产出」棒。
 2. **Inform 先于脚手架**：先固定 `web_ui` / `obs_api` / `harness_docs` / `evidence` 边界与「Web 不写闸」，后续 `scaffold_*` 改码可直接答 `graph_delta`，减少 Phase A 边画边改。
 3. **无 CI 的 A0 验收靠文件真值**：本仓尚无 Actions 时，以模块表非空、ontology 术语/边界、PR squash 证据指针作 Verify；勿把「口头完成」或聊天当签收。
 4. **关账分工**：40 只做交付核对 + 经验草稿 + CLOSE 摘要；KPI 打分与 `harness task close` / 归档 `git mv` 必须留给 00，避免帽越权。
+5. **远程 default 分支**：绿野仓若误以 task 分支为 HEAD，00 须先推 `main` 再开 PR；否则 `gh pr create` 会失败。
 
 ---
 
@@ -173,3 +188,4 @@ Epic 已签收。绿野仓在脚手架（Phase A）改码前，先完成 **Infor
 |------|------|
 | 2026-07-28 | 00 起草 A0 · 代签 HG-TASK-DRAFT / HG-AUDIT-R1 |
 | 2026-07-28 | 40 自检：勾选范围/验收 · 回填 PR #1 · 经验草稿 · invoke_40 · CLOSE 摘要 · 结论 pass |
+| 2026-07-28 | 00 KPI Task_KPI%=92 · 经验确认 · 准备 merge PR #2 + task close |
