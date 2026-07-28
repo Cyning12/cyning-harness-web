@@ -1,6 +1,6 @@
 # Task：Inform bootstrap · 模块表 + 消费者本体（A0）
 
-> **状态**：`ready_to_close`  
+> **状态**：`done`  
 > **Phase**：`A0`（先于脚手架改码）  
 > **关联 SPEC**：[`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../../spec/SPEC-cyning-harness-web-obs-demo_v1.md)（`approved` · skip_10_spec）  
 > **关联图谱**：本棒产出 `docs/_tech_graph/`（S0 骨架）  
@@ -65,7 +65,7 @@ Epic 已签收。绿野仓在脚手架（Phase A）改码前，先完成 **Infor
 - [x] 落盘 `docs/meta/ONTOLOGY_web_obs_demo_v1.md`（自产品 `ONTOLOGY_consumer_slice_v1.md` 改写）：术语 3–12 条 + 核心类/关系 3–7 + 边界声明（落盘真值 vs 飞行中；Web 只读不写闸）
 - [x] README 增一小段 POINTER：Inform 真值路径（`_tech_graph` · ontology）
 - [x] 分支 `task/web-obs-demo-inform-bootstrap` → PR → CI（若尚无 Actions，本棒**不强制**加 workflow；本地文件存在性自检即可）→ **squash merge** → 删已合并分支（PR [#1](https://github.com/Cyning12/cyning-harness-web/pull/1) squash · 无 CI）
-- [ ] 合入后回填 `### 自检结论`；00 在 `01_struct` 人签表代签 `HG-GRAPH-MODULES` + KPI/经验 → `task close` — **部分完成**：40 已回填自检 + 经验草稿；`HG-GRAPH-MODULES=approved` 已由 00 代签；**KPI 与 `harness task close` 待 00**
+- [x] 合入后回填 `### 自检结论`；00 在 `01_struct` 人签表代签 `HG-GRAPH-MODULES` + KPI/经验 → `task close`（PR #1/#2 · KPI=92 · close 本棒）
 
 ## 非范围
 
@@ -97,7 +97,7 @@ Epic 已签收。绿野仓在脚手架（Phase A）改码前，先完成 **Infor
 - [x] `01_struct` 人签表 `HG-GRAPH-MODULES` → **approved**（00 代签，合入后）
 - [x] invoke：`docs/harness/invokes/by-task/web-obs-demo-inform-bootstrap/` 含 10（已有）+ 30 + 40
 - [x] PR squash 入 `main`；证据指针（PR URL）写入自检或 CLOSE
-- [ ] `### KPI（00）` + `### 经验总结` 关账前填齐（`KPI_RUBRIC_v1_3`）— **经验总结 40 已草稿 ≥3 条；KPI 待 00 填**
+- [x] `### KPI（00）` + `### 经验总结` 关账前填齐（`KPI_RUBRIC_v1_3` · Task_KPI%=92）
 
 ---
 
