@@ -1,6 +1,6 @@
 # Task：Phase B · harness 接入 + live status/timeline
 
-> **状态**：`in_progress`  
+> **状态**：`done`  
 > **Phase**：`B`（依赖 Phase A CLOSED）  
 > **关联 SPEC**：[`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../../spec/SPEC-cyning-harness-web-obs-demo_v1.md) §2.4 · 附录 A Phase B  
 > **关联图谱**：[`docs/_tech_graph/01_struct.md`](../../_tech_graph/01_struct.md) · [`00_main.md`](../../_tech_graph/00_main.md)  
@@ -57,7 +57,7 @@ Phase A 已有 stub `/obs`。本棒把观测 API 接到 **本仓真实** `@cynin
 - [x] CLI 失败 / 无 task：可读错误（沿用 Phase A 失败语义）
 - [x] 自动化测：至少覆盖 spawn 失败或 JSON 解析失败的可读投影；成功路径可用 mock
 - [x] README：如何选 task、如何刷新 `/obs`
-- [ ] 分支 PR → quality 绿 → 00 squash merge
+- [x] 分支 PR → quality 绿 → 00 squash merge（PR #7 · 2026-07-28）
 
 ## 非范围
 
@@ -86,7 +86,7 @@ Phase A 已有 stub `/obs`。本棒把观测 API 接到 **本仓真实** `@cynin
 - [x] 失败路径可读（测或手工记录于自检）
 - [x] `pnpm lint` → `test` → `build` 绿；PR quality 绿
 - [x] 只读声明仍在；无写闸 API
-- [ ] invoke 10+30+40；KPI+经验关账前填齐
+- [x] invoke 10+30+40；经验+KPI 已齐（Task_KPI%=91）
 
 ---
 
@@ -107,7 +107,8 @@ Phase A 已有 stub `/obs`。本棒把观测 API 接到 **本仓真实** `@cynin
 | live status/timeline | ✅ | `server/harnessCli.ts` spawn；`?source=stub` 旁路；默认不 ingest |
 | UI 重载 / task 选择 | ✅ | `ObsView.vue` 下拉 + 重载 + 只读横幅 |
 | 测试 | ✅ | mock spawn：失败 / 非 0 / JSON 解析 / 成功 |
-| PR | ⏳ | 本棒 push 后填 URL |
+| PR | ✅ | https://github.com/Cyning12/cyning-harness-web/pull/7 · squash MERGED |
+| 40 自检 / 关账预备 | ✅ | close 分支 · invoke_40 + CLOSE 摘要 · CHECK_00 合入行 |
 
 **graph_delta**：`docs/_tech_graph/00_main.md` 注记 live CLI；`01_struct` obs_api 备注更新；模块边界未变。
 
@@ -123,22 +124,49 @@ Phase A 已有 stub `/obs`。本棒把观测 API 接到 **本仓真实** `@cynin
 
 ### 自检结论（执行者）
 
-- verify --graph PASS；闸三行 approved
-- live 路径仅 Node spawn；无写闸 API；默认无 `--ingest`
-- 自动化覆盖 CLI 失败可读 + mock 成功
-- pnpm lint/test/build：见 PR 前本地跑结果
+- **40 结论**：**pass** · 关账预备完成；待 00 KPI + `harness task close`
+- verify `--graph`（40 · 2026-07-28）：PASS（闸三行 approved）；WARN 缺 40 → 本 close 已补 invoke_40
+- 实现 PR：https://github.com/Cyning12/cyning-harness-web/pull/7 · squash MERGED · quality 绿
+- 本地复跑（40 · 2026-07-28）：`pnpm lint` → `pnpm test`（12/12）→ `pnpm build` 绿
+- 交付抽样：
+  - `.cyning-harness/manifest.json` · version `2.17.0` · preset `harness-only`；`local.json` gitignore
+  - `harnessCli.runHarnessJson`：status/timeline `--json`，args **不含** `--ingest`
+  - `ObsView`：task 下拉 · live/stub ·「重新加载」· 只读横幅 · 失败 `error`/`errorDetail`
+  - 测：`CLI_SPAWN_FAILED` / `CLI_NONZERO` / `CLI_JSON_PARSE` / mock 成功 / `WRITE_GATE_FORBIDDEN` / `NO_TASK`
+- 边界：无浏览器 npx；无写闸 API；非范围遵守（无默认 ingest / 未改产品仓 / 无 Phase C dogfood）
 
 ---
 
 ### KPI（00）
 
-（关账回溯）
+| 项 | 值 |
+|----|-----|
+| **kpi_rubric** | `KPI_RUBRIC_v1_3` |
+| **kpi_aggregator** | `CLOSE` |
+| **Task_KPI%** | `91` |
+| **语义状态** | `pass` · Phase B live status/timeline + init 闭环 |
+
+| 大维 | 档位 | 说明 |
+|------|------|------|
+| D1 交付 | pass | init/manifest、live CLI、/obs、测、invoke10·30·40、自检齐 |
+| D2 判断 | pass | 无默认 ingest；可测 spawn；stub 旁路保留；证据 PR #7/#8 |
+| D3 上下文 | pass | SPEC Phase B / OBS 契约 / 只读边界 |
+| D4 合规 | pass | PR squash；无 allow-*-gap；禁写闸有测 |
+| D5 结果 | pass | quality 绿合入；本地 lint/test/build 绿 |
+
+**judgment_notes**：无大维 warn/fail。
 
 ---
 
 ### 经验总结
 
-（`experience_capture: required` · 关账前由 00/40 填）
+（`experience_capture: required` · 40 草稿 · 00 关账确认）
+
+1. **live 默认路径要可测**：`SpawnFn` 注入比真实 `npx` 更稳；失败码（spawn/非 0/JSON）与成功 mock 各至少一条，UI 才能宣称「可读」。
+2. **默认禁 ingest 写进 spawn args 真值**：仅 README/注释不够；`runHarnessJson` 构造的 argv 必须不含 `--ingest`，避免 Phase D 策略被误开。
+3. **stub 旁路保留对照价值**：`?source=stub` 让 CI/本地无 harness CLI 时仍可演示契约，与 live 切换同页，减少「CLI 挂了整页空白」。
+4. **关账与实现 PR 分轨**：实现 #7 squash 后再开 `*-close` 补 40 invoke / 验收勾选 / CHECK 合入行，避免实现 diff 与文档关账混杂。
+5. **invoke hats gap**：verify 会 WARN 缺 40；close 棒必须落盘 `invoke_*_40_*`，否则 CLOSE 前需 `--allow-invoke-gap`（本仓禁止默认 gap）。
 
 ---
 
@@ -148,3 +176,5 @@ Phase A 已有 stub `/obs`。本棒把观测 API 接到 **本仓真实** `@cynin
 |------|------|
 | 2026-07-28 | 00 起草 Phase B · 代签三闸 |
 | 2026-07-28 | 30 实现 live obs + harness init · 回填备忘 |
+| 2026-07-28 | 40 自检 pass · 关账预备 · invoke_40 + CLOSE 摘要 · 经验草稿 |
+| 2026-07-28 | 00 KPI Task_KPI%=91 · status=done · 准备 merge #8 + close |
