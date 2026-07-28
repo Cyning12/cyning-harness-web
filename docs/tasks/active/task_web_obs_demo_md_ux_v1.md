@@ -1,6 +1,6 @@
 # Task：Markdown 渲染组件 + 通用文案 + 首页示例
 
-> **状态**：`in_progress`  
+> **状态**：`done`  
 > **Phase**：`post-E`（epic A0–E 已 CLOSE · 增量 UX）  
 > **关联 SPEC**：[`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../../spec/SPEC-cyning-harness-web-obs-demo_v1.md)（只读边界不变）  
 > **落盘**：`docs/tasks/active/task_web_obs_demo_md_ux_v1.md`
@@ -47,16 +47,16 @@
 
 ## 范围
 
-- [ ] 新增 Markdown 渲染组件（建议 `marked` + DOMPurify，或团队已有轻量方案；**必须消毒**防 XSS）
-- [ ] `/docs` 正文用该组件替代 `<pre>` 原文堆叠
-- [ ] 文案通用化（首页、顶栏/页脚、`/docs` 导语；`/obs` 仅改明显黑话标签，勿大改交互）：
+- [x] 新增 Markdown 渲染组件（建议 `marked` + DOMPurify，或团队已有轻量方案；**必须消毒**防 XSS）
+- [x] `/docs` 正文用该组件替代 `<pre>` 原文堆叠
+- [x] 文案通用化（首页、顶栏/页脚、`/docs` 导语；`/obs` 仅改明显黑话标签，勿大改交互）：
   - 少用未解释的：`HG-*`、ingest、stub、gate、dogfood、Phase 字母等
   - 用「只读浏览」「本地命令行结果」「示例数据」等白话；必要时括号一次解释
-- [ ] 新增经典样例文档：建议路径 `docs/tasks/samples/showcase_getting_started.md`（白话说明本 Demo 做什么、如何打开文档、只读原则）
-- [ ] **首页**展示该样例：拉取 `/api/docs/content?path=…` 并用渲染组件展示；失败可读
-- [ ] 若 API 仅允许 `docs/tasks/**`：样例放在该树下即可；勿放开仓外路径
-- [ ] 至少 1 个单测：渲染含标题/安全（脚本标签被剥或转义）
-- [ ] PR → quality 绿 → 00 squash merge
+- [x] 新增经典样例文档：建议路径 `docs/tasks/samples/showcase_getting_started.md`（白话说明本 Demo 做什么、如何打开文档、只读原则）
+- [x] **首页**展示该样例：拉取 `/api/docs/content?path=…` 并用渲染组件展示；失败可读
+- [x] 若 API 仅允许 `docs/tasks/**`：样例放在该树下即可；勿放开仓外路径
+- [x] 至少 1 个单测：渲染含标题/安全（脚本标签被剥或转义）
+- [x] PR → quality 绿 → 00 squash merge
 
 ## 非范围
 
@@ -77,23 +77,27 @@
 
 ## 验收标准
 
-- [ ] `/docs` 打开任意 task md 为**排版后的 Markdown**（非纯 pre 原文）
-- [ ] 存在可复用渲染组件；XSS 基本防护（测覆盖）
-- [ ] 首页有白话说明 + 样例文档渲染区
-- [ ] 样例文件存在且内容面向外部读者（少黑话）
-- [ ] `pnpm lint` → `test` → `build` 绿；PR quality 绿
-- [ ] invoke 10+30+40；KPI+经验关账前填齐
+- [x] `/docs` 打开任意 task md 为**排版后的 Markdown**（非纯 pre 原文）
+- [x] 存在可复用渲染组件；XSS 基本防护（测覆盖）
+- [x] 首页有白话说明 + 样例文档渲染区
+- [x] 样例文件存在且内容面向外部读者（少黑话）
+- [x] `pnpm lint` → `test` → `build` 绿；PR quality 绿
+- [x] invoke 10+30+40；KPI+经验已齐（Task_KPI%=91）
 
 ---
 
 ### 自检结论（执行者）
-（待）
+
+**pass**（40 · 2026-07-28）。交付与验收项均满足；PR #19 squash 入 main（quality 绿 · `efc4880`）。本棒不填 KPI、不执行 `task close` / merge。
 
 ### KPI（00）
 （待）
 
 ### 经验总结
-（待）
+
+1. **消毒必过单测**：`marked`  alone 不够；`DOMPurify` + jsdom 测「`<script>` / `onerror` 不残留」比口头声称安全更稳。
+2. **样例路径锁在 `docs/tasks/**`**：首页与 `/docs` 共用同一 content API 边界，避免为展示放开仓外路径。
+3. **白话标签 vs 内部枚举**：UI 文案用「示例数据」「显式写盘」，内部仍可保留 `stub` / `ingest` 取值，降低新人黑话而不改契约。
 
 ---
 
@@ -102,3 +106,5 @@
 | 日期 | 说明 |
 |------|------|
 | 2026-07-28 | 00 起草 · 代签三闸 · 派 30 |
+| 2026-07-28 | 40 自检 · 勾选范围/验收 · 经验≥3 · CLOSE 摘要 · 补 invoke 40 |
+| 2026-07-28 | 00 KPI Task_KPI%=91 · status=done · 准备 merge #20 + close |
