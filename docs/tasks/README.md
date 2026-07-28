@@ -9,7 +9,7 @@
 
 | slug | Phase | 文件 |
 |------|-------|------|
-| — | — | （空 · A0 已 CLOSE） |
+| `web-obs-demo-scaffold-vite-shell` | A | [`active/task_web_obs_demo_scaffold_vite_shell_v1.md`](./active/task_web_obs_demo_scaffold_vite_shell_v1.md) |
 
 **done（最近）**
 

@@ -31,11 +31,40 @@
 | [`docs/_tech_graph/99_mermaid_protocol.md`](docs/_tech_graph/99_mermaid_protocol.md) | Mermaid 协议 POINTER |
 | [`docs/meta/ONTOLOGY_web_obs_demo_v1.md`](docs/meta/ONTOLOGY_web_obs_demo_v1.md) | 消费者本体切片（术语 / 边界） |
 
+## 本地启动（Phase A 脚手架）
+
+```bash
+pnpm install
+pnpm dev
+```
+
+浏览器打开 Vite 提示的本地地址：
+
+| 路由 | 说明 |
+|------|------|
+| `/` | 说明页 · 只读原则 |
+| `/obs` | stub `obs_status.v1` / `obs_timeline.v1`（非 live CLI） |
+| `/docs` | 扫读 `docs/tasks/**` Markdown 只读预览 |
+
+合并前质量门：
+
+```bash
+pnpm lint
+pnpm test
+pnpm build
+```
+
+薄观测 API（Vite middleware · 仅 Node 侧 · 只读）：
+
+- `GET /api/docs` · `GET /api/docs/content?path=…`
+- `GET /api/obs/status` · `GET /api/obs/timeline`
+- **无**写闸 API；**禁止**浏览器 `npx`
+
 ## 状态
 
 | 项 | 值 |
 |---|---|
 | SPEC | `approved` · 2026-07-28 · skip_10_spec |
 | 下游闸 | **00 代签** |
-| 阶段 | A0 → A → B → C → D → E（F 默认不做） |
-| 契约 | `obs_status.v1` / `obs_timeline.v1` |
+| 阶段 | A0 CLOSED → **A scaffold** → B → C → D → E（F 默认不做） |
+| 契约 | `obs_status.v1` / `obs_timeline.v1`（A：stub；B：live CLI） |
