@@ -1,3 +1,4 @@
+import { spawn } from 'node:child_process'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { stubObsStatus, stubObsTimeline } from './stubData'
@@ -5,6 +6,7 @@ import {
   type SpawnFn,
   runHarnessJson,
 } from './harnessCli'
+import { readHarnessPin } from './harnessPin'
 
 export type ApiOk<T> = { ok: true; data: T; warnings?: string[] }
 export type ApiErr = { ok: false; error: string; code: string; detail?: string }
@@ -258,4 +260,175 @@ export function rejectWriteGate(): ApiErr {
     error: '禁止写闸：Web 不提供将 HG-*=approved 的 API',
     code: 'WRITE_GATE_FORBIDDEN',
   }
+}
+
+/** 纪律包版本探测（只读 · 禁止触发 upgrade） */
+export type HarnessVersionInfo = {
+  package: string
+  pinned: string
+  manifest_version: string | null
+  npm_latest: string | null
+  behind: boolean | null
+  /** pin / manifest 等可读说明（非致命时也可出现） */
+  error?: string
+  /** npm 探测失败说明 */
+  npm_error?: string
+}
+
+export type NpmViewFn = (pkg: string, timeoutMs: number) => Promise<string>
+
+export const DEFAULT_NPM_VIEW_TIMEOUT_MS = 5_000
+
+/** 比较 x.y.z；无法比较返回 null */
+export function isVersionBehind(
+  pinned: string,
+  latest: string,
+): boolean | null {
+  const parse = (v: string): number[] | null => {
+    const m = v.trim().match(/^(\d+)\.(\d+)\.(\d+)/)
+    if (!m) return null
+    return [Number(m[1]), Number(m[2]), Number(m[3])]
+  }
+  const a = parse(pinned)
+  const b = parse(latest)
+  if (!a || !b) return null
+  for (let i = 0; i < 3; i++) {
+    if (b[i] > a[i]) return true
+    if (b[i] < a[i]) return false
+  }
+  return false
+}
+
+/** 默认 npm view（短超时）；失败抛错由调用方降级 */
+export async function defaultNpmView(
+  pkg: string,
+  timeoutMs: number,
+): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const child = spawn(
+      'npm',
+      ['view', pkg, 'version', '--json'],
+      { env: process.env, shell: false },
+    )
+    let stdout = ''
+    let stderr = ''
+    let timedOut = false
+    const timer = setTimeout(() => {
+      timedOut = true
+      child.kill('SIGTERM')
+    }, timeoutMs)
+
+    child.stdout?.on('data', (chunk: Buffer | string) => {
+      stdout += String(chunk)
+    })
+    child.stderr?.on('data', (chunk: Buffer | string) => {
+      stderr += String(chunk)
+    })
+
+    child.on('error', (err) => {
+      clearTimeout(timer)
+      reject(err)
+    })
+
+    child.on('close', (code) => {
+      clearTimeout(timer)
+      if (timedOut) {
+        reject(new Error(`npm view 超时（>${timeoutMs}ms）`))
+        return
+      }
+      if (code !== 0) {
+        reject(new Error(stderr.trim() || `npm view exit ${code}`))
+        return
+      }
+      const trimmed = stdout.trim()
+      try {
+        const parsed: unknown = JSON.parse(trimmed)
+        if (typeof parsed === 'string' && parsed.trim()) {
+          resolve(parsed.trim())
+          return
+        }
+      } catch {
+        // 非 JSON 时按纯文本版本号
+      }
+      if (/^\d+\.\d+\.\d+/.test(trimmed)) {
+        resolve(trimmed.replace(/^"|"$/g, ''))
+        return
+      }
+      reject(new Error(`无法解析 npm view 输出：${trimmed.slice(0, 120)}`))
+    })
+  })
+}
+
+async function readManifestVersion(
+  repoRoot: string,
+): Promise<{ version: string | null; error?: string }> {
+  const manifestPath = path.join(repoRoot, '.cyning-harness', 'manifest.json')
+  try {
+    const raw = await fs.readFile(manifestPath, 'utf8')
+    const parsed: unknown = JSON.parse(raw)
+    if (
+      parsed &&
+      typeof parsed === 'object' &&
+      !Array.isArray(parsed) &&
+      typeof (parsed as { version?: unknown }).version === 'string'
+    ) {
+      const v = (parsed as { version: string }).version.trim()
+      return { version: v || null }
+    }
+    return { version: null, error: 'manifest.json 缺少 version 字段' }
+  } catch (err) {
+    const code =
+      err && typeof err === 'object' && 'code' in err
+        ? String((err as NodeJS.ErrnoException).code)
+        : ''
+    if (code === 'ENOENT') {
+      return { version: null, error: 'manifest 缺失（尚未 init / 路径不可读）' }
+    }
+    const msg = err instanceof Error ? err.message : String(err)
+    return { version: null, error: `读 manifest 失败：${msg}` }
+  }
+}
+
+/**
+ * 只读版本投影：pin + manifest + 可选 npm latest。
+ * pin 非法 → ok:false；npm/manifest 失败 → 降级字段，不挡页。
+ */
+export async function getHarnessVersion(
+  repoRoot: string,
+  options: {
+    npmView?: NpmViewFn
+    npmTimeoutMs?: number
+  } = {},
+): Promise<ApiResult<HarnessVersionInfo>> {
+  const pin = readHarnessPin(repoRoot)
+  if (!pin.ok) {
+    return { ok: false, error: pin.error, code: pin.code }
+  }
+
+  const manifest = await readManifestVersion(repoRoot)
+  const info: HarnessVersionInfo = {
+    package: pin.data.package,
+    pinned: pin.data.version,
+    manifest_version: manifest.version,
+    npm_latest: null,
+    behind: null,
+  }
+  if (manifest.error) {
+    info.error = manifest.error
+  }
+
+  const timeoutMs = options.npmTimeoutMs ?? DEFAULT_NPM_VIEW_TIMEOUT_MS
+  const npmView = options.npmView ?? defaultNpmView
+  try {
+    const latest = (await npmView(pin.data.package, timeoutMs)).trim()
+    info.npm_latest = latest
+    info.behind = isVersionBehind(pin.data.version, latest)
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    info.npm_error = `npm 最新版探测失败：${msg}`
+    info.npm_latest = null
+    info.behind = null
+  }
+
+  return { ok: true, data: info }
 }

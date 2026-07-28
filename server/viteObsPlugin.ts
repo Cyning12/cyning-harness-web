@@ -2,6 +2,7 @@ import type { Connect, Plugin } from 'vite'
 import type { ServerResponse } from 'node:http'
 import path from 'node:path'
 import {
+  getHarnessVersion,
   getObsStatus,
   getObsTimeline,
   listTaskDocs,
@@ -106,6 +107,12 @@ export function obsApiPlugin(repoRoot = process.cwd()): Plugin {
         const source = resolveObsSource(url.searchParams.get('source'))
         const ingest = resolveIngestFlag(url.searchParams.get('ingest'))
         const result = await getObsTimeline(root, task, { source, ingest })
+        sendJson(res, result.ok ? 200 : httpStatusForErr(result.code), result)
+        return
+      }
+
+      if (url.pathname === '/api/obs/harness-version') {
+        const result = await getHarnessVersion(root)
         sendJson(res, result.ok ? 200 : httpStatusForErr(result.code), result)
         return
       }

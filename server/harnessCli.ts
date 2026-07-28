@@ -1,11 +1,17 @@
 /**
  * 仅 Node 侧 spawn harness CLI（禁止浏览器 npx）。
  * 默认不带 --ingest；仅 timeline 且显式 ingest=true 时追加。
+ * 包规格真值：仓根 harness.pin.json（见 harnessPin.ts）。
  */
 import { spawn } from 'node:child_process'
+import { resolveHarnessPackage } from './harnessPin'
 
-export const HARNESS_PACKAGE = '@cyning/harness@2.17.0'
 export const DEFAULT_CLI_TIMEOUT_MS = 60_000
+
+/** 从 pin 组装；勿在业务路径硬编码权威版本 */
+export function getHarnessPackage(repoRoot: string = process.cwd()): string {
+  return resolveHarnessPackage(repoRoot)
+}
 
 export type SpawnResult = {
   exitCode: number | null
@@ -141,7 +147,7 @@ function truncate(s: string, max: number): string {
 export type HarnessSubcommand = 'status' | 'timeline'
 
 /**
- * 组装 `npx @cyning/harness@2.17.0 <status|timeline> … --json` argv。
+ * 组装 `npx <pin> <status|timeline> … --json` argv。
  * 默认不含 `--ingest`；仅 timeline + ingest===true 时追加。
  */
 export function buildHarnessCliArgs(options: {
@@ -150,10 +156,11 @@ export function buildHarnessCliArgs(options: {
   taskPath: string
   ingest?: boolean
 }): string[] {
+  const pkg = getHarnessPackage(options.repoRoot)
   if (options.subcommand === 'status') {
     return [
       '--yes',
-      HARNESS_PACKAGE,
+      pkg,
       'status',
       '--target',
       options.repoRoot,
@@ -165,7 +172,7 @@ export function buildHarnessCliArgs(options: {
 
   const args = [
     '--yes',
-    HARNESS_PACKAGE,
+    pkg,
     'timeline',
     '--task',
     options.taskPath,
@@ -180,7 +187,7 @@ export function buildHarnessCliArgs(options: {
 }
 
 /**
- * 跑 `npx @cyning/harness@2.17.0 <status|timeline> … --json`（默认无 --ingest）。
+ * 跑 `npx <pin> <status|timeline> … --json`（默认无 --ingest）。
  */
 export async function runHarnessJson(options: {
   repoRoot: string

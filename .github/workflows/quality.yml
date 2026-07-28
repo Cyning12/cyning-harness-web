@@ -31,15 +31,15 @@ jobs:
       - name: Build
         run: pnpm build
 
-      # Phase E+：挂 harness verify（钉 2.17.0；禁止 --allow-*-gap）
+      # Phase E+：挂 harness verify（版本真值：仓根 harness.pin.json；禁止 --allow-*-gap）
       # task 路径策略：
       #   - CI 默认用 docs/tasks/done/ 下已 CLOSE 样例（帽链 10/30/40 齐、闸稳定）
       #   - 勿用 active 进行中 task（可能缺 40 → 仅 WARN，但样例易漂移）
       #   - 本仓 CLOSED 样例：task_web_obs_demo_hgm_consumer_v1.md（Phase D）
       #   - graph_delta=none 的样例可不加 --graph；本步与样例一致省略
-      # 本地复现见 README「CI · harness verify」与 docs/evidence/SUMMARY_obs_demo_20260728.md
+      # 本地复现：node scripts/harness-verify-ci.mjs · README「CI · harness verify」
+      - name: Check harness pin
+        run: node scripts/check-harness-pin.mjs
+
       - name: Harness verify
-        run: >
-          npx --yes @cyning/harness@2.17.0 verify
-          --target .
-          --task docs/tasks/done/task_web_obs_demo_hgm_consumer_v1.md
+        run: node scripts/harness-verify-ci.mjs

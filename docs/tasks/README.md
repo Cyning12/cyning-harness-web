@@ -9,7 +9,7 @@
 
 | slug | Phase | 文件 |
 |------|-------|------|
-| （空） | — | post-E md-ux 已 CLOSE；下一棒待派 |
+| `web-obs-demo-self-upgrade` | post-E · 自我升级 | [`active/task_web_obs_demo_self_upgrade_v1.md`](./active/task_web_obs_demo_self_upgrade_v1.md) |
 
 **done（本 epic）**
 
