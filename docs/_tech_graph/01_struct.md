@@ -9,7 +9,7 @@
 | module_id | 名称 | 路径 glob | 依赖方向（仅指向谁） | 负责人/备注 |
 |-----------|------|-----------|----------------------|-------------|
 | `web_ui` | Web 只读 UI | `src/**` | → `obs_api` | Vite/Vue 页面与路由（`/` · `/obs` · `/docs`）；Phase A 已建 |
-| `obs_api` | 薄观测 API | `server/**` | → `harness_docs` · `evidence` | Vite middleware：读盘 md + live `status`/`timeline --json`（可 stub 切换）；**禁止**写闸 / **默认不** ingest；仅显式 `?ingest=1` 才写 events |
+| `obs_api` | 薄观测 API | `server/**` | → `harness_docs` · `evidence` | Vite middleware：读盘 md + live `status`/`timeline --json`（可 stub）+ **只读** `GET /api/obs/harness-version`（pin / manifest / npm latest）；CLI 包规格读仓根 `harness.pin.json`；**禁止**写闸 / 触发 `upgrade` / **默认不** ingest；仅显式 `?ingest=1` 才写 events |
 | `harness_docs` | Harness 落盘真值 | `docs/tasks/**` · `docs/harness/**` · `docs/spec/**` | —（被依赖） | task / invoke / review / auth / ACCEPTANCE；签收真值所在 |
 | `evidence` | 证据与台账 | `docs/evidence/**` | —（被依赖） | C–E dogfood / 检查台账；非飞行中日志 |
 
@@ -25,6 +25,7 @@
 | 契约 | 提供方 module_id | 消费方 | 说明 |
 |------|------------------|--------|------|
 | `obs_status.v1` / `obs_timeline.v1` | `obs_api` | `web_ui` | CLI JSON 只读投影；Web 不写闸 |
+| pin / manifest / npm 版本条 | `obs_api` | `web_ui` | `GET /api/obs/harness-version`；升级仅 RUNBOOK，无 Web 写入口 |
 | 落盘闸表 / invoke / review | `harness_docs` | `obs_api` | 过程真值只认磁盘工件 |
 
 ## 人签记录（嵌入后填写）

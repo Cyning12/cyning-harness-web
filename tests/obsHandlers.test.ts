@@ -187,7 +187,7 @@ describe('obs API · stub / live / 只读边界', () => {
   it('buildHarnessCliArgs：status/timeline 默认无 ingest；显式才追加', () => {
     const statusArgs = buildHarnessCliArgs({
       subcommand: 'status',
-      repoRoot: '/tmp/repo',
+      repoRoot,
       taskPath: SAMPLE_TASK,
       ingest: true,
     })
@@ -195,14 +195,14 @@ describe('obs API · stub / live / 只读边界', () => {
 
     const tlDefault = buildHarnessCliArgs({
       subcommand: 'timeline',
-      repoRoot: '/tmp/repo',
+      repoRoot,
       taskPath: SAMPLE_TASK,
     })
     expect(tlDefault).not.toContain('--ingest')
 
     const tlIngest = buildHarnessCliArgs({
       subcommand: 'timeline',
-      repoRoot: '/tmp/repo',
+      repoRoot,
       taskPath: SAMPLE_TASK,
       ingest: true,
     })

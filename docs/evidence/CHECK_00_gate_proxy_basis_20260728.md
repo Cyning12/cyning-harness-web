@@ -59,6 +59,10 @@
 | 2026-07-28 ~12:29 | （合入） | web-obs-demo-md-ux | quality 绿 · merge #20 squash → https://github.com/Cyning12/cyning-harness-web/pull/20 · 40 关账预备 | MERGED | 00 |
 | 2026-07-28 ~12:32 | （合入） | web-obs-demo-md-ux | quality 绿 · merge #21 squash → https://github.com/Cyning12/cyning-harness-web/pull/21 · KPI Task_KPI%=91 | MERGED | 00 |
 | 2026-07-28 ~12:33 | （关账） | web-obs-demo-md-ux | PR #21 squash；KPI Task_KPI%=91；`task close`（**勿** `--target .`）→ `docs/tasks/done/` · CLOSE PASS | post-E CLOSED | 00 |
+| 2026-07-28 ~13:36 | （范围） | web-obs-demo-self-upgrade | 维护者聊天「同意」→ PLAN C+R3；PLAN → `active` | 范围确认 | 维护者→00 |
+| 2026-07-28 ~13:40 | HG-TASK-DRAFT | web-obs-demo-self-upgrade | 通读 `docs/tasks/active/task_web_obs_demo_self_upgrade_v1.md`：S1+S2/非范围/验收/failure_paths/元信息齐全；对照 PLAN C | pass → approved | 00 |
+| 2026-07-28 ~13:40 | HG-AUDIT-R1 | web-obs-demo-self-upgrade | `docs/harness/reviews/task_web_obs_demo_self_upgrade_audit_R1_20260728.md` · pass · human_only | pass → approved | 00 |
+| 2026-07-28 ~13:40 | HG-GRAPH-MODULES | web-obs-demo-self-upgrade | 沿用 A0 approved；本棒 `graph_delta=update` 仅扩 `obs_api` 行 | approved（沿用） | 00 |
 
 ---
 
