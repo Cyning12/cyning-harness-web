@@ -2,10 +2,16 @@
 
 > **层**：context · 项目级指针（变更频率低于 volatile）
 
-## 待填写
+## 相关页
 
-- `docs/standards/CODING_*_L2_*.md`  
-- `docs/meta/PROJECT_CONFIG_*.md`（若有）  
-- `docs/_tech_graph/00_main.md` 读序  
+- 稳定摘要：[[stable]]
+- 本 task：[[volatile]]
+- 目录说明：[[README]]
+- 主题索引：[[_index]] · [[topics/spec_and_graph]] · [[topics/pin_and_upgrade]]
 
-由安装向导或人工在接入业务仓时补全链接。
+## 本仓指针
+
+- 图谱读序：[`docs/_tech_graph/00_main.md`](../_tech_graph/00_main.md)
+- SPEC：[`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../spec/SPEC-cyning-harness-web-obs-demo_v1.md)
+- 术语：[`docs/meta/ONTOLOGY_web_obs_demo_v1.md`](../meta/ONTOLOGY_web_obs_demo_v1.md)
+- 升级剧本：[`docs/harness/guides/RUNBOOK_harness_upgrade_v1_zh.md`](../harness/guides/RUNBOOK_harness_upgrade_v1_zh.md)

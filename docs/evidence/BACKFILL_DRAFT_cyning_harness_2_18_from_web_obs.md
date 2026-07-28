@@ -2,7 +2,7 @@
 
 | 项 | 值 |
 |----|-----|
-| **状态** | `draft` · **≠ 已合入产品** |
+| **状态** | `partially_landed` · 2.18.1/2.18.2 docs 已发；CLI lint 仍 open |
 | **日期** | 2026-07-28 |
 | **真值证据** | [`FEEDBACK_harness_2_18_0_from_web_obs_20260728.md`](./FEEDBACK_harness_2_18_0_from_web_obs_20260728.md) |
 | **产品 Open Folder** | `/Users/cyning/Desktop/Projects/cyning-harness`（另开 task/PR） |
@@ -25,10 +25,11 @@
 2. `chore(templates): coding_wiki 样例互链，避免 export 空边`
 3. （可选）`feat(cli): lint/list tasks missing wiki_delta after upgrade`
 
-## 版号建议
+## 版号建议（执行结果）
 
-- **2.18.1**：仅 docs + templates → 优先  
-- **2.19.0**：若做 CLI lint 新能力
+- **2.18.1**：✅ USER_GUIDE §6.0b · templates 互链 · ONBOARDING（F-218-01..03 / F-218-05）
+- **2.18.2**：✅ 两层 `topics/` 目录约定 · USER_GUIDE「目录 vs 图」（F-218-06 消费者对照）
+- **2.19.0**：仍建议 CLI lint/list 缺 `wiki_delta`（F-218-01 剩余）
 
 ## 产品 checklist 勾选结果（本仓对照 · 非产品人签）
 

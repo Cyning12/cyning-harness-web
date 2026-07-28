@@ -5,7 +5,7 @@
 | **状态** | `active` · Wave A+ 滚动追加 |
 | **日期** | 2026-07-28 |
 | **消费者仓** | `cyning-harness-web` |
-| **钉版本目标** | `2.18.0`（`harness.pin.json` 已 bump） |
+| **钉版本目标** | 起钉 `2.18.0` → 现跟进 **`2.18.2`**（本波 pin bump） |
 | **产品验收对照** | `cyning-harness/docs/CHECKLIST_acceptance_2.18.0_wiki_feedback_v1_zh.md` |
 
 > 边做边记。每条：现象 · 复现命令 · 期望 · 严重度（block/warn/info）· 建议落点（CLI/docs/SPEC/闸）。
@@ -76,3 +76,23 @@
 3. **CHANGELOG Notes**：明示 upgrade 不改写业务 task 元信息（F-218-03）。
 
 **结论一行**：建议产品下一版以 **docs/ONBOARDING 迁移专节 + template 互链样例** 优先（不必急着改 close 闸语义）；Web 侧 2.18 消费者路径已 dogfood 可公开。
+
+---
+
+## 产品 2.18.1 / 2.18.2 消费对照（2026-07-28）
+
+| 产品版 | 消费者动作 | 结果 |
+|--------|------------|------|
+| **2.18.1** | 对照 USER_GUIDE §6.0b / templates 互链 | F-218-01..03 / F-218-05 **已缓解**（docs）；CLI lint 仍待 2.19 |
+| **2.18.2** | pin bump + 本仓 `coding_wiki` 迁两层 `topics/` | 见 F-218-06 |
+
+| id | 现象 | 复现 | 期望 | severity | 建议产品落点 |
+|----|------|------|------|----------|--------------|
+| F-218-06 | 2.18.0 金样主题页在 wiki **根**平铺；人扫将随主题增长爆炸；图边仍正常 | 迁前 `ls docs/coding_wiki/`；迁后 `topics/` + export | 产品两层约定可执行；export 不依赖深度 | info | **已落** 2.18.2 templates README · USER_GUIDE「目录 vs 图」 |
+
+### 经验补充
+
+7. 目录是给人扫的，图是给边的：`git mv` 进 `topics/` 后须改 `[[topics/…]]`，再 `wiki export` 校验。
+8. 消费者迁移可与 pin bump 同 PR；**不必**等 CLI 硬闸。
+
+Wiki: [`docs/coding_wiki/`](../coding_wiki/) · [`topics/web_obs_demo.md`](../coding_wiki/topics/web_obs_demo.md)
