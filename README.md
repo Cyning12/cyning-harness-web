@@ -43,16 +43,19 @@ pnpm dev
 | 路由 | 说明 |
 |------|------|
 | `/` | 说明页 · 只读原则 |
-| `/obs` | live `status` / `timeline` 投影（可切 stub） |
+| `/obs` | live `status` / `timeline` 对照（可切 stub；可选显式 ingest） |
 | `/docs` | 扫读 `docs/tasks/**` Markdown 只读预览 |
 
 ### 如何使用 `/obs`
 
-1. 打开 `/obs`：默认选中 active 样例 task（若列表为空则用内置默认路径）。
+1. 打开 `/obs`：默认优先 active `hgm_consumer` task（若列表为空则用内置默认路径）。
 2. 在 **task** 下拉框选择 `docs/tasks/active|done/**.md`。
 3. **source**：`live`（默认，服务端 spawn CLI）或 `stub`（对照）。
-4. 点 **重新加载** 刷新投影；CLI 失败时页内展示可读错误码与摘要。
-5. 页内横幅 **「只读投影 · 非签收真值」**；不提供写闸。
+4. **显式 `--ingest`**：默认关闭；勾选后页内警告「会写 events」，仅 timeline 请求带 `?ingest=1`。
+5. 点 **重新加载**；空事件 / CLI WARN 页内可读；status 与 timeline 有对照说明。
+6. 页内横幅 **「只读投影 · 非签收真值」**；不提供写闸。
+
+Phase D ingest 策略真值：[`docs/evidence/hgm_consumer_20260728.md`](docs/evidence/hgm_consumer_20260728.md)。
 
 合并前质量门：
 
@@ -66,10 +69,10 @@ pnpm build
 
 - `GET /api/docs` · `GET /api/docs/content?path=…`
 - `GET /api/obs/status?task=…&source=live|stub`
-- `GET /api/obs/timeline?task=…&source=live|stub`
+- `GET /api/obs/timeline?task=…&source=live|stub[&ingest=1]`
 - live 等价于服务端：
   `npx @cyning/harness@2.17.0 status|timeline --target <仓根> --task <path> --json`
-  （**默认不** `--ingest`）
+  （**默认不** `--ingest`；仅 timeline 且显式 `ingest=1` 时追加）
 - **无**写闸 API；**禁止**浏览器 `npx`
 
 Harness 接入产物（`init` · preset `harness-only`）：
@@ -84,6 +87,7 @@ Harness 接入产物（`init` · preset `harness-only`）：
 |---|---|
 | SPEC | `approved` · 2026-07-28 · skip_10_spec |
 | 下游闸 | **00 代签** |
-| 阶段 | A0 CLOSED → A CLOSED → B CLOSED → **C dogfood** → D → E（F 默认不做） |
-| 契约 | `obs_status.v1` / `obs_timeline.v1`（B：live CLI；可 stub 切换） |
+| 阶段 | A0 CLOSED → A CLOSED → B CLOSED → C CLOSED → **D hgm-consumer** → E（F 默认不做） |
+| 契约 | `obs_status.v1` / `obs_timeline.v1`（B：live CLI；可 stub 切换；D：显式 ingest） |
 | Phase C 证据 | [`docs/evidence/chain_dogfood_20260728.md`](docs/evidence/chain_dogfood_20260728.md) |
+| Phase D 证据 | [`docs/evidence/hgm_consumer_20260728.md`](docs/evidence/hgm_consumer_20260728.md) |

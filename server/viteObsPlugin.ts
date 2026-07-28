@@ -7,6 +7,7 @@ import {
   listTaskDocs,
   readTaskDoc,
   rejectWriteGate,
+  resolveIngestFlag,
   resolveObsSource,
 } from './obsHandlers'
 
@@ -103,7 +104,8 @@ export function obsApiPlugin(repoRoot = process.cwd()): Plugin {
       if (url.pathname === '/api/obs/timeline') {
         const task = url.searchParams.get('task')
         const source = resolveObsSource(url.searchParams.get('source'))
-        const result = await getObsTimeline(root, task, { source })
+        const ingest = resolveIngestFlag(url.searchParams.get('ingest'))
+        const result = await getObsTimeline(root, task, { source, ingest })
         sendJson(res, result.ok ? 200 : httpStatusForErr(result.code), result)
         return
       }

@@ -46,11 +46,11 @@
 
 ## 范围
 
-- [ ] 文档：`docs/evidence/hgm_consumer_20260728.md`（或等价）写清 ingest 策略（默认 off；显式 on 的入口/风险）
-- [ ] API/UI：timeline 投影可演示；与 status 同页或对照；空事件可读
-- [ ] 可选：显式 query/flag 触发 `--ingest`（须页内警告「会写 events」）；默认路径仍不 ingest
-- [ ] 自动化测：默认 argv 无 `--ingest`；显式路径才带
-- [ ] README POINTER；PR + quality 绿
+- [x] 文档：`docs/evidence/hgm_consumer_20260728.md`（或等价）写清 ingest 策略（默认 off；显式 on 的入口/风险）
+- [x] API/UI：timeline 投影可演示；与 status 同页或对照；空事件可读
+- [x] 可选：显式 query/flag 触发 `--ingest`（须页内警告「会写 events」）；默认路径仍不 ingest
+- [x] 自动化测：默认 argv 无 `--ingest`；显式路径才带
+- [x] README POINTER；PR + quality 绿
 
 ## 非范围
 
@@ -69,16 +69,16 @@
 
 ## 验收标准
 
-- [ ] 策略文档存在且可公开
-- [ ] `/obs`（或等价）可展示 timeline；与 status 对照有说明
-- [ ] 默认不 ingest 有测或代码断言
-- [ ] 空事件/WARN 可读
-- [ ] invoke 10+30+40；KPI+经验关账前填齐
+- [x] 策略文档存在且可公开
+- [x] `/obs`（或等价）可展示 timeline；与 status 对照有说明
+- [x] 默认不 ingest 有测或代码断言
+- [x] 空事件/WARN 可读
+- [ ] invoke 10+30+40；KPI+经验关账前填齐（本棒 10+30；40 由 00 另派）
 
 ---
 
 ### 自检结论（执行者）
-（待）
+30 交付：evidence 策略 + `/obs` 对照/空态/WARN + 默认无 `--ingest` 测断言 + 显式 ingest 开关与页内警告 + README POINTER；`verify --graph` PASS；未改产品仓。
 
 ### KPI（00）
 （待）
