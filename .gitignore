@@ -1,0 +1,27 @@
+# 依赖与构建
+node_modules/
+dist/
+.pnpm-store/
+*.local
+
+# 环境与密钥
+.env
+.env.*
+!.env.example
+
+# 编辑器 / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# 日志与缓存
+*.log
+.cache/
+coverage/
+
+# Vite / 临时
+*.tsbuildinfo
+
+# harness 本地（若含机敏路径可再收紧；events 默认可跟踪则由维护者决定）
+# .cyning-harness/events/*.jsonl
