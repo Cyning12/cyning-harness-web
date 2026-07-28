@@ -9,7 +9,7 @@
 
 | slug | Phase | 文件 |
 |------|-------|------|
-| — | — | （空 · 下一棒 Phase B 待拆） |
+| `web-obs-demo-live-obs-status` | B | [`active/task_web_obs_demo_live_obs_status_v1.md`](./active/task_web_obs_demo_live_obs_status_v1.md) |
 
 **done（最近）**
 

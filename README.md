@@ -3,7 +3,7 @@
 > **定位**：Harness **过程可观测**单仓 Demo（dogfood / 教学）。  
 > **远程**：`git@github.com:Cyning12/cyning-harness-web.git`  
 > **Open Folder**：本目录根（独立 git 仓）。  
-> **纪律包**：`@cyning/harness` ≥ **2.17.0**
+> **纪律包**：`@cyning/harness` ≥ **2.17.0**（已 `init` · preset `harness-only`）
 
 ## 入口（epic 已签收 · 自主统筹）
 
@@ -31,7 +31,7 @@
 | [`docs/_tech_graph/99_mermaid_protocol.md`](docs/_tech_graph/99_mermaid_protocol.md) | Mermaid 协议 POINTER |
 | [`docs/meta/ONTOLOGY_web_obs_demo_v1.md`](docs/meta/ONTOLOGY_web_obs_demo_v1.md) | 消费者本体切片（术语 / 边界） |
 
-## 本地启动（Phase A 脚手架）
+## 本地启动
 
 ```bash
 pnpm install
@@ -43,8 +43,16 @@ pnpm dev
 | 路由 | 说明 |
 |------|------|
 | `/` | 说明页 · 只读原则 |
-| `/obs` | stub `obs_status.v1` / `obs_timeline.v1`（非 live CLI） |
+| `/obs` | live `status` / `timeline` 投影（可切 stub） |
 | `/docs` | 扫读 `docs/tasks/**` Markdown 只读预览 |
+
+### 如何使用 `/obs`
+
+1. 打开 `/obs`：默认选中 active 样例 task（若列表为空则用内置默认路径）。
+2. 在 **task** 下拉框选择 `docs/tasks/active|done/**.md`。
+3. **source**：`live`（默认，服务端 spawn CLI）或 `stub`（对照）。
+4. 点 **重新加载** 刷新投影；CLI 失败时页内展示可读错误码与摘要。
+5. 页内横幅 **「只读投影 · 非签收真值」**；不提供写闸。
 
 合并前质量门：
 
@@ -57,8 +65,18 @@ pnpm build
 薄观测 API（Vite middleware · 仅 Node 侧 · 只读）：
 
 - `GET /api/docs` · `GET /api/docs/content?path=…`
-- `GET /api/obs/status` · `GET /api/obs/timeline`
+- `GET /api/obs/status?task=…&source=live|stub`
+- `GET /api/obs/timeline?task=…&source=live|stub`
+- live 等价于服务端：
+  `npx @cyning/harness@2.17.0 status|timeline --target <仓根> --task <path> --json`
+  （**默认不** `--ingest`）
 - **无**写闸 API；**禁止**浏览器 `npx`
+
+Harness 接入产物（`init` · preset `harness-only`）：
+
+- `.cyning-harness/manifest.json`（版本真值）
+- `docs/harness/prompts/**` · invoke 模板 · `.cursor/rules/06-harness-pointer.mdc`
+- `.cyning-harness/local.json` 已 gitignore（机位路径）
 
 ## 状态
 
@@ -66,5 +84,5 @@ pnpm build
 |---|---|
 | SPEC | `approved` · 2026-07-28 · skip_10_spec |
 | 下游闸 | **00 代签** |
-| 阶段 | A0 CLOSED → **A scaffold** → B → C → D → E（F 默认不做） |
-| 契约 | `obs_status.v1` / `obs_timeline.v1`（A：stub；B：live CLI） |
+| 阶段 | A0 CLOSED → A CLOSED → **B live-obs** → C → D → E（F 默认不做） |
+| 契约 | `obs_status.v1` / `obs_timeline.v1`（B：live CLI；可 stub 切换） |

@@ -16,11 +16,16 @@
       <li>合并前：<code>pnpm lint</code> → <code>pnpm test</code> → <code>pnpm build</code></li>
     </ol>
 
-    <h2>Phase A 边界</h2>
+    <h2>Phase B 边界</h2>
     <ul>
-      <li><code>/obs</code> 当前为 stub <code>obs_status.v1</code> / <code>obs_timeline.v1</code>（非 live CLI）</li>
+      <li>
+        <code>/obs</code> 默认 live：服务端
+        <code>npx @cyning/harness@2.17.0 status|timeline --json</code>（无
+        <code>--ingest</code>）；可切 stub
+      </li>
+      <li>在 <code>/obs</code> 选择 task 后点「重新加载」刷新投影</li>
       <li><code>/docs</code> 仅扫读 <code>docs/tasks/**</code></li>
-      <li>薄 API 仅 Node 侧（Vite middleware）；无写闸端点</li>
+      <li>薄 API 仅 Node 侧（Vite middleware）；无写闸端点；禁止浏览器 npx</li>
     </ul>
   </section>
 </template>

@@ -1,15 +1,26 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { stubObsStatus, stubObsTimeline } from './stubData'
+import {
+  type SpawnFn,
+  runHarnessJson,
+} from './harnessCli'
 
 export type ApiOk<T> = { ok: true; data: T }
-export type ApiErr = { ok: false; error: string; code: string }
+export type ApiErr = { ok: false; error: string; code: string; detail?: string }
 export type ApiResult<T> = ApiOk<T> | ApiErr
 
 export type DocListItem = {
   relativePath: string
   name: string
   mtimeMs: number
+}
+
+export type ObsSourceMode = 'live' | 'stub'
+
+export type ObsQueryOptions = {
+  source?: ObsSourceMode
+  spawn?: SpawnFn
 }
 
 const TASKS_ROOT_SEGMENTS = ['docs', 'tasks'] as const
@@ -140,16 +151,91 @@ export async function readTaskDoc(
   }
 }
 
-export function getObsStatus(
-  taskPath: string | null = null,
-): ApiResult<ReturnType<typeof stubObsStatus>> {
-  return { ok: true, data: stubObsStatus(taskPath) }
+/** 解析 source：查询参数优先，其次 OBS_SOURCE 环境变量，默认 live */
+export function resolveObsSource(raw: string | null | undefined): ObsSourceMode {
+  const fromQuery = (raw ?? '').trim().toLowerCase()
+  if (fromQuery === 'stub' || fromQuery === 'live') return fromQuery
+  const fromEnv = (process.env.OBS_SOURCE ?? '').trim().toLowerCase()
+  if (fromEnv === 'stub' || fromEnv === 'live') return fromEnv
+  return 'live'
 }
 
-export function getObsTimeline(
+function requireTaskPath(taskPath: string | null | undefined): ApiResult<string> {
+  const t = (taskPath ?? '').trim()
+  if (!t) {
+    return {
+      ok: false,
+      error: '无可用 task：请指定 ?task=docs/tasks/...md',
+      code: 'NO_TASK',
+    }
+  }
+  return { ok: true, data: t.replace(/\\/g, '/').replace(/^\/+/, '') }
+}
+
+export async function getObsStatus(
+  repoRoot: string,
   taskPath: string | null = null,
-): ApiResult<ReturnType<typeof stubObsTimeline>> {
-  return { ok: true, data: stubObsTimeline(taskPath) }
+  options: ObsQueryOptions = {},
+): Promise<ApiResult<unknown>> {
+  const source = options.source ?? 'live'
+  if (source === 'stub') {
+    return { ok: true, data: stubObsStatus(taskPath) }
+  }
+
+  const required = requireTaskPath(taskPath)
+  if (!required.ok) return required
+
+  const pathCheck = resolveSafeTaskMd(repoRoot, required.data)
+  if (!pathCheck.ok) return pathCheck
+
+  const cli = await runHarnessJson({
+    repoRoot,
+    subcommand: 'status',
+    taskPath: required.data,
+    spawn: options.spawn,
+  })
+  if (!cli.ok) {
+    return {
+      ok: false,
+      error: cli.error,
+      code: cli.code,
+      detail: cli.detail,
+    }
+  }
+  return { ok: true, data: cli.data }
+}
+
+export async function getObsTimeline(
+  repoRoot: string,
+  taskPath: string | null = null,
+  options: ObsQueryOptions = {},
+): Promise<ApiResult<unknown>> {
+  const source = options.source ?? 'live'
+  if (source === 'stub') {
+    return { ok: true, data: stubObsTimeline(taskPath) }
+  }
+
+  const required = requireTaskPath(taskPath)
+  if (!required.ok) return required
+
+  const pathCheck = resolveSafeTaskMd(repoRoot, required.data)
+  if (!pathCheck.ok) return pathCheck
+
+  const cli = await runHarnessJson({
+    repoRoot,
+    subcommand: 'timeline',
+    taskPath: required.data,
+    spawn: options.spawn,
+  })
+  if (!cli.ok) {
+    return {
+      ok: false,
+      error: cli.error,
+      code: cli.code,
+      detail: cli.detail,
+    }
+  }
+  return { ok: true, data: cli.data }
 }
 
 /** 写闸 API 明确拒绝（边界测用） */

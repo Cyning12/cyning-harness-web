@@ -7,6 +7,7 @@ import {
   listTaskDocs,
   readTaskDoc,
   rejectWriteGate,
+  resolveObsSource,
 } from './obsHandlers'
 
 function sendJson(
@@ -21,6 +22,26 @@ function sendJson(
 
 function readUrl(req: Connect.IncomingMessage): URL {
   return new URL(req.url ?? '/', 'http://localhost')
+}
+
+function httpStatusForErr(code: string): number {
+  switch (code) {
+    case 'NOT_FOUND':
+    case 'NO_TASKS_DIR':
+    case 'NO_TASK_MD':
+    case 'NO_TASK':
+      return 404
+    case 'WRITE_GATE_FORBIDDEN':
+    case 'METHOD_NOT_ALLOWED':
+      return 405
+    case 'CLI_SPAWN_FAILED':
+    case 'CLI_TIMEOUT':
+    case 'CLI_NONZERO':
+    case 'CLI_JSON_PARSE':
+      return 502
+    default:
+      return 400
+  }
 }
 
 /**
@@ -73,13 +94,17 @@ export function obsApiPlugin(repoRoot = process.cwd()): Plugin {
 
       if (url.pathname === '/api/obs/status') {
         const task = url.searchParams.get('task')
-        sendJson(res, 200, getObsStatus(task))
+        const source = resolveObsSource(url.searchParams.get('source'))
+        const result = await getObsStatus(root, task, { source })
+        sendJson(res, result.ok ? 200 : httpStatusForErr(result.code), result)
         return
       }
 
       if (url.pathname === '/api/obs/timeline') {
         const task = url.searchParams.get('task')
-        sendJson(res, 200, getObsTimeline(task))
+        const source = resolveObsSource(url.searchParams.get('source'))
+        const result = await getObsTimeline(root, task, { source })
+        sendJson(res, result.ok ? 200 : httpStatusForErr(result.code), result)
         return
       }
 

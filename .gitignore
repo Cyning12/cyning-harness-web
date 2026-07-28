@@ -23,5 +23,6 @@ coverage/
 # Vite / 临时
 *.tsbuildinfo
 
-# harness 本地（若含机敏路径可再收紧；events 默认可跟踪则由维护者决定）
+# harness 本地（机敏/机位路径勿提交；events 默认可跟踪则由维护者决定）
+.cyning-harness/local.json
 # .cyning-harness/events/*.jsonl
