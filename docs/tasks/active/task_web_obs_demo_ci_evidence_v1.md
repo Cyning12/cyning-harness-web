@@ -1,6 +1,6 @@
 # Task：Phase E · CI harness verify + 负向边界 + 证据包
 
-> **状态**：`in_progress`  
+> **状态**：`done`  
 > **Phase**：`E`（依赖 Phase D CLOSED · epic v1 收口棒）  
 > **关联 SPEC**：[`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../../spec/SPEC-cyning-harness-web-obs-demo_v1.md) §2.6 / §4.2 / 附录 A Phase E  
 > **前置**：[`docs/tasks/done/task_web_obs_demo_hgm_consumer_v1.md`](../done/task_web_obs_demo_hgm_consumer_v1.md)  
@@ -76,7 +76,7 @@ Epic v1 收口：CI/脚本可跑 `harness verify`；至少 2 个负向自动化�
 - [x] ≥2 负向自动化绿
 - [x] SUMMARY 证据包存在且可公开
 - [x] 产品 issue 草稿或无阻塞书面结论
-- [x] invoke 10+30+40；经验已齐（KPI 待 00）
+- [x] invoke 10+30+40；KPI+经验已齐（Task_KPI%=92）
 
 ---
 
@@ -101,7 +101,25 @@ Epic v1 收口：CI/脚本可跑 `harness verify`；至少 2 个负向自动化�
 已知未测：未在本机重跑 GitHub Actions runner；以 #16 / main push quality 绿 + 本地同款命令为准。
 
 ### KPI（00）
-（待）
+
+| 项 | 值 |
+|----|-----|
+| **kpi_rubric** | `KPI_RUBRIC_v1_3` |
+| **kpi_aggregator** | `CLOSE` |
+| **Task_KPI%** | `92` |
+| **语义状态** | `pass` · Phase E / epic A0–E 收口棒 |
+
+| 大维 | 档位 | 说明 |
+|------|------|------|
+| D1 交付 | pass | CI verify、负向≥2、SUMMARY、ISSUE_DRAFT、invoke10·30·40 |
+| D2 判断 | pass | CI 用 done 金样；证据/反馈分文件；无假豁免 |
+| D3 上下文 | pass | SPEC §4.2 E / Q5 |
+| D4 合规 | pass | PR squash；无 allow-*-gap；未改产品仓 |
+| D5 结果 | pass | #16/#17 quality（含 harness verify）绿 |
+
+**judgment_notes**：无大维 fail。Epic 过程闭环完成；人类终验另单。
+
+---
 
 ### 经验总结
 
@@ -109,6 +127,7 @@ Epic v1 收口：CI/脚本可跑 `harness verify`；至少 2 个负向自动化�
 2. **负向标题可点名**：Vitest 用例名带「负向」便于 SUMMARY/验收计数；本棒 5 条覆盖无 task / spawn / 非 0 / 写闸。
 3. **证据包与产品反馈拆文件**：SUMMARY 放复现与计数；ISSUE_DRAFT 放无阻塞总表 + 非阻塞草稿，避免混写密钥风险与产品建议。
 4. **关账预备与合入台账同 PR**：CHECK_00 的 PR#16 合入行与 40 invoke / CLOSE 摘要一并进 close 分支，减少 00 二次扫。
+5. **终验交人**：过程闸由 00 代签不等于 epic 人类终验；`ACCEPTANCE_human_epic_checklist_v1.md` 须 `ready_for_human` 后由维护者勾选。
 
 ---
 
@@ -119,3 +138,4 @@ Epic v1 收口：CI/脚本可跑 `harness verify`；至少 2 个负向自动化�
 | 2026-07-28 | 00 起草 Phase E · 代签三闸 |
 | 2026-07-28 | 30 执行：CI verify · 负向 · SUMMARY · issue 草稿 · PR |
 | 2026-07-28 | 40 自检 / 关账预备：补齐 invoke 40 · 经验 · CLOSE 摘要 |
+| 2026-07-28 | 00 KPI Task_KPI%=92 · status=done · 准备 merge #17 + close · 交人类终验 |
