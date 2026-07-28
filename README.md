@@ -48,6 +48,7 @@ pnpm dev
 | `/` | 说明页 · 只读原则 · **纪律包版本**条（只读；无升级按钮） |
 | `/obs` | live `status` / `timeline` 对照（可切 stub；可选显式 ingest） |
 | `/docs` | 扫读 `docs/tasks/**`；正文相对链接可打开 `docs/**` 互链 |
+| `/wiki-graph` | Wiki 关系图（只读 · `wiki export --json` · 默认 `docs/coding_wiki`） |
 
 ### 如何使用 `/obs`
 

@@ -146,6 +146,82 @@ function truncate(s: string, max: number): string {
 
 export type HarnessSubcommand = 'status' | 'timeline'
 
+export const DEFAULT_WIKI_ROOT = 'docs/coding_wiki'
+
+/**
+ * 组装 `npx <pin> wiki export --json [--root …]` argv。
+ */
+export function buildWikiExportArgs(options: {
+  repoRoot: string
+  wikiRoot?: string
+}): string[] {
+  const pkg = getHarnessPackage(options.repoRoot)
+  const args = [
+    '--yes',
+    pkg,
+    'wiki',
+    'export',
+    '--json',
+    '--target',
+    options.repoRoot,
+  ]
+  const root = (options.wikiRoot ?? DEFAULT_WIKI_ROOT).trim()
+  if (root) {
+    args.push('--root', root)
+  }
+  return args
+}
+
+/**
+ * 跑 wiki export --json（只读；供 /api/obs/wiki-graph）。
+ */
+export async function runWikiExportJson(options: {
+  repoRoot: string
+  wikiRoot?: string
+  spawn?: SpawnFn
+  timeoutMs?: number
+}): Promise<CliJsonResult> {
+  const spawnFn = options.spawn ?? defaultSpawn
+  const timeoutMs = options.timeoutMs ?? DEFAULT_CLI_TIMEOUT_MS
+  const args = buildWikiExportArgs({
+    repoRoot: options.repoRoot,
+    wikiRoot: options.wikiRoot,
+  })
+
+  let result: SpawnResult
+  try {
+    result = await spawnFn(args, { cwd: options.repoRoot, timeoutMs })
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    return {
+      ok: false,
+      error: `CLI 不可用：${msg}`,
+      code: 'CLI_SPAWN_FAILED',
+    }
+  }
+
+  if (result.timedOut || result.exitCode === null || result.exitCode !== 0) {
+    const fail = summarizeCliFailure(result)
+    return { ok: false, ...fail }
+  }
+
+  try {
+    const data = extractJsonPayload(result.stdout)
+    const warnings = extractWarnLines(result.stderr)
+    return warnings.length > 0
+      ? { ok: true, data, warnings }
+      : { ok: true, data }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    return {
+      ok: false,
+      error: `CLI JSON 解析失败：${msg}`,
+      code: 'CLI_JSON_PARSE',
+      detail: truncate(result.stdout, 400),
+    }
+  }
+}
+
 /**
  * 组装 `npx <pin> <status|timeline> … --json` argv。
  * 默认不含 `--ingest`；仅 timeline + ingest===true 时追加。

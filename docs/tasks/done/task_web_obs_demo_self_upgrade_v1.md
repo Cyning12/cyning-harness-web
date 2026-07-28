@@ -24,6 +24,8 @@
 | **git_branch** | `task/web-obs-demo-self-upgrade` |
 | **graph_delta** | `docs/_tech_graph/01_struct.md` |
 | **graph_delta_note** | 扩展 `obs_api`：版本探测 API；更新模块表 `obs_api` 行说明；不新增一级 module_id |
+| **wiki_delta** | `n/a` |
+| **wiki_delta_note** | harness-only · 无 WikiTrack（升级 2.18 存量迁移） |
 | **experience_capture** | `required` |
 | **kpi_rubric** | `KPI_RUBRIC_v1_3` |
 | **kpi_aggregator** | `CLOSE` |

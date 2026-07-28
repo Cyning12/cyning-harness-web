@@ -27,6 +27,8 @@
 | **worktree_root** | （串行 · 仓根） |
 | **graph_delta** | `docs/_tech_graph/00_main.md`（若路由/API 落点与图不一致则增量改）；模块表默认不改 |
 | **graph_delta_note** | 触达 `web_ui` / `obs_api` 预期路径；边界未变则 `00_main` 可仅校对锚点 |
+| **wiki_delta** | `n/a` |
+| **wiki_delta_note** | harness-only · 无 WikiTrack（升级 2.18 存量迁移） |
 | **experience_capture** | `required` |
 | **kpi_rubric** | `KPI_RUBRIC_v1_3` |
 | **kpi_aggregator** | `CLOSE` |

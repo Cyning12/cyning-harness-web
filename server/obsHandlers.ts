@@ -5,6 +5,8 @@ import { stubObsStatus, stubObsTimeline } from './stubData'
 import {
   type SpawnFn,
   runHarnessJson,
+  runWikiExportJson,
+  DEFAULT_WIKI_ROOT,
 } from './harnessCli'
 import { readHarnessPin } from './harnessPin'
 
@@ -435,4 +437,98 @@ export async function getHarnessVersion(
   }
 
   return { ok: true, data: info }
+}
+
+export type WikiGraphNode = {
+  id: string
+  path?: string
+  title?: string
+}
+
+export type WikiGraphEdge = {
+  source: string
+  target: string
+  kind?: string
+}
+
+export type WikiGraphPayload = {
+  schema: string
+  root?: string
+  nodes: WikiGraphNode[]
+  edges: WikiGraphEdge[]
+  warnings?: string[]
+  source?: 'live' | 'fixture'
+}
+
+/**
+ * 只读：服务端 `wiki export --json`。
+ * 可选 `?root=`（相对仓根，默认 docs/coding_wiki）；禁止绝对路径与 `..`。
+ */
+export async function getWikiGraph(
+  repoRoot: string,
+  options: {
+    wikiRoot?: string | null
+    spawn?: SpawnFn
+  } = {},
+): Promise<ApiResult<WikiGraphPayload>> {
+  const raw = (options.wikiRoot ?? DEFAULT_WIKI_ROOT).trim() || DEFAULT_WIKI_ROOT
+  const normalized = raw.replace(/\\/g, '/').replace(/^\/+/, '')
+  if (
+    !normalized ||
+    normalized.includes('\0') ||
+    normalized.split('/').includes('..') ||
+    path.isAbsolute(raw)
+  ) {
+    return {
+      ok: false,
+      error: 'wiki root 非法（须为相对仓根路径，禁止 ..）',
+      code: 'INVALID_WIKI_ROOT',
+    }
+  }
+
+  const cli = await runWikiExportJson({
+    repoRoot,
+    wikiRoot: normalized,
+    spawn: options.spawn,
+  })
+  if (!cli.ok) {
+    return { ok: false, error: cli.error, code: cli.code, detail: cli.detail }
+  }
+
+  const data = cli.data as Partial<WikiGraphPayload>
+  if (!data || typeof data !== 'object') {
+    return {
+      ok: false,
+      error: 'wiki export 返回非对象',
+      code: 'CLI_JSON_PARSE',
+    }
+  }
+  if (data.schema !== 'harness.wiki_graph.v1') {
+    return {
+      ok: false,
+      error: `意外 schema：${String(data.schema)}（期望 harness.wiki_graph.v1）`,
+      code: 'WIKI_SCHEMA_MISMATCH',
+    }
+  }
+  if (!Array.isArray(data.nodes) || !Array.isArray(data.edges)) {
+    return {
+      ok: false,
+      error: 'wiki export 缺 nodes/edges 数组',
+      code: 'WIKI_SHAPE_INVALID',
+    }
+  }
+
+  const payload: WikiGraphPayload = {
+    schema: data.schema,
+    root: typeof data.root === 'string' ? data.root : normalized,
+    nodes: data.nodes as WikiGraphNode[],
+    edges: data.edges as WikiGraphEdge[],
+    source: 'live',
+  }
+  const warns = [
+    ...(Array.isArray(data.warnings) ? data.warnings.map(String) : []),
+    ...(cli.warnings ?? []),
+  ]
+  if (warns.length) payload.warnings = warns
+  return { ok: true, data: payload }
 }

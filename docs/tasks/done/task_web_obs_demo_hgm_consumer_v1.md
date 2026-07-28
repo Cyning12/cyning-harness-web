@@ -24,6 +24,8 @@
 | **git_branch** | `task/web-obs-demo-hgm-consumer` |
 | **graph_delta** | `docs/_tech_graph/00_main.md`（标注 timeline ingest 显式策略）或校对 |
 | **graph_delta_note** | 触达 obs_api 消费 timeline；模块边界默认不变 |
+| **wiki_delta** | `n/a` |
+| **wiki_delta_note** | harness-only · 无 WikiTrack（升级 2.18 存量迁移） |
 | **experience_capture** | `required` |
 | **kpi_rubric** | `KPI_RUBRIC_v1_3` |
 | **kpi_aggregator** | `CLOSE` |
