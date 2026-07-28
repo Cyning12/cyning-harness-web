@@ -91,13 +91,32 @@
 **pass**（40 · 2026-07-28）。交付与验收项均满足；PR #19 squash 入 main（quality 绿 · `efc4880`）。本棒不填 KPI、不执行 `task close` / merge。
 
 ### KPI（00）
-（待）
+
+| 项 | 值 |
+|----|-----|
+| **kpi_rubric** | `KPI_RUBRIC_v1_3` |
+| **kpi_aggregator** | `CLOSE` |
+| **Task_KPI%** | `91` |
+| **语义状态** | `pass` · Markdown 渲染 + 白话文案 + 首页样例 |
+
+| 大维 | 档位 | 说明 |
+|------|------|------|
+| D1 交付 | pass | MarkdownView、样例、首页、消毒测、invoke10·30·40 |
+| D2 判断 | pass | XSS 消毒可测；样例锁在 docs/tasks；文案白话不破契约 |
+| D3 上下文 | pass | 用户三项需求对齐 |
+| D4 合规 | pass | PR squash；只读边界未破 |
+| D5 结果 | pass | #19/#20 quality 绿；本地三绿 |
+
+**judgment_notes**：无大维 fail。
+
+---
 
 ### 经验总结
 
-1. **消毒必过单测**：`marked`  alone 不够；`DOMPurify` + jsdom 测「`<script>` / `onerror` 不残留」比口头声称安全更稳。
+1. **消毒必过单测**：`marked` alone 不够；`DOMPurify` + jsdom 测「`<script>` / `onerror` 不残留」比口头声称安全更稳。
 2. **样例路径锁在 `docs/tasks/**`**：首页与 `/docs` 共用同一 content API 边界，避免为展示放开仓外路径。
 3. **白话标签 vs 内部枚举**：UI 文案用「示例数据」「显式写盘」，内部仍可保留 `stub` / `ingest` 取值，降低新人黑话而不改契约。
+4. **首页即说明书**：经典样例放首页比只链到 `/docs` 更能降低「打开 Demo 不知看什么」的成本。
 
 ---
 
