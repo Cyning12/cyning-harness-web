@@ -44,6 +44,11 @@
 | 2026-07-28 ~11:54 | HG-GRAPH-MODULES | web-obs-demo-hgm-consumer | 沿用 A0 | approved（沿用） | 00 |
 | 2026-07-28 ~11:59 | （合入） | web-obs-demo-hgm-consumer | quality 绿 · merge #13 squash → https://github.com/Cyning12/cyning-harness-web/pull/13 | MERGED | 00 |
 
+| 2026-07-28 ~12:03 | （关账） | web-obs-demo-hgm-consumer | PR #14 squash；KPI=90；task close → done · CLOSE PASS | Phase D CLOSED | 00 |
+| 2026-07-28 ~12:03 | HG-TASK-DRAFT | web-obs-demo-ci-evidence | 通读 Phase E：CI verify + 负向 + SUMMARY | pass → approved | 00 |
+| 2026-07-28 ~12:03 | HG-AUDIT-R1 | web-obs-demo-ci-evidence | ci_evidence audit R1 pass | pass → approved | 00 |
+| 2026-07-28 ~12:03 | HG-GRAPH-MODULES | web-obs-demo-ci-evidence | 沿用 · graph_delta=none | approved（沿用） | 00 |
+
 ---
 
 ## 修订记录
