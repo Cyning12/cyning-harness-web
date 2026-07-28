@@ -31,6 +31,7 @@
 | 2026-07-28 ~11:36 | HG-TASK-DRAFT | web-obs-demo-live-obs-status | 通读 Phase B task：init/upgrade+live CLI；非范围含 ingest/dogfood | pass → approved | 00 |
 | 2026-07-28 ~11:36 | HG-AUDIT-R1 | web-obs-demo-live-obs-status | live_obs_status audit R1 pass | pass → approved | 00 |
 | 2026-07-28 ~11:36 | HG-GRAPH-MODULES | web-obs-demo-live-obs-status | 沿用 A0 approved | approved（沿用） | 00 |
+| 2026-07-28 ~11:41 | （合入） | web-obs-demo-live-obs-status | `gh pr checks` 绿 · `gh pr merge 7 --squash --delete-branch` → https://github.com/Cyning12/cyning-harness-web/pull/7 | MERGED | 00 |
 
 ---
 
