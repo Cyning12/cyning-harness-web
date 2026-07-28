@@ -12,6 +12,7 @@
 2. SPEC 真值（已 `approved`）：[`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md)
 3. 方案参考：工作区 `docs/harness/guides/PLAN_cyning_harness_web_obs_demo_v1_zh.md`
 4. **增量 · 自我升级**：[`docs/harness/guides/PLAN_web_obs_demo_self_upgrade_v1_zh.md`](docs/harness/guides/PLAN_web_obs_demo_self_upgrade_v1_zh.md)（钉版本单源 + upgrade 剧本 + 只读版本投影）
+4b. **下一棒 · 2.18.0 + Wiki Graph**：[`docs/harness/guides/PROMPT_upgrade_2_18_wiki_graph_v1_zh.md`](docs/harness/guides/PROMPT_upgrade_2_18_wiki_graph_v1_zh.md)（upgrade → 迁移 wiki_delta → 校验 → `/wiki-graph`）
 5. **升级剧本（维护者）**：[`docs/harness/guides/RUNBOOK_harness_upgrade_v1_zh.md`](docs/harness/guides/RUNBOOK_harness_upgrade_v1_zh.md)（干净 git → upgrade → bump pin → check → 三绿 → PR）
 6. 30 仅闸后由 00 派发（Open Folder = 本仓根）
 
