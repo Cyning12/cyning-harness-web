@@ -76,23 +76,39 @@ Epic v1 收口：CI/脚本可跑 `harness verify`；至少 2 个负向自动化�
 - [x] ≥2 负向自动化绿
 - [x] SUMMARY 证据包存在且可公开
 - [x] 产品 issue 草稿或无阻塞书面结论
-- [ ] invoke 10+30+40；KPI+经验关账前填齐
+- [x] invoke 10+30+40；经验已齐（KPI 待 00）
 
 ---
 
 ### 自检结论（执行者）
 
-- GATE_VERIFY 三闸 approved；`verify` PASS（active E；缺 40 WARN）。
-- quality.yml 挂 `harness verify`（done/hgm 样例）；README 策略表已写。
-- 负向 Vitest ≥2（本棒标「负向」5 条）· `pnpm lint/test/build` 本地绿。
-- SUMMARY + ISSUE_DRAFT（无阻塞总表）已落盘。
-- 40 / KPI / 经验关账：**待 00 派 40**。
+| 命令 / 核对 | cwd | 退出码 / 结果 |
+|-------------|-----|----------------|
+| 读 `quality.yml` Harness verify 步 | 仓根 | pass · 钉 2.17.0 · done/hgm 样例 · 禁 allow-*-gap |
+| `npx @cyning/harness@2.17.0 verify --target . --task docs/tasks/done/task_web_obs_demo_hgm_consumer_v1.md` | 仓根 | 0 · VERIFY PASS |
+| `npx @cyning/harness@2.17.0 verify --target . --task docs/tasks/active/task_web_obs_demo_ci_evidence_v1.md` | 仓根 | 0 · VERIFY PASS（落盘 40 前 WARN 缺 40；补齐后预期无 gap） |
+| 负向 Vitest（标题含「负向」） | `tests/obsHandlers.test.ts` | pass · 5 条（NO_TASK×2 / CLI_SPAWN_FAILED / CLI_NONZERO / WRITE_GATE_FORBIDDEN）· suite 18/18 |
+| 读 `SUMMARY_obs_demo_20260728.md` | 仓根 | pass · 复现命令 + 计数/耗时 · 无密钥/绝对机径 |
+| 读 `ISSUE_DRAFT_cyning_harness_obs_demo_feedback_20260728.md` | 仓根 | pass · 总结论无阻塞；非阻塞草稿 4 条 |
+| README「CI · harness verify（Phase E+）」 | README.md | pass |
+| `pnpm lint` / `pnpm test` / `pnpm build` | 仓根 | 0 / 18 passed / build ok |
+| PR #16 | — | MERGED squash · `714906c` · https://github.com/Cyning12/cyning-harness-web/pull/16 · quality 绿 |
+| invoke 10/30/40 | `docs/harness/invokes/by-task/web-obs-demo-ci-evidence/` | pass · 本 close 补齐 40 |
+| CHECK_00 PR#16 合入行 | `docs/evidence/CHECK_00_gate_proxy_basis_20260728.md` | pass · 纳入 close PR |
+| 产品仓改动？ | — | 否 |
+| **40 结论** | — | **pass** · 可关账预备；KPI / `task close` 交 00 |
+
+已知未测：未在本机重跑 GitHub Actions runner；以 #16 / main push quality 绿 + 本地同款命令为准。
 
 ### KPI（00）
 （待）
 
 ### 经验总结
-（待 40 / CLOSE）
+
+1. **CI verify 用 done 样例**：active 易缺 40（仅 WARN）或漂移；`quality.yml` 钉 CLOSED 样例（本仓 hgm-consumer）才稳作金样。
+2. **负向标题可点名**：Vitest 用例名带「负向」便于 SUMMARY/验收计数；本棒 5 条覆盖无 task / spawn / 非 0 / 写闸。
+3. **证据包与产品反馈拆文件**：SUMMARY 放复现与计数；ISSUE_DRAFT 放无阻塞总表 + 非阻塞草稿，避免混写密钥风险与产品建议。
+4. **关账预备与合入台账同 PR**：CHECK_00 的 PR#16 合入行与 40 invoke / CLOSE 摘要一并进 close 分支，减少 00 二次扫。
 
 ---
 
@@ -102,3 +118,4 @@ Epic v1 收口：CI/脚本可跑 `harness verify`；至少 2 个负向自动化�
 |------|------|
 | 2026-07-28 | 00 起草 Phase E · 代签三闸 |
 | 2026-07-28 | 30 执行：CI verify · 负向 · SUMMARY · issue 草稿 · PR |
+| 2026-07-28 | 40 自检 / 关账预备：补齐 invoke 40 · 经验 · CLOSE 摘要 |
