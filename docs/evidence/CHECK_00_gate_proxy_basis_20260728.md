@@ -57,6 +57,8 @@
 | 2026-07-28 ~12:22 | HG-GRAPH-MODULES | web-obs-demo-md-ux | 沿用 · graph_delta=none | approved（沿用） | 00 |
 | 2026-07-28 ~12:26 | （合入） | web-obs-demo-md-ux | quality 绿 · merge #19 squash → https://github.com/Cyning12/cyning-harness-web/pull/19 | MERGED | 00 |
 | 2026-07-28 ~12:29 | （合入） | web-obs-demo-md-ux | quality 绿 · merge #20 squash → https://github.com/Cyning12/cyning-harness-web/pull/20 · 40 关账预备 | MERGED | 00 |
+| 2026-07-28 ~12:32 | （合入） | web-obs-demo-md-ux | quality 绿 · merge #21 squash → https://github.com/Cyning12/cyning-harness-web/pull/21 · KPI Task_KPI%=91 | MERGED | 00 |
+| 2026-07-28 ~12:33 | （关账） | web-obs-demo-md-ux | PR #21 squash；KPI Task_KPI%=91；`task close`（**勿** `--target .`）→ `docs/tasks/done/` · CLOSE PASS | post-E CLOSED | 00 |
 
 ---
 

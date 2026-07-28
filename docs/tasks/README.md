@@ -9,12 +9,13 @@
 
 | slug | Phase | 文件 |
 |------|-------|------|
-| `web-obs-demo-md-ux` | post-E | [`active/task_web_obs_demo_md_ux_v1.md`](./active/task_web_obs_demo_md_ux_v1.md) |
+| （空） | — | post-E md-ux 已 CLOSE；下一棒待派 |
 
 **done（本 epic）**
 
 | slug | Phase | 文件 |
 |------|-------|------|
+| `web-obs-demo-md-ux` | post-E | [`done/task_web_obs_demo_md_ux_v1.md`](./done/task_web_obs_demo_md_ux_v1.md) |
 | `web-obs-demo-ci-evidence` | E | [`done/task_web_obs_demo_ci_evidence_v1.md`](./done/task_web_obs_demo_ci_evidence_v1.md) |
 | `web-obs-demo-hgm-consumer` | D | [`done/task_web_obs_demo_hgm_consumer_v1.md`](./done/task_web_obs_demo_hgm_consumer_v1.md) |
 | `web-obs-demo-chain-dogfood` | C | [`done/task_web_obs_demo_chain_dogfood_v1.md`](./done/task_web_obs_demo_chain_dogfood_v1.md) |
