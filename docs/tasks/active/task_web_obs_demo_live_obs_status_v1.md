@@ -1,6 +1,6 @@
 # Task：Phase B · harness 接入 + live status/timeline
 
-> **状态**：`in_progress`  
+> **状态**：`done`  
 > **Phase**：`B`（依赖 Phase A CLOSED）  
 > **关联 SPEC**：[`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../../spec/SPEC-cyning-harness-web-obs-demo_v1.md) §2.4 · 附录 A Phase B  
 > **关联图谱**：[`docs/_tech_graph/01_struct.md`](../../_tech_graph/01_struct.md) · [`00_main.md`](../../_tech_graph/00_main.md)  
@@ -86,7 +86,7 @@ Phase A 已有 stub `/obs`。本棒把观测 API 接到 **本仓真实** `@cynin
 - [x] 失败路径可读（测或手工记录于自检）
 - [x] `pnpm lint` → `test` → `build` 绿；PR quality 绿
 - [x] 只读声明仍在；无写闸 API
-- [x] invoke 10+30+40（40 已补）；经验草稿已填；KPI 待 00 CLOSE
+- [x] invoke 10+30+40；经验+KPI 已齐（Task_KPI%=91）
 
 ---
 
@@ -139,7 +139,22 @@ Phase A 已有 stub `/obs`。本棒把观测 API 接到 **本仓真实** `@cynin
 
 ### KPI（00）
 
-（关账回溯 · 40 **不填**）
+| 项 | 值 |
+|----|-----|
+| **kpi_rubric** | `KPI_RUBRIC_v1_3` |
+| **kpi_aggregator** | `CLOSE` |
+| **Task_KPI%** | `91` |
+| **语义状态** | `pass` · Phase B live status/timeline + init 闭环 |
+
+| 大维 | 档位 | 说明 |
+|------|------|------|
+| D1 交付 | pass | init/manifest、live CLI、/obs、测、invoke10·30·40、自检齐 |
+| D2 判断 | pass | 无默认 ingest；可测 spawn；stub 旁路保留；证据 PR #7/#8 |
+| D3 上下文 | pass | SPEC Phase B / OBS 契约 / 只读边界 |
+| D4 合规 | pass | PR squash；无 allow-*-gap；禁写闸有测 |
+| D5 结果 | pass | quality 绿合入；本地 lint/test/build 绿 |
+
+**judgment_notes**：无大维 warn/fail。
 
 ---
 
@@ -162,3 +177,4 @@ Phase A 已有 stub `/obs`。本棒把观测 API 接到 **本仓真实** `@cynin
 | 2026-07-28 | 00 起草 Phase B · 代签三闸 |
 | 2026-07-28 | 30 实现 live obs + harness init · 回填备忘 |
 | 2026-07-28 | 40 自检 pass · 关账预备 · invoke_40 + CLOSE 摘要 · 经验草稿 |
+| 2026-07-28 | 00 KPI Task_KPI%=91 · status=done · 准备 merge #8 + close |
