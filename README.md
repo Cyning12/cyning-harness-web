@@ -18,7 +18,18 @@
 1. Agent 落盘 task / invoke / review（真值在 `docs/**`）。  
 2. Web 只读：文档 + `status` / `timeline`。  
 3. 禁止：浏览器 `npx`；UI 代签；默认不做 LLM 建 task（Phase F）。  
-4. 00 **不编码**；合入经 PR + CI；钉 `@cyning/harness@≥2.17.0`。
+4. 00 **不编码**；合入经 PR + CI；钉 `@cyning/harness@≥2.17.0`。  
+5. **过程人闸**：00 可代签（须检查依据）· [`docs/harness/auth/AUTH_00_human_gate_proxy_v1.md`](docs/harness/auth/AUTH_00_human_gate_proxy_v1.md) · 台账 [`docs/evidence/CHECK_00_gate_proxy_basis_20260728.md`](docs/evidence/CHECK_00_gate_proxy_basis_20260728.md)。  
+6. **人类终验**：仅 epic 全完成后 · [`docs/harness/ACCEPTANCE_human_epic_checklist_v1.md`](docs/harness/ACCEPTANCE_human_epic_checklist_v1.md)。
+
+## Inform 真值（A0）
+
+| 路径 | 说明 |
+|------|------|
+| [`docs/_tech_graph/01_struct.md`](docs/_tech_graph/01_struct.md) | 一级模块表 · `HG-GRAPH-MODULES` |
+| [`docs/_tech_graph/00_main.md`](docs/_tech_graph/00_main.md) | 主路径：Agent 落盘 → Web 只读投影 |
+| [`docs/_tech_graph/99_mermaid_protocol.md`](docs/_tech_graph/99_mermaid_protocol.md) | Mermaid 协议 POINTER |
+| [`docs/meta/ONTOLOGY_web_obs_demo_v1.md`](docs/meta/ONTOLOGY_web_obs_demo_v1.md) | 消费者本体切片（术语 / 边界） |
 
 ## 状态
 
