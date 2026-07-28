@@ -1,6 +1,6 @@
 # Task：升级 2.18.0 + wiki_delta 迁移 + Wiki Graph + 回填证据
 
-> **状态**：`active`  
+> **状态**：`done`  
 > **Phase**：`post-E` · Wave A–D（本 PR 合并交付）  
 > **PROMPT**：[`docs/harness/guides/PROMPT_upgrade_2_18_wiki_graph_v1_zh.md`](../../harness/guides/PROMPT_upgrade_2_18_wiki_graph_v1_zh.md)
 
@@ -10,7 +10,7 @@
 
 | 字段 | 值 |
 |------|-----|
-| **task_slug** | `web-harness-2-18-wiki-graph` |
+| **task_slug** | `web-obs-demo-upgrade-2-18-wiki-graph` |
 | **test_strategy** | `required` |
 | **test_strategy_note** | wiki-graph API fixture 测；pin check；三绿 |
 | **invoke_retention_profile** | `default` |
@@ -51,7 +51,7 @@
 | pin 漂移 | check-harness-pin 非 0 |
 | schema 不匹配 | WIKI_SCHEMA_MISMATCH |
 
-## 验收
+## 验收标准
 
 - [x] pin=2.18.0 · check PASS
 - [x] done 样例 verify 无 wiki_delta WARN
