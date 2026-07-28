@@ -36,5 +36,8 @@ WARN: invoke hats gap · 缺 40（close 前须补）
 
 ## 回报
 
-- PR：（创建后填）
-- 阻塞：无（40 关账由后续帽补）
+- PR：https://github.com/Cyning12/cyning-harness-web/pull/19
+- 组件：`src/components/MarkdownView.vue` · `src/lib/renderMarkdown.ts`
+- 样例：`docs/tasks/samples/showcase_getting_started.md`
+- verify：PASS · 三绿：lint/test/build 绿
+- 阻塞：无（缺 40 invoke，关账前补；**未 merge**）
