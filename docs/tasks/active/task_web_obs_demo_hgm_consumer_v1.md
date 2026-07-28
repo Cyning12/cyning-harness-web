@@ -1,6 +1,6 @@
 # Task：Phase D · HGM 消费者闭环（timeline + 显式 ingest）
 
-> **状态**：`in_progress`  
+> **状态**：`done`  
 > **Phase**：`D`（依赖 Phase C CLOSED）  
 > **关联 SPEC**：[`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../../spec/SPEC-cyning-harness-web-obs-demo_v1.md) §2.6 / §4.2 / 附录 A Phase D  
 > **前置**：[`docs/tasks/done/task_web_obs_demo_chain_dogfood_v1.md`](../done/task_web_obs_demo_chain_dogfood_v1.md)  
@@ -73,7 +73,7 @@
 - [x] `/obs`（或等价）可展示 timeline；与 status 对照有说明
 - [x] 默认不 ingest 有测或代码断言
 - [x] 空事件/WARN 可读
-- [x] invoke 10+30+40；经验已回填（KPI 交 00 · 本棒不填）
+- [x] invoke 10+30+40；KPI+经验已齐（Task_KPI%=90）
 
 ---
 
@@ -95,7 +95,25 @@
 已知未测：本棒未重开 `pnpm dev` 浏览器点选 ingest（以 #13 合入代码 + evidence §2 curl 步骤 + 单测断言为准）。
 
 ### KPI（00）
-（待）
+
+| 项 | 值 |
+|----|-----|
+| **kpi_rubric** | `KPI_RUBRIC_v1_3` |
+| **kpi_aggregator** | `CLOSE` |
+| **Task_KPI%** | `90` |
+| **语义状态** | `pass` · Phase D HGM 消费者闭环（默认禁 ingest + 显式开关） |
+
+| 大维 | 档位 | 说明 |
+|------|------|------|
+| D1 交付 | pass | evidence/UI/测/invoke10·30·40/自检齐 |
+| D2 判断 | pass | 默认 off 可测；显式双提醒；未静默 ingest |
+| D3 上下文 | pass | SPEC Phase D / 篇 3 消费者 dogfood |
+| D4 合规 | pass | PR squash；无 allow-gap；未改产品仓 |
+| D5 结果 | pass | #13/#14 quality；本地三绿 |
+
+**judgment_notes**：无大维 fail。未做浏览器点选 ingest 写盘演示（证据标为已知未测）。
+
+---
 
 ### 经验总结
 
@@ -113,3 +131,4 @@
 |------|------|
 | 2026-07-28 | 00 起草 Phase D · 代签三闸 |
 | 2026-07-28 | 40 自检：勾选验收 · 经验回填 · CLOSE 预备 · 不填 KPI |
+| 2026-07-28 | 00 KPI Task_KPI%=90 · status=done · 准备 merge #14 + close |
