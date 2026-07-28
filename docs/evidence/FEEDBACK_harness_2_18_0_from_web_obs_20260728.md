@@ -5,7 +5,7 @@
 | **状态** | `active` · 滚动 · 本波 dogfood **closed** |
 | **日期** | 2026-07-28 |
 | **消费者仓** | `cyning-harness-web` |
-| **钉版本目标** | 起钉 `2.18.0` → 现跟进 **`2.18.2`**（本波 pin bump） |
+| **钉版本目标** | 起钉 `2.18.0` → 经 `2.18.2` → 现 **`2.19.0`**（本波验收） |
 | **产品验收对照** | `cyning-harness/docs/CHECKLIST_acceptance_2.18.0_wiki_feedback_v1_zh.md` |
 
 > 边做边记。每条：现象 · 复现命令 · 期望 · 严重度（block/warn/info）· 建议落点（CLI/docs/SPEC/闸）。
@@ -16,7 +16,7 @@
 
 | id | 现象 | 复现 | 期望 | severity | 建议产品落点 |
 |----|------|------|------|----------|--------------|
-| F-218-01 | 存量 done task 无 `wiki_delta`；`verify --task` 仅 WARN，文案写 close 将 BLOCK——易漏迁 | `npx @cyning/harness@2.18.0 verify --target . --task docs/tasks/done/task_web_obs_demo_hgm_consumer_v1.md`（迁移前） | 升级后扫缺 wiki_delta 的 lint/清单 | warn | CLI lint 或 USER_GUIDE 升级迁移专节 |
+| F-218-01 | 存量 done task 无 `wiki_delta`；`verify --task` 仅 WARN，文案写 close 将 BLOCK——易漏迁 | `npx @cyning/harness@2.18.0 verify --target . --task docs/tasks/done/task_web_obs_demo_hgm_consumer_v1.md`（迁移前） | 升级后扫缺 wiki_delta 的 lint/清单 | warn | **已落** 2.19.0 `task lint-wiki-delta`（+ verify WARN 链命令） |
 | F-218-02 | `n/a` vs `none` 难选 | 人工填 8 个 done task | USER_GUIDE 决策树：无 WikiTrack→n/a；有轨未改→none；改了→path | info | docs/USER_GUIDE |
 | F-218-03 | `upgrade --yes` 不同步业务 task 元信息（预期） | `npx @cyning/harness@2.18.0 upgrade --yes` | CHANGELOG Notes 明示破坏性迁移不代写 | info | CHANGELOG · ONBOARDING |
 
@@ -83,13 +83,14 @@
 
 | 产品版 | 消费者动作 | 结果 |
 |--------|------------|------|
-| **2.18.1** | 对照 USER_GUIDE §6.0b / templates 互链 | F-218-01..03 / F-218-05 **已缓解**（docs）；CLI lint 仍待 2.19 |
+| **2.18.1** | 对照 USER_GUIDE §6.0b / templates 互链 | F-218-01..03 / F-218-05 **已缓解**（docs） |
 | **2.18.2** | pin bump + 本仓 `coding_wiki` 迁两层 `topics/` | 见 F-218-06 |
+| **2.19.0** | pin bump · `task lint-wiki-delta` dogfood | F-218-01 CLI **已闭环** · F-218-07/经验#9 docs **已落** · 见 [`CHECK_harness_2_19_0_consume_20260728.md`](./CHECK_harness_2_19_0_consume_20260728.md) |
 
 | id | 现象 | 复现 | 期望 | severity | 建议产品落点 |
 |----|------|------|------|----------|--------------|
 | F-218-06 | 2.18.0 金样主题页在 wiki **根**平铺；人扫将随主题增长爆炸；图边仍正常 | 迁前 `ls docs/coding_wiki/`；迁后 `topics/` + export | 产品两层约定可执行；export 不依赖深度 | info | **已落** 2.18.2 templates README · USER_GUIDE「目录 vs 图」 |
-| F-218-07 | 文档叙述若写裸 ``[[wikilink]]`` 字面，`wiki export` 会当边解析 → `未解析 wikilink` warn | 本仓 README 初稿曾写该字面；改「双括号 wikilink」后 warnings=0 | 产品/消费者文档叙述避免裸双括号样例；或 export 忽略说明性伪链 | info | USER_GUIDE / templates README 防踩坑一句（产品 2.18.2 模板已用「双括号」措辞，可再明示） |
+| F-218-07 | 文档叙述若写裸 ``[[wikilink]]`` 字面，`wiki export` 会当边解析 → `未解析 wikilink` warn | 本仓 README 初稿曾写该字面；改「双括号 wikilink」后 warnings=0 | 产品/消费者文档叙述避免裸双括号样例；或 export 忽略说明性伪链 | info | **已落** 2.19.0 USER_GUIDE / templates 防踩坑 |
 
 ### 经验补充
 
@@ -105,6 +106,6 @@ Wiki: [`docs/coding_wiki/`](../coding_wiki/) · [`topics/web_obs_demo.md`](../co
 
 | 项 | 值 |
 |----|-----|
-| **FEEDBACK 状态** | `closed` · 无 severity=block |
-| **本仓 pin** | `2.18.2` |
-| **仍建议产品回填** | 见 [`BACKFILL_DRAFT`](./BACKFILL_DRAFT_cyning_harness_2_18_from_web_obs.md)「剩余 open」 |
+| **FEEDBACK 状态** | `closed` · 无 severity=block · **2.19.0 剩余回填已验收** |
+| **本仓 pin** | `2.19.0` |
+| **仍建议产品回填** | **无**（见 BACKFILL `landed`） |

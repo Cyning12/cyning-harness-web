@@ -4,7 +4,7 @@
 |----|-----|
 | **授权真值** | [`docs/harness/auth/AUTH_00_human_gate_proxy_v1.md`](../harness/auth/AUTH_00_human_gate_proxy_v1.md) |
 | **epic SPEC** | [`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../spec/SPEC-cyning-harness-web-obs-demo_v1.md) · `approved` |
-| **纪律包** | `@cyning/harness`（钉见 [`harness.pin.json`](../harness.pin.json)；当前目标 **2.18.2**） |
+| **纪律包** | `@cyning/harness`（钉见 [`harness.pin.json`](../harness.pin.json)；当前目标 **2.19.0**） |
 
 > 本文件为**滚动台账**：每条代签一行；证据指针须可打开。
 
@@ -83,3 +83,4 @@
 | 2026-07-28 ~15:48 | HG-AUDIT-R1 | web-obs-demo-upgrade-2-18-2-wiki-topics | 文档/目录迁移 · 对照 2.18.2 约定 · 非码闸扩 scope | pass → approved | 00 |
 | 2026-07-28 ~15:52 | （合入） | web-obs-demo-upgrade-2-18-2-wiki-topics | quality 绿 · PR #31（关账同波推送） | 待 merge | 00 |
 | 2026-07-28 ~15:55 | （关账） | web-obs-demo-upgrade-2-18-2-wiki-topics | KPI%=92 · CLOSE PASS · task→done · FEEDBACK F-218-06/07 · BACKFILL 剩余→产品 | CLOSED | 00 |
+| 2026-07-28 ~16:05 | （验收） | harness-2-19-0-consume | pin→2.19.0 · `lint-wiki-delta` PASS missing0 · 三绿 · CHECK 落盘 · 符合 F-218-01/07 预期 | 待 PR | 00 |
