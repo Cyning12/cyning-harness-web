@@ -21,8 +21,9 @@ import {
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 
+/** CLOSED 样例（done）；与 CI harness verify 策略对齐 */
 const SAMPLE_TASK =
-  'docs/tasks/active/task_web_obs_demo_hgm_consumer_v1.md'
+  'docs/tasks/done/task_web_obs_demo_hgm_consumer_v1.md'
 
 function mockSpawn(result: Partial<SpawnResult> & { stdout?: string }): SpawnFn {
   return async () => ({
@@ -63,7 +64,8 @@ describe('obs API · stub / live / 只读边界', () => {
     expect(data.events.length).toBeGreaterThan(0)
   })
 
-  it('live 无 task → 可读 NO_TASK', async () => {
+  // —— Phase E 负向边界（≥2；无 task / CLI 失败 / 禁写闸）——
+  it('负向 · live 无 task → 可读 NO_TASK', async () => {
     const result = await getObsStatus(repoRoot, null, { source: 'live' })
     expect(result.ok).toBe(false)
     if (result.ok) return
@@ -71,7 +73,7 @@ describe('obs API · stub / live / 只读边界', () => {
     expect(result.error).toMatch(/无可用 task/)
   })
 
-  it('live spawn 失败 → 可读 CLI 错误', async () => {
+  it('负向 · live spawn 失败 → 可读 CLI 错误', async () => {
     const spawn = mockSpawn({
       exitCode: null,
       stderr: 'spawn npx ENOENT',
@@ -86,7 +88,7 @@ describe('obs API · stub / live / 只读边界', () => {
     expect(result.error).toMatch(/CLI 不可用/)
   })
 
-  it('live CLI 非 0 → CLI_NONZERO', async () => {
+  it('负向 · live CLI 非 0 → CLI_NONZERO', async () => {
     const spawn = mockSpawn({
       exitCode: 1,
       stderr: 'harness: task not found',
@@ -234,10 +236,18 @@ describe('obs API · stub / live / 只读边界', () => {
     expect(resolveObsSource('stub')).toBe('stub')
   })
 
-  it('拒绝写闸 API', () => {
+  it('负向 · 拒绝写闸 API', () => {
     const result = rejectWriteGate()
     expect(result.ok).toBe(false)
     expect(result.code).toBe('WRITE_GATE_FORBIDDEN')
+    expect(result.error).toMatch(/禁止写闸/)
+  })
+
+  it('负向 · 空字符串 task 等同无 task', async () => {
+    const result = await getObsTimeline(repoRoot, '   ', { source: 'live' })
+    expect(result.ok).toBe(false)
+    if (result.ok) return
+    expect(result.code).toBe('NO_TASK')
   })
 
   it('拒绝 docs/tasks 外路径与路径穿越', () => {
