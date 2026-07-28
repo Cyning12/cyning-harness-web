@@ -59,7 +59,7 @@ A0 已建立 Inform。本棒交付 **可 `pnpm dev` 的最小 Web 壳**：路由
 - [x] 至少 1 个自动化测试（Vitest 或等价）覆盖 stub 成功或禁写闸
 - [x] `.github/workflows/quality.yml`：`pnpm lint` → `pnpm test` → `pnpm build`（Q5：A 起质量门）
 - [x] README：如何 `pnpm install` / `pnpm dev`
-- [ ] 分支 `task/web-obs-demo-scaffold-vite-shell` → PR → checks 绿 → **00 squash merge**
+- [x] 分支 `task/web-obs-demo-scaffold-vite-shell` → PR → checks 绿 → **00 squash merge**（PR #4 · 2026-07-28）
 
 ## 非范围
 
@@ -84,13 +84,13 @@ A0 已建立 Inform。本棒交付 **可 `pnpm dev` 的最小 Web 壳**：路由
 
 ## 验收标准
 
-- [ ] `pnpm install` → `pnpm dev` 可访问 `/` · `/obs` · `/docs`
-- [ ] 页内可见只读声明
-- [ ] `/docs` 能列出并打开至少 1 个仓内 md（如 done/A0 task）
-- [ ] `/obs` 展示 stub JSON 或空态可读（非崩溃）
-- [ ] `pnpm lint` → `pnpm test` → `pnpm build` 绿
-- [ ] Actions quality workflow 存在且本 PR checks 可跑
-- [ ] invoke 含 10+30+40；PR squash；KPI+经验关账前填齐
+- [x] `pnpm install` → `pnpm dev` 可访问 `/` · `/obs` · `/docs`（路由+View 已落；API stub 测绿）
+- [x] 页内可见只读声明
+- [x] `/docs` 能列出并打开至少 1 个仓内 md（如 done/A0 task）（`listTaskDocs`/`readTaskDoc` 测绿）
+- [x] `/obs` 展示 stub JSON 或空态可读（非崩溃）
+- [x] `pnpm lint` → `pnpm test` → `pnpm build` 绿（40 本地复跑 2026-07-28）
+- [x] Actions quality workflow 存在且本 PR checks 可跑（PR #4 绿后 squash）
+- [x] invoke 含 10+30+40；PR squash（#4）；经验草稿已填 · **KPI 待 00**
 
 ---
 
@@ -111,7 +111,7 @@ A0 已建立 Inform。本棒交付 **可 `pnpm dev` 的最小 Web 壳**：路由
 | 三路由 + 只读声明 | ✅ | `/` `/obs` `/docs`；顶栏+页内「只读投影 · 非签收真值」 |
 | middleware/Express | ✅ | `server/viteObsPlugin.ts` + `obsHandlers.ts`；stub status/timeline；禁写闸 |
 | 测试 + Actions | ✅ | `tests/obsHandlers.test.ts`；`.github/workflows/quality.yml` |
-| PR | ✅ | 见本 PR · 00 squash |
+| PR | ✅ | https://github.com/Cyning12/cyning-harness-web/pull/4 · squash MERGED |
 | graph_delta | ✅ | `00_main` 锚点校对；`01_struct` 路径备注更新为已建；模块边界未变 |
 
 ---
@@ -127,22 +127,29 @@ A0 已建立 Inform。本棒交付 **可 `pnpm dev` 的最小 Web 壳**：路由
 
 ### 自检结论（执行者）
 
-- verify `--graph`：PASS（闸三行 approved；缺 40 WARN · close 前补）
-- 本地：`pnpm lint` → `pnpm test` → `pnpm build`（见 PR 描述）
-- 边界：无浏览器 npx；`/api/gates/*` → `WRITE_GATE_FORBIDDEN`；读盘限 `docs/tasks/**`
-- 非范围遵守：无 live CLI、无 harness init、未改产品仓
+- **40 结论**：**pass** · 关账预备完成；待 00 KPI + `harness task close`
+- verify `--graph`（30）：PASS（闸三行 approved）；40 invoke 已补 → `required_invoke_hats` 齐
+- 实现 PR：https://github.com/Cyning12/cyning-harness-web/pull/4 · squash MERGED · quality 绿（曾因 pnpm version 冲突打回，30 热修后合入）
+- 本地复跑（40 · 2026-07-28）：`pnpm lint` → `pnpm test`（5/5）→ `pnpm build` 绿
+- 交付抽样：三路由 View + App 只读徽章；stub `obs_status.v1`/`obs_timeline.v1`；`WRITE_GATE_FORBIDDEN`；`quality.yml` lint→test→build
+- 边界：无浏览器 npx；读盘限 `docs/tasks/**`；非范围遵守（无 live CLI / harness init / 未改产品仓）
 
 ---
 
 ### KPI（00）
 
-（关账回溯）
+（关账回溯 · **40 不填分数**）
 
 ---
 
 ### 经验总结
 
-（`experience_capture: required`）
+（`experience_capture: required` · 40 草稿 · 待 00 确认）
+
+1. **CI 与 packageManager 对齐**：`pnpm/action-setup` 硬钉 `version: 10` 会与 `packageManager: pnpm@10.32.1` 冲突导致 quality 红；应让 action 读 packageManager / 不硬钉次要版本。
+2. **禁写闸宜测优先**：`rejectWriteGate` + Vitest 在合入前即可证明「Web 不写 HG」边界，比仅 README 声明更可审计。
+3. **读盘范围要代码闸**：`resolveSafeTaskMd` 限 `docs/tasks/**` + 防穿越，避免 stub 阶段文档 API 越权读仓。
+4. **关账与实现 PR 分轨**：实现 squash（#4）后再开 `*-close` 补 40 invoke / 验收勾选 / CHECK 合入行，避免实现 PR 与文档关账混杂。
 
 ---
 
@@ -151,3 +158,4 @@ A0 已建立 Inform。本棒交付 **可 `pnpm dev` 的最小 Web 壳**：路由
 | 日期 | 说明 |
 |------|------|
 | 2026-07-28 | 00 起草 Phase A 首棒 · 代签三闸 |
+| 2026-07-28 | 40 自检 pass · 勾选验收 · 经验草稿 · CLOSE 摘要 |
