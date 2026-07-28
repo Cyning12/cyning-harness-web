@@ -33,9 +33,13 @@ export function resolveIngestFlag(raw: string | null | undefined): boolean {
   return v === '1' || v === 'true' || v === 'yes' || v === 'on'
 }
 
+const DOCS_ROOT_SEGMENTS = ['docs'] as const
 const TASKS_ROOT_SEGMENTS = ['docs', 'tasks'] as const
 
-/** 解析并校验相对路径，仅允许 docs/tasks 下 .md */
+/**
+ * 解析并校验相对路径，仅允许 docs/** 下 .md（与本地文档互链兼容）。
+ * 仍禁止穿越到仓外。
+ */
 export function resolveSafeTaskMd(
   repoRoot: string,
   relativePath: string,
@@ -44,10 +48,10 @@ export function resolveSafeTaskMd(
   if (!normalized || normalized.includes('\0')) {
     return { ok: false, error: '路径无效', code: 'INVALID_PATH' }
   }
-  if (!normalized.startsWith('docs/tasks/')) {
+  if (!normalized.startsWith('docs/')) {
     return {
       ok: false,
-      error: '仅允许读取 docs/tasks/** 下的 Markdown',
+      error: '仅允许读取 docs/** 下的 Markdown',
       code: 'PATH_OUT_OF_SCOPE',
     }
   }
@@ -56,9 +60,9 @@ export function resolveSafeTaskMd(
   }
 
   const abs = path.resolve(repoRoot, normalized)
-  const tasksRoot = path.resolve(repoRoot, ...TASKS_ROOT_SEGMENTS)
-  const relToTasks = path.relative(tasksRoot, abs)
-  if (relToTasks.startsWith('..') || path.isAbsolute(relToTasks)) {
+  const docsRoot = path.resolve(repoRoot, ...DOCS_ROOT_SEGMENTS)
+  const relToDocs = path.relative(docsRoot, abs)
+  if (relToDocs.startsWith('..') || path.isAbsolute(relToDocs)) {
     return { ok: false, error: '路径越界，拒绝读仓外文件', code: 'PATH_TRAVERSAL' }
   }
   return { ok: true, data: abs }

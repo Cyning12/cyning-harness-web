@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import MarkdownView from '@/components/MarkdownView.vue'
 
 type DocListItem = {
@@ -9,6 +10,9 @@ type DocListItem = {
 }
 
 type ApiResult<T> = { ok: true; data: T } | { ok: false; error: string; code: string }
+
+const route = useRoute()
+const router = useRouter()
 
 const items = ref<DocListItem[]>([])
 const selected = ref<string>('')
@@ -32,9 +36,6 @@ async function loadList() {
       return
     }
     items.value = body.data
-    if (body.data.length > 0 && !selected.value) {
-      await openDoc(body.data[0].relativePath)
-    }
   } catch (err) {
     listError.value = err instanceof Error ? err.message : String(err)
   } finally {
@@ -42,12 +43,15 @@ async function loadList() {
   }
 }
 
-async function openDoc(relativePath: string) {
+async function openDoc(relativePath: string, syncQuery = true) {
   selected.value = relativePath
   loadingContent.value = true
   contentError.value = ''
   content.value = ''
   showSource.value = false
+  if (syncQuery && route.query.path !== relativePath) {
+    await router.replace({ path: '/docs', query: { path: relativePath } })
+  }
   try {
     const res = await fetch(
       `/api/docs/content?path=${encodeURIComponent(relativePath)}`,
@@ -68,7 +72,31 @@ async function openDoc(relativePath: string) {
   }
 }
 
-onMounted(loadList)
+async function openFromQueryOrDefault() {
+  const q = route.query.path
+  const pathFromQuery = typeof q === 'string' ? q.trim() : ''
+  if (pathFromQuery) {
+    await openDoc(pathFromQuery, false)
+    return
+  }
+  if (items.value.length > 0) {
+    await openDoc(items.value[0].relativePath)
+  }
+}
+
+watch(
+  () => route.query.path,
+  (path) => {
+    if (typeof path === 'string' && path.trim() && path !== selected.value) {
+      void openDoc(path.trim(), false)
+    }
+  },
+)
+
+onMounted(async () => {
+  await loadList()
+  await openFromQueryOrDefault()
+})
 </script>
 
 <template>
@@ -76,8 +104,9 @@ onMounted(loadList)
     <h1>文档</h1>
     <p class="readonly-banner">只读浏览 · 页面不能改写审批结果</p>
     <p class="lede">
-      列出仓库 <code>docs/tasks/</code> 下的 Markdown，点选后以排版预览。
-      本页只读，不会写入任何审批结果。
+      左侧列出 <code>docs/tasks/</code>；正文内的相对
+      <code>.md</code> 链接按本地文件语义解析，可打开
+      <code>docs/**</code> 下互链（如 SPEC、图谱）。本页只读。
     </p>
 
     <button type="button" class="btn" :disabled="loadingList" @click="loadList">
@@ -102,6 +131,7 @@ onMounted(loadList)
         <p v-if="!listError && items.length === 0" class="muted">暂无文档</p>
       </aside>
       <article class="doc-body">
+        <p v-if="selected" class="doc-current muted">当前：{{ selected }}</p>
         <p v-if="loadingContent" class="muted">读取中…</p>
         <p v-else-if="contentError" class="err">{{ contentError }}</p>
         <template v-else-if="content">
@@ -115,7 +145,7 @@ onMounted(loadList)
             </button>
           </div>
           <pre v-if="showSource" class="code">{{ content }}</pre>
-          <MarkdownView v-else :source="content" />
+          <MarkdownView v-else :source="content" :base-path="selected" />
         </template>
         <p v-else class="muted">选择左侧文档以预览</p>
       </article>

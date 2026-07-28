@@ -46,7 +46,7 @@ pnpm dev
 |------|------|
 | `/` | 说明页 · 只读原则 · **纪律包版本**条（只读；无升级按钮） |
 | `/obs` | live `status` / `timeline` 对照（可切 stub；可选显式 ingest） |
-| `/docs` | 扫读 `docs/tasks/**` Markdown 只读预览 |
+| `/docs` | 扫读 `docs/tasks/**`；正文相对链接可打开 `docs/**` 互链 |
 
 ### 如何使用 `/obs`
 
