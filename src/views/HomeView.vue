@@ -1,35 +1,80 @@
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+import MarkdownView from '@/components/MarkdownView.vue'
+
+type ApiResult<T> = { ok: true; data: T } | { ok: false; error: string; code: string }
+
+// 首页经典样例（须在 docs/tasks/ 树下，API 才允许读取）
+const SHOWCASE_PATH = 'docs/tasks/samples/showcase_getting_started.md'
+
+const showcase = ref('')
+const showcaseError = ref('')
+const loading = ref(false)
+
+async function loadShowcase() {
+  loading.value = true
+  showcaseError.value = ''
+  showcase.value = ''
+  try {
+    const res = await fetch(
+      `/api/docs/content?path=${encodeURIComponent(SHOWCASE_PATH)}`,
+    )
+    const body = (await res.json()) as ApiResult<{
+      relativePath: string
+      content: string
+    }>
+    if (!body.ok) {
+      showcaseError.value = `无法加载示例：${body.error}`
+      return
+    }
+    showcase.value = body.data.content
+  } catch (err) {
+    showcaseError.value = `无法加载示例：${err instanceof Error ? err.message : String(err)}`
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(loadShowcase)
+</script>
+
 <template>
   <section class="panel">
-    <h1>过程可观测 Demo</h1>
+    <h1>Harness 过程可观测 Demo</h1>
     <p class="lede">
-      本仓把 Agent 落盘的 Harness 工件（task / invoke / review）做成
-      <strong>只读投影</strong>。页内展示不等于签收真值，也不可代签
-      <code>HG-*</code>。
+      本站只读浏览仓库里的说明文档，以及本地工具输出的状态。
+      页面不能改写审批结果——屏幕上的内容仅供查看，不能代替人工签收。
     </p>
 
-    <p class="readonly-banner">只读投影 · 非签收真值</p>
+    <p class="readonly-banner">只读浏览 · 页面不能改写审批结果</p>
 
-    <h2>启动</h2>
+    <h2>快速上手</h2>
     <ol>
       <li><code>pnpm install</code></li>
-      <li><code>pnpm dev</code> → 打开本页、`/obs`、`/docs`</li>
+      <li><code>pnpm dev</code> → 打开本页、「运行状态」、「文档」</li>
       <li>合并前：<code>pnpm lint</code> → <code>pnpm test</code> → <code>pnpm build</code></li>
     </ol>
 
-    <h2>Phase B–D 边界</h2>
+    <h2>页面说明</h2>
     <ul>
       <li>
-        <code>/obs</code> 默认 live：服务端
-        <code>npx @cyning/harness@2.17.0 status|timeline --json</code>（无
-        <code>--ingest</code>）；可切 stub
+        <strong>文档</strong>：只读打开 <code>docs/tasks/</code> 下的 Markdown，排版预览。
       </li>
       <li>
-        Phase D：可选显式 timeline
-        <code>--ingest</code>（页内警告「会写 events」）；空事件 / WARN 可读
+        <strong>运行状态</strong>：由服务端调用本地命令行工具读取状态（浏览器不直接跑命令）。
+        可切换「示例数据」对照；默认不写盘。
       </li>
-      <li>在 <code>/obs</code> 选择 task 后点「重新加载」刷新投影</li>
-      <li><code>/docs</code> 仅扫读 <code>docs/tasks/**</code></li>
-      <li>薄 API 仅 Node 侧（Vite middleware）；无写闸端点；禁止浏览器 npx</li>
+      <li>本站没有「批准审批」类写接口；请勿在浏览器里尝试改写审批结果。</li>
     </ul>
+
+    <h2>经典样例</h2>
+    <p class="lede">
+      下方直接渲染
+      <code>{{ SHOWCASE_PATH }}</code>
+      ，便于对照「文档」页的效果。
+    </p>
+    <p v-if="loading" class="muted">加载示例中…</p>
+    <p v-else-if="showcaseError" class="err">{{ showcaseError }}</p>
+    <MarkdownView v-else-if="showcase" :source="showcase" />
   </section>
 </template>

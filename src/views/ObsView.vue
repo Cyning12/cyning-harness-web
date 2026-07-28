@@ -82,7 +82,7 @@ const compareNote = computed(() => {
     if (statusN === tlN) {
       return `对照一致：status.hgm.event_count=${statusN} · timeline.event_count=${tlN}`
     }
-    return `对照差异：status.hgm.event_count=${statusN} · timeline.event_count=${tlN}（可能因未 ingest / 缓存或投影窗口不同；以 CLI 真值为准）`
+    return `对照差异：status.hgm.event_count=${statusN} · timeline.event_count=${tlN}（可能因未写盘同步 / 缓存或展示窗口不同；以命令行真值为准）`
   }
   if (statusN !== null) {
     return `status.hgm.event_count=${statusN}（timeline 未给出可数事件）`
@@ -193,18 +193,18 @@ onMounted(async () => {
 
 <template>
   <section class="panel">
-    <h1>过程投影 · /obs</h1>
-    <p class="readonly-banner">只读投影 · 非签收真值</p>
+    <h1>运行状态 · /obs</h1>
+    <p class="readonly-banner">只读浏览 · 页面不能改写审批结果</p>
     <p class="lede">
-      默认经服务端 spawn
-      <code>harness status|timeline --json</code>（不带
-      <code>--ingest</code>）。可用 stub 切换对照；浏览器不调 CLI。
-      status 与 timeline 同页对照；空事件 / WARN 单独可读。
+      默认由服务端调用本地命令行
+      <code>harness status|timeline --json</code>（默认不写盘）。
+      可切换「示例数据」对照；浏览器不直接跑命令。
+      状态与时间线同页对照；空结果 / 警告会单独标出。
     </p>
 
     <div class="controls">
       <label class="field">
-        <span>task</span>
+        <span>任务文件</span>
         <select v-model="selectedTask" :disabled="loading">
           <option v-for="p in taskOptions" :key="p" :value="p">
             {{ p }}
@@ -213,16 +213,16 @@ onMounted(async () => {
       </label>
 
       <label class="field">
-        <span>source</span>
+        <span>数据来源</span>
         <select v-model="source" :disabled="loading">
-          <option value="live">live（CLI）</option>
-          <option value="stub">stub</option>
+          <option value="live">实时（命令行）</option>
+          <option value="stub">示例数据</option>
         </select>
       </label>
 
       <label class="check">
         <input v-model="ingestEnabled" type="checkbox" :disabled="loading || source === 'stub'">
-        <span>显式 timeline <code>--ingest</code></span>
+        <span>显式写盘同步时间线（会写入本地事件）</span>
       </label>
 
       <button type="button" class="btn" :disabled="loading" @click="load">
@@ -231,15 +231,15 @@ onMounted(async () => {
     </div>
 
     <p v-if="ingestEnabled" class="ingest-warn" role="alert">
-      警告：勾选后服务端会对 <code>timeline</code> 追加
-      <code>--ingest</code>，<strong>会写 events</strong>（HGM 落盘）。默认路径从不静默 ingest。
+      警告：勾选后服务端会对时间线追加写盘参数，
+      <strong>会写入本地事件文件</strong>。默认路径从不静默写盘。
     </p>
 
     <p v-if="error" class="err">{{ error }}</p>
     <pre v-if="errorDetail" class="err-detail">{{ errorDetail }}</pre>
 
     <div v-if="warnings.length" class="warn-box" role="status">
-      <p class="warn-title">CLI WARN（可读）</p>
+      <p class="warn-title">命令行警告（可读）</p>
       <ul>
         <li v-for="(w, i) in warnings" :key="i">{{ w }}</li>
       </ul>
@@ -249,18 +249,16 @@ onMounted(async () => {
 
     <h2>status</h2>
     <pre v-if="statusJson" class="code">{{ statusJson }}</pre>
-    <p v-else class="muted">暂无 status 投影（空态或失败，见上方错误）</p>
+    <p v-else class="muted">暂无 status 数据（空态或失败，见上方错误）</p>
 
     <h2>timeline</h2>
     <p v-if="timelineEmpty" class="empty-events">
-      空事件：当前 timeline 无匹配 HGM 事件（event_count=0）。
-      可先只读对照 status.hgm；若需写盘再<strong>显式</strong>勾选上方
-      <code>--ingest</code>（会写 events），或 CLI
-      <code>graph ingest</code>。详见
-      <code>docs/evidence/hgm_consumer_20260728.md</code>。
+      空事件：当前时间线无匹配事件（event_count=0）。
+      可先只读对照上方 status；若需写盘再<strong>显式</strong>勾选上方选项。
+      详见 <code>docs/evidence/hgm_consumer_20260728.md</code>。
     </p>
     <pre v-if="timelineJson" class="code">{{ timelineJson }}</pre>
-    <p v-else class="muted">暂无 timeline 投影（空态或失败，见上方错误）</p>
+    <p v-else class="muted">暂无 timeline 数据（空态或失败，见上方错误）</p>
   </section>
 </template>
 

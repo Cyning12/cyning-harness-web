@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import MarkdownView from '@/components/MarkdownView.vue'
 
 type DocListItem = {
   relativePath: string
@@ -16,6 +17,8 @@ const listError = ref<string>('')
 const contentError = ref<string>('')
 const loadingList = ref(false)
 const loadingContent = ref(false)
+/** 次要：查看 Markdown 源码 */
+const showSource = ref(false)
 
 async function loadList() {
   loadingList.value = true
@@ -44,6 +47,7 @@ async function openDoc(relativePath: string) {
   loadingContent.value = true
   contentError.value = ''
   content.value = ''
+  showSource.value = false
   try {
     const res = await fetch(
       `/api/docs/content?path=${encodeURIComponent(relativePath)}`,
@@ -69,9 +73,12 @@ onMounted(loadList)
 
 <template>
   <section class="panel">
-    <h1>文档 · /docs</h1>
-    <p class="readonly-banner">只读投影 · 非签收真值</p>
-    <p class="lede">扫描 <code>docs/tasks/**</code> 下 Markdown；只读预览，不写闸。</p>
+    <h1>文档</h1>
+    <p class="readonly-banner">只读浏览 · 页面不能改写审批结果</p>
+    <p class="lede">
+      列出仓库 <code>docs/tasks/</code> 下的 Markdown，点选后以排版预览。
+      本页只读，不会写入任何审批结果。
+    </p>
 
     <button type="button" class="btn" :disabled="loadingList" @click="loadList">
       {{ loadingList ? '刷新中…' : '刷新列表' }}
@@ -97,7 +104,19 @@ onMounted(loadList)
       <article class="doc-body">
         <p v-if="loadingContent" class="muted">读取中…</p>
         <p v-else-if="contentError" class="err">{{ contentError }}</p>
-        <pre v-else-if="content" class="code">{{ content }}</pre>
+        <template v-else-if="content">
+          <div class="doc-toolbar">
+            <button
+              type="button"
+              class="btn btn-sm"
+              @click="showSource = !showSource"
+            >
+              {{ showSource ? '查看排版' : '查看源码' }}
+            </button>
+          </div>
+          <pre v-if="showSource" class="code">{{ content }}</pre>
+          <MarkdownView v-else :source="content" />
+        </template>
         <p v-else class="muted">选择左侧文档以预览</p>
       </article>
     </div>
