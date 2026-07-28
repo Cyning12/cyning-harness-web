@@ -1,6 +1,6 @@
 # Task：Phase A 脚手架 · Vite/Vue 壳 + 路由 + stub API
 
-> **状态**：`in_progress`  
+> **状态**：`done`  
 > **Phase**：`A`（依赖 A0 CLOSED）  
 > **关联 SPEC**：[`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../../spec/SPEC-cyning-harness-web-obs-demo_v1.md)  
 > **关联图谱**：[`docs/_tech_graph/01_struct.md`](../../_tech_graph/01_struct.md) · [`00_main.md`](../../_tech_graph/00_main.md)  
@@ -90,7 +90,7 @@ A0 已建立 Inform。本棒交付 **可 `pnpm dev` 的最小 Web 壳**：路由
 - [x] `/obs` 展示 stub JSON 或空态可读（非崩溃）
 - [x] `pnpm lint` → `pnpm test` → `pnpm build` 绿（40 本地复跑 2026-07-28）
 - [x] Actions quality workflow 存在且本 PR checks 可跑（PR #4 绿后 squash）
-- [x] invoke 含 10+30+40；PR squash（#4）；经验草稿已填 · **KPI 待 00**
+- [x] invoke 含 10+30+40；PR squash（#4）；KPI+经验已齐（Task_KPI%=90）
 
 ---
 
@@ -138,18 +138,34 @@ A0 已建立 Inform。本棒交付 **可 `pnpm dev` 的最小 Web 壳**：路由
 
 ### KPI（00）
 
-（关账回溯 · **40 不填分数**）
+| 项 | 值 |
+|----|-----|
+| **kpi_rubric** | `KPI_RUBRIC_v1_3` |
+| **kpi_aggregator** | `CLOSE` |
+| **Task_KPI%** | `90` |
+| **语义状态** | `pass` · Phase A 壳+stub+质量门闭环；CI 曾打回一次后热修合入 |
+
+| 大维 | 档位 | 说明 |
+|------|------|------|
+| D1 交付 | pass | 壳/三路由/stub/测/Actions/invoke10·30·40/自检齐 |
+| D2 判断 | pass | 未越 Phase B；CI 冲突正确打回热修；证据有 PR #4/#5 |
+| D3 上下文 | pass | SPEC §2 / 01_struct / 只读边界 |
+| D4 合规 | pass | PR squash；无 allow-*-gap；禁写闸有测 |
+| D5 结果 | pass | quality 绿后合入；本地 lint/test/build 绿 |
+
+**judgment_notes**：D2/D5 因首次 CI pnpm 冲突有一次返工，仍判 pass（热修正确、未硬豁免）。
 
 ---
 
 ### 经验总结
 
-（`experience_capture: required` · 40 草稿 · 待 00 确认）
+（`experience_capture: required` · 40 草稿 · 00 关账确认）
 
 1. **CI 与 packageManager 对齐**：`pnpm/action-setup` 硬钉 `version: 10` 会与 `packageManager: pnpm@10.32.1` 冲突导致 quality 红；应让 action 读 packageManager / 不硬钉次要版本。
 2. **禁写闸宜测优先**：`rejectWriteGate` + Vitest 在合入前即可证明「Web 不写 HG」边界，比仅 README 声明更可审计。
 3. **读盘范围要代码闸**：`resolveSafeTaskMd` 限 `docs/tasks/**` + 防穿越，避免 stub 阶段文档 API 越权读仓。
 4. **关账与实现 PR 分轨**：实现 squash（#4）后再开 `*-close` 补 40 invoke / 验收勾选 / CHECK 合入行，避免实现 PR 与文档关账混杂。
+5. **close CLI**：`task close` 勿传 `--target .`（该参为归档目标路径，不是仓根）。
 
 ---
 
@@ -159,3 +175,4 @@ A0 已建立 Inform。本棒交付 **可 `pnpm dev` 的最小 Web 壳**：路由
 |------|------|
 | 2026-07-28 | 00 起草 Phase A 首棒 · 代签三闸 |
 | 2026-07-28 | 40 自检 pass · 勾选验收 · 经验草稿 · CLOSE 摘要 |
+| 2026-07-28 | 00 KPI Task_KPI%=90 · status=done · 准备 merge #5 + close |
