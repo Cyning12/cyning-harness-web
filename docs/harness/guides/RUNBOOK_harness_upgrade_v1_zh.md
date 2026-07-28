@@ -118,6 +118,18 @@ gh pr create --base main
 
 ---
 
+## 附录 · wiki_delta 升级扫迁（产品 RUNBOOK · ≥2.19 / `--strict` ≥2.20）
+
+本仓 pin 升级完成后，另按产品真值执行字段扫迁（本仓不复制全文）：
+
+- 产品：`cyning-harness/docs/RUNBOOK_upgrade_wiki_delta_v1_zh.md`
+- 命令：`npx @cyning/harness@<pin> task lint-wiki-delta [--strict]`
+- CI 样例：产品 `ci/samples/lint-wiki-delta.yml.example`（本仓改编为读 pin：`.github/workflows/lint-wiki-delta.yml`）
+
+**注意**：产品 §1 的 `upgrade` **不会**改本仓 `harness.pin.json`——须继续走上文「同步 pin」。
+
+---
+
 ## 相关
 
 - PLAN：[`PLAN_web_obs_demo_self_upgrade_v1_zh.md`](./PLAN_web_obs_demo_self_upgrade_v1_zh.md)
