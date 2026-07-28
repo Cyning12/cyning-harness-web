@@ -22,6 +22,9 @@
 | 2026-07-28 ~11:15 | （合入） | web-obs-demo-inform-bootstrap | `gh pr merge 1 --squash --delete-branch` → https://github.com/Cyning12/cyning-harness-web/pull/1 · 无 CI checks（A0 预期）· 远端补推 `main` 并设 default | MERGED | 00 |
 | 2026-07-28 ~11:16 | HG-GRAPH-MODULES | web-obs-demo-inform-bootstrap | 通读 `docs/_tech_graph/01_struct.md`：module_id=`web_ui`,`obs_api`,`harness_docs`,`evidence`（≥3 真实行、无模板示例）；`00_main`/`ONTOLOGY` 存在；对照 AUTH §3 | pass → **approved**（写入 01_struct 人签表） | 00 |
 | 2026-07-28 ~11:20 | （关账） | web-obs-demo-inform-bootstrap | PR #2 squash；KPI Task_KPI%=92；`task close`（**勿** `--target .`，该参为归档目标）→ `docs/tasks/done/` · CLOSE PASS | A0 CLOSED | 00 |
+| 2026-07-28 ~11:22 | HG-TASK-DRAFT | web-obs-demo-scaffold-vite-shell | 通读 scaffold task：范围限壳+stub+质量门；非范围含 live CLI；test_strategy=required；对照 SPEC §2/§4.1 | pass → approved | 00 |
+| 2026-07-28 ~11:22 | HG-AUDIT-R1 | web-obs-demo-scaffold-vite-shell | `docs/harness/reviews/task_web_obs_demo_scaffold_vite_shell_audit_R1_20260728.md` · pass | pass → approved | 00 |
+| 2026-07-28 ~11:22 | HG-GRAPH-MODULES | web-obs-demo-scaffold-vite-shell | 沿用 A0 · `01_struct` 人签仍 approved；改码 task 写入闸表 | approved（沿用） | 00 |
 
 ---
 
