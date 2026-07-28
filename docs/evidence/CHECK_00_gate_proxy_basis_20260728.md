@@ -62,7 +62,9 @@
 | 2026-07-28 ~13:36 | （范围） | web-obs-demo-self-upgrade | 维护者聊天「同意」→ PLAN C+R3；PLAN → `active` | 范围确认 | 维护者→00 |
 | 2026-07-28 ~13:40 | HG-TASK-DRAFT | web-obs-demo-self-upgrade | 通读 `docs/tasks/active/task_web_obs_demo_self_upgrade_v1.md`：S1+S2/非范围/验收/failure_paths/元信息齐全；对照 PLAN C | pass → approved | 00 |
 | 2026-07-28 ~13:40 | HG-AUDIT-R1 | web-obs-demo-self-upgrade | `docs/harness/reviews/task_web_obs_demo_self_upgrade_audit_R1_20260728.md` · pass · human_only | pass → approved | 00 |
-| 2026-07-28 ~13:40 | HG-GRAPH-MODULES | web-obs-demo-self-upgrade | 沿用 A0 approved；本棒 `graph_delta=update` 仅扩 `obs_api` 行 | approved（沿用） | 00 |
+| 2026-07-28 ~13:40 | HG-GRAPH-MODULES | web-obs-demo-self-upgrade | 沿用 A0 approved；`graph_delta`=`docs/_tech_graph/01_struct.md` | approved（沿用） | 00 |
+| 2026-07-28 ~13:50 | （派工） | web-obs-demo-self-upgrade | verify PASS · may_start_30 · 子 Agent 30 · PR #23 | 已派 | 00 |
+| 2026-07-28 ~13:48 | （合入） | web-obs-demo-self-upgrade | quality 绿 · `gh pr merge 23 --squash --delete-branch` → https://github.com/Cyning12/cyning-harness-web/pull/23 · `d4e7f8f` | MERGED | 00 |
 
 ---
 

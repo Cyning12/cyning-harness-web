@@ -1,7 +1,8 @@
 # Task：Demo 自我升级（钉版本单源 + 只读版本投影）
 
-> **状态**：`active`  
+> **状态**：`done`  
 > **Phase**：`post-E`（自我升级 · PLAN C）  
+> **合入**：PR [#23](https://github.com/Cyning12/cyning-harness-web/pull/23) squash · `d4e7f8f`  
 > **PLAN**：[`docs/harness/guides/PLAN_web_obs_demo_self_upgrade_v1_zh.md`](../../harness/guides/PLAN_web_obs_demo_self_upgrade_v1_zh.md)  
 > **关联 SPEC**：[`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../../spec/SPEC-cyning-harness-web-obs-demo_v1.md)（只读边界不变）
 
@@ -93,9 +94,9 @@
 
 - [x] 全仓业务路径无第二处「权威」版本硬编码（check 脚本 PASS）
 - [x] `pnpm lint` → `pnpm test` → `pnpm build` 绿
-- [ ] `pnpm dev` 可见版本条；无升级写入口
+- [x] `pnpm dev` 可见版本条；无升级写入口（代码审阅：`HomeView` 纪律包版本条 + 链 RUNBOOK；无 upgrade API/按钮；合入后维护者可再目视）
 - [x] RUNBOOK 可跟做（无绝对机径）
-- [ ] PR squash 合入 main
+- [x] PR squash 合入 main（#23 · quality 绿）
 
 ---
 
@@ -131,20 +132,48 @@ npx --yes @cyning/harness@2.17.0 verify --target . --task docs/tasks/active/task
 | `pnpm test` | PASS（27；含 pin 解析负向 + npm 失败降级） |
 | `pnpm build` | PASS |
 | `node scripts/check-harness-pin.mjs` | PASS |
-| `node scripts/harness-verify-ci.mjs docs/tasks/active/task_web_obs_demo_self_upgrade_v1.md --graph` | PASS（WARN：缺 40 invoke · 工作区未 clean · 不挡） |
+| `node scripts/harness-verify-ci.mjs docs/tasks/active/task_web_obs_demo_self_upgrade_v1.md --graph` | PASS（合入前 WARN 缺 40；现已补 invoke 40） |
 
 交付：`harness.pin.json` 单源；CLI/CI 读 pin；`GET /api/obs/harness-version` + 首页版本条；RUNBOOK；无升级写入口。  
-分支：`task/web-obs-demo-self-upgrade` · PR 待 00 squash（30 未 merge）。  
-人工目视：`pnpm dev` 版本条 / 无升级按钮 → 合入前维护者或 00 勾选。
+合入：PR #23 squash · `d4e7f8f`（00 · quality 绿）。
 
 ---
 
 ### KPI（00）
 
-（CLOSE 前回填 · 须含可解析 `Task_KPI%=NN`）
+| 项 | 值 |
+|----|-----|
+| **kpi_rubric** | `KPI_RUBRIC_v1_3` |
+| **kpi_aggregator** | `CLOSE` |
+| **Task_KPI%** | `92` |
+| **语义状态** | `pass` · pin 单源 + 只读版本投影 + RUNBOOK |
+
+| 大维 | 档位 | 说明 |
+|------|------|------|
+| D1 交付 | pass | pin/CI/CLI/API/UI/RUNBOOK/测/check 齐 |
+| D2 判断 | pass | 升级只走终端剧本；Web 只读 |
+| D3 上下文 | pass | 对齐 PLAN C + 维护者同意 |
+| D4 合规 | pass | PR squash；无 `--allow-*-gap`；graph_delta 路径合法 |
+| D5 结果 | pass | #23 quality 绿；本地三绿 + check-pin |
+
+**judgment_notes**：无大维 fail。S3 真实升版暂缓（latest==pinned）。
 
 ---
 
-### 经验沉淀（experience_capture）
+### 经验总结
 
-（CLOSE 前回填 3–7 条）
+1. **`graph_delta` 须为仓内路径或 `none`**：填 `update` 会 WARN/close BLOCK；本棒用 `docs/_tech_graph/01_struct.md`。
+2. **版本钉单源优先于「文档再写一遍数字」**：README 指向 `harness.pin.json` + check 脚本，比三处手写更抗漂移。
+3. **CI 用脚本读 pin 再 npx**：workflow 内硬编码版本是第二真值；`harness-verify-ci.mjs` 消掉。
+4. **npm 探测必须降级**：短超时 + 失败不挡页；版本条是教学投影不是签收闸。
+5. **禁止 UI 一键 upgrade**：Demo 教的是可观测与剧本，不是远程改仓机器人。
+6. **`task close` 勿加 `--target .`**：该参是归档目标目录，不是仓根。
+
+---
+
+## 修订记录
+
+| 日期 | 说明 |
+|------|------|
+| 2026-07-28 | 00 起草 · 代签三闸 · 派 30 |
+| 2026-07-28 | 30 实现 · PR #23 squash · 00 KPI/经验 · 关账预备 |
