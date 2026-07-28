@@ -38,6 +38,11 @@
 | 2026-07-28 ~11:46 | HG-GRAPH-MODULES | web-obs-demo-chain-dogfood | 沿用 A0 · graph_delta=none | approved（沿用） | 00 |
 | 2026-07-28 ~11:49 | （合入） | web-obs-demo-chain-dogfood | `gh pr checks` 绿 · merge #10 squash → https://github.com/Cyning12/cyning-harness-web/pull/10 | MERGED | 00 |
 
+| 2026-07-28 ~11:53 | （关账） | web-obs-demo-chain-dogfood | PR #11 squash；KPI=88；task close → done · CLOSE PASS | Phase C CLOSED | 00 |
+| 2026-07-28 ~11:54 | HG-TASK-DRAFT | web-obs-demo-hgm-consumer | 通读 Phase D：显式 ingest + timeline/status | pass → approved | 00 |
+| 2026-07-28 ~11:54 | HG-AUDIT-R1 | web-obs-demo-hgm-consumer | hgm_consumer audit R1 pass | pass → approved | 00 |
+| 2026-07-28 ~11:54 | HG-GRAPH-MODULES | web-obs-demo-hgm-consumer | 沿用 A0 | approved（沿用） | 00 |
+
 ---
 
 ## 修订记录
