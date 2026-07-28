@@ -1,4 +1,4 @@
-/** Phase A stub 载荷 · 非 live CLI；契约名对齐 SPEC `obs_status.v1` / `obs_timeline.v1` */
+/** stub 载荷 · 非 live CLI；契约名对齐 SPEC `obs_status.v1` / `obs_timeline.v1` */
 
 export type ObsStatusV1 = {
   schema: 'obs_status.v1'
@@ -35,7 +35,7 @@ export function stubObsStatus(taskPath: string | null = null): ObsStatusV1 {
       { id: 'HG-AUDIT-R1', status: 'approved' },
       { id: 'HG-GRAPH-MODULES', status: 'approved' },
     ],
-    note: 'Phase A stub · 非 live harness CLI · 非签收真值',
+    note: 'stub 切换态 · 非 live harness CLI · 非签收真值',
   }
 }
 
@@ -49,9 +49,9 @@ export function stubObsTimeline(taskPath: string | null = null): ObsTimelineV1 {
       {
         at: new Date().toISOString(),
         kind: 'stub',
-        summary: 'Phase A stub timeline · 等待 Phase B 接入 live CLI',
+        summary: 'stub timeline · 默认请用 live（?source=live 或不传）',
       },
     ],
-    note: 'Phase A stub · 非 live harness CLI · 非签收真值',
+    note: 'stub 切换态 · 非 live harness CLI · 非签收真值',
   }
 }

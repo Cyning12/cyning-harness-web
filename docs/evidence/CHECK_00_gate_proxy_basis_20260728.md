@@ -28,6 +28,9 @@
 | 2026-07-28 ~11:28 | （CI 打回） | web-obs-demo-scaffold-vite-shell | PR #4 quality FAIL：pnpm/action-setup `version:10` 与 packageManager `pnpm@10.32.1` 冲突；派 30 热修 | 等绿再 merge | 00 |
 | 2026-07-28 ~11:30 | （合入） | web-obs-demo-scaffold-vite-shell | `gh pr checks` 绿后 `gh pr merge 4 --squash --delete-branch` → https://github.com/Cyning12/cyning-harness-web/pull/4 | MERGED | 00 |
 | 2026-07-28 ~11:35 | （关账） | web-obs-demo-scaffold-vite-shell | PR #5 squash；KPI Task_KPI%=90；`task close` → `docs/tasks/done/` · CLOSE PASS | Phase A CLOSED | 00 |
+| 2026-07-28 ~11:36 | HG-TASK-DRAFT | web-obs-demo-live-obs-status | 通读 Phase B task：init/upgrade+live CLI；非范围含 ingest/dogfood | pass → approved | 00 |
+| 2026-07-28 ~11:36 | HG-AUDIT-R1 | web-obs-demo-live-obs-status | live_obs_status audit R1 pass | pass → approved | 00 |
+| 2026-07-28 ~11:36 | HG-GRAPH-MODULES | web-obs-demo-live-obs-status | 沿用 A0 approved | approved（沿用） | 00 |
 
 ---
 
