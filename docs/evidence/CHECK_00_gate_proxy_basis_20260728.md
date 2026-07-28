@@ -4,7 +4,7 @@
 |----|-----|
 | **授权真值** | [`docs/harness/auth/AUTH_00_human_gate_proxy_v1.md`](../harness/auth/AUTH_00_human_gate_proxy_v1.md) |
 | **epic SPEC** | [`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../spec/SPEC-cyning-harness-web-obs-demo_v1.md) · `approved` |
-| **纪律包** | `@cyning/harness`（钉见 [`harness.pin.json`](../harness.pin.json)；当前目标 **2.18.0**） |
+| **纪律包** | `@cyning/harness`（钉见 [`harness.pin.json`](../harness.pin.json)；当前目标 **2.18.2**） |
 
 > 本文件为**滚动台账**：每条代签一行；证据指针须可打开。
 
@@ -78,3 +78,8 @@
 | 2026-07-28 | 首建台账；录入 A0 双闸 + verify 复核 + AUTH 升格 |
 | 2026-07-28 | PR #1 合入；代签 HG-GRAPH-MODULES |
 | 2026-07-28 ~14:50 | （2.18 波） | web-harness-2-18-wiki-graph | upgrade+pin 2.18.0 · wiki_delta×8 · /wiki-graph · FEEDBACK/BACKFILL · Wave B 全绿 | 待 PR | 执行窗 |
+| 2026-07-28 ~15:04 | （合入） | web-obs-demo-upgrade-2-18-wiki-graph | merge #29 / 关账归档 #30 · pin 2.18.0 · `/wiki-graph` | MERGED · CLOSED | 00 |
+| 2026-07-28 ~15:48 | HG-TASK-DRAFT | web-obs-demo-upgrade-2-18-2-wiki-topics | 维护者「开始」· pin→2.18.2 + topics/ 两层 | pass → approved | 00 |
+| 2026-07-28 ~15:48 | HG-AUDIT-R1 | web-obs-demo-upgrade-2-18-2-wiki-topics | 文档/目录迁移 · 对照 2.18.2 约定 · 非码闸扩 scope | pass → approved | 00 |
+| 2026-07-28 ~15:52 | （合入） | web-obs-demo-upgrade-2-18-2-wiki-topics | quality 绿 · PR #31（关账同波推送） | 待 merge | 00 |
+| 2026-07-28 ~15:55 | （关账） | web-obs-demo-upgrade-2-18-2-wiki-topics | KPI%=92 · CLOSE PASS · task→done · FEEDBACK F-218-06/07 · BACKFILL 剩余→产品 | CLOSED | 00 |

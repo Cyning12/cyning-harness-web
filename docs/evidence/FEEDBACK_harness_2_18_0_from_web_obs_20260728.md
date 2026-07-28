@@ -2,7 +2,7 @@
 
 | 项 | 值 |
 |----|-----|
-| **状态** | `active` · Wave A+ 滚动追加 |
+| **状态** | `active` · 滚动 · 本波 dogfood **closed** |
 | **日期** | 2026-07-28 |
 | **消费者仓** | `cyning-harness-web` |
 | **钉版本目标** | 起钉 `2.18.0` → 现跟进 **`2.18.2`**（本波 pin bump） |
@@ -89,10 +89,22 @@
 | id | 现象 | 复现 | 期望 | severity | 建议产品落点 |
 |----|------|------|------|----------|--------------|
 | F-218-06 | 2.18.0 金样主题页在 wiki **根**平铺；人扫将随主题增长爆炸；图边仍正常 | 迁前 `ls docs/coding_wiki/`；迁后 `topics/` + export | 产品两层约定可执行；export 不依赖深度 | info | **已落** 2.18.2 templates README · USER_GUIDE「目录 vs 图」 |
+| F-218-07 | 文档叙述若写裸 ``[[wikilink]]`` 字面，`wiki export` 会当边解析 → `未解析 wikilink` warn | 本仓 README 初稿曾写该字面；改「双括号 wikilink」后 warnings=0 | 产品/消费者文档叙述避免裸双括号样例；或 export 忽略说明性伪链 | info | USER_GUIDE / templates README 防踩坑一句（产品 2.18.2 模板已用「双括号」措辞，可再明示） |
 
 ### 经验补充
 
 7. 目录是给人扫的，图是给边的：`git mv` 进 `topics/` 后须改 `[[topics/…]]`，再 `wiki export` 校验。
 8. 消费者迁移可与 pin bump 同 PR；**不必**等 CLI 硬闸。
+9. `upgrade` **不会**把已有平铺 wiki 自动迁成 `topics/`——须消费者 `git mv`（预期）；ONBOARDING 可加一句。
 
 Wiki: [`docs/coding_wiki/`](../coding_wiki/) · [`topics/web_obs_demo.md`](../coding_wiki/topics/web_obs_demo.md)
+
+---
+
+## 关账结论（2.18.2 topics 波 · 2026-07-28）
+
+| 项 | 值 |
+|----|-----|
+| **FEEDBACK 状态** | `closed` · 无 severity=block |
+| **本仓 pin** | `2.18.2` |
+| **仍建议产品回填** | 见 [`BACKFILL_DRAFT`](./BACKFILL_DRAFT_cyning_harness_2_18_from_web_obs.md)「剩余 open」 |

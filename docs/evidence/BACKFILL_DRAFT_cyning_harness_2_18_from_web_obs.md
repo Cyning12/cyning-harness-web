@@ -1,46 +1,48 @@
-# BACKFILL_DRAFT · 回填 `@cyning/harness`（来自 cyning-harness-web · 2.18.0 dogfood）
+# BACKFILL_DRAFT · 回填 `@cyning/harness`（来自 cyning-harness-web · 2.18.x dogfood）
 
 | 项 | 值 |
 |----|-----|
-| **状态** | `partially_landed` · 2.18.1/2.18.2 docs 已发；CLI lint 仍 open |
+| **状态** | `partially_landed` · 2.18.1/2.18.2 已发；**剩余 open 见下** |
 | **日期** | 2026-07-28 |
 | **真值证据** | [`FEEDBACK_harness_2_18_0_from_web_obs_20260728.md`](./FEEDBACK_harness_2_18_0_from_web_obs_20260728.md) |
 | **产品 Open Folder** | `/Users/cyning/Desktop/Projects/cyning-harness`（另开 task/PR） |
 
 > 本文件只列建议 diff 要点；合入须产品仓闸与维护者签收。
 
-## 建议文件改动
+## 已落地（勿重复劳动）
 
-| 产品路径 | 建议要点 | 对应 FEEDBACK |
-|----------|----------|---------------|
-| `docs/USER_GUIDE_v1.0_zh.md` | 增「升级后 wiki_delta 迁移」：`n/a` vs `none` vs path 决策树；存量扫缺字段 | F-218-01 · F-218-02 |
-| `docs/ONBOARDING.md` / `CHANGELOG.md` | Notes：upgrade **不**代写业务 task 元信息；破坏性清单链到迁移节 | F-218-03 |
-| `coding_wiki/templates/*.md` | stable/context 加 2～3 条 `[[wikilink]]` 互链样例 | F-218-05 |
-| （可选）`lib/` lint | `harness lint tasks --wiki-delta` 或 verify 附带「缺字段文件列表」 | F-218-01 |
-| `docs/CHECKLIST_acceptance_2.18.0_wiki_feedback_v1_zh.md` | 人签时对照本仓 FEEDBACK 勾选；失败项写 FEEDBACK id | Wave D |
+| 产品版 | 对应 | 状态 |
+|--------|------|------|
+| **2.18.1** | USER_GUIDE §6.0b · templates 互链 · ONBOARDING（F-218-01..03 docs / F-218-05） | ✅ |
+| **2.18.2** | 两层 `topics/` · USER_GUIDE「目录 vs 图」（F-218-06） | ✅ |
+| （刻意不动） | F-218-04 保持 `schema: harness.wiki_graph.v1` 单字符串 | ✅ |
 
-## 建议 ISSUE 标题
+## 剩余 open（仍可回填产品）
 
-1. `docs: wiki_delta 存量迁移决策树（n/a vs none）`
-2. `chore(templates): coding_wiki 样例互链，避免 export 空边`
-3. （可选）`feat(cli): lint/list tasks missing wiki_delta after upgrade`
+| 优先级 | 建议 | FEEDBACK | 建议版号 |
+|--------|------|----------|----------|
+| **P0** | CLI：`lint`/`list` 缺 `wiki_delta` 的 task（升级后扫迁） | F-218-01 剩余 | **2.19.0** |
+| P1 | USER_GUIDE / templates：明示「叙述勿写裸双括号 `[[`…`]]` 字面，否则 export 当边」 | F-218-07 | **2.18.3** docs 或并入 2.19 Notes |
+| P2 | ONBOARDING 一句：`upgrade` **不**自动把已有 wiki 迁成 `topics/`；消费者自 `git mv` | 经验 #9 | 同上 docs patch |
 
-## 版号建议（执行结果）
+## 建议 ISSUE 标题（剩余）
 
-- **2.18.1**：✅ USER_GUIDE §6.0b · templates 互链 · ONBOARDING（F-218-01..03 / F-218-05）
-- **2.18.2**：✅ 两层 `topics/` 目录约定 · USER_GUIDE「目录 vs 图」（F-218-06 消费者对照）
-- **2.19.0**：仍建议 CLI lint/list 缺 `wiki_delta`（F-218-01 剩余）
+1. `feat(cli): lint/list tasks missing wiki_delta after upgrade`（**主回填**）
+2. `docs: wiki export 防踩坑——叙述避免裸 [[wikilink]] 字面`
+3. `docs(onboarding): upgrade 不自动迁移 coding_wiki 目录形状`
+
+## 版号建议
+
+- **2.18.3**（可选）：仅 docs 防踩坑（F-218-07 + upgrade≠迁 topics）
+- **2.19.0**：CLI lint/list 缺 `wiki_delta`（F-218-01）
 
 ## 产品 checklist 勾选结果（本仓对照 · 非产品人签）
-
-对照 `cyning-harness/docs/CHECKLIST_acceptance_2.18.0_wiki_feedback_v1_zh.md`：
 
 | 项 | 本仓结果 | 备注 |
 |----|----------|------|
 | 知悉破坏性须补 wiki_delta | ✅ | 已迁 8 done task |
-| 缺字段 close BLOCK | ✅（产品语义） | 本仓用 verify WARN→迁后消失 |
-| n/a + note 可过 | ✅ | 本仓默认 |
-| wiki export schema + nodes | ✅ | nodes=6 edges=6 |
+| wiki export schema + nodes | ✅ | 2.18.2 后 nodes=10 · edges=43 · warnings=0 |
 | Web 消费 | ✅ | `/wiki-graph` + API |
+| 两层 topics 约定可执行 | ✅ | F-218-06 dogfood |
 
-失败项→FEEDBACK：**无 block**；warn/info 见 F-218-01..05。
+失败项→FEEDBACK：**无 block**；open 见上表。
