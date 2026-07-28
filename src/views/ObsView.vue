@@ -193,7 +193,7 @@ onMounted(async () => {
 
 <template>
   <section class="panel">
-    <h1>运行状态 · /obs</h1>
+    <h1>运行状态</h1>
     <p class="readonly-banner">只读浏览 · 页面不能改写审批结果</p>
     <p class="lede">
       默认由服务端调用本地命令行
@@ -266,47 +266,59 @@ onMounted(async () => {
 .controls {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem 1rem;
+  gap: 0.85rem 1.1rem;
   align-items: flex-end;
-  margin: 1rem 0 1.25rem;
+  margin: 1.1rem 0 1.35rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--panel-solid) 70%, transparent);
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  font-size: 0.85rem;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--muted);
   min-width: min(100%, 22rem);
 }
 
 .field select {
   font: inherit;
-  padding: 0.35rem 0.5rem;
+  font-weight: 500;
+  color: var(--ink);
+  padding: 0.4rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel-solid);
 }
 
 .check {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
   font-size: 0.85rem;
-  padding-bottom: 0.2rem;
+  padding-bottom: 0.25rem;
+  color: var(--ink);
 }
 
 .ingest-warn {
   margin: 0 0 1rem;
-  padding: 0.65rem 0.85rem;
-  border: 1px solid color-mix(in srgb, darkorange 55%, transparent);
-  background: color-mix(in srgb, darkorange 14%, transparent);
-  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid color-mix(in srgb, darkorange 55%, var(--line));
+  background: color-mix(in srgb, darkorange 12%, transparent);
+  border-radius: var(--radius);
   font-size: 0.9rem;
 }
 
 .warn-box {
   margin: 0 0 1rem;
-  padding: 0.65rem 0.85rem;
-  border: 1px solid color-mix(in srgb, goldenrod 50%, transparent);
-  background: color-mix(in srgb, goldenrod 12%, transparent);
-  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--warn) 45%, var(--line));
+  background: color-mix(in srgb, var(--warn) 10%, transparent);
+  border-radius: var(--radius);
 }
 
 .warn-title {
@@ -324,23 +336,25 @@ onMounted(async () => {
 .compare {
   margin: 0 0 1rem;
   font-size: 0.9rem;
-  color: color-mix(in srgb, currentColor 78%, transparent);
+  color: var(--muted);
 }
 
 .empty-events {
   margin: 0 0 0.75rem;
-  padding: 0.65rem 0.85rem;
-  border-radius: 4px;
-  background: color-mix(in srgb, currentColor 6%, transparent);
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius);
+  border: 1px dashed var(--line);
+  background: color-mix(in srgb, var(--ink) 3%, transparent);
   font-size: 0.9rem;
 }
 
 .err-detail {
   margin: 0.35rem 0 1rem;
   padding: 0.75rem;
-  background: color-mix(in srgb, crimson 12%, transparent);
-  border-radius: 4px;
+  background: color-mix(in srgb, var(--err) 10%, transparent);
+  border-radius: var(--radius);
   font-size: 0.8rem;
+  font-family: var(--font-mono);
   white-space: pre-wrap;
   overflow-x: auto;
 }

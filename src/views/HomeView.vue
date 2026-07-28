@@ -183,37 +183,38 @@ onMounted(() => {
 
 <style scoped>
 .version-bar {
-  margin: 1rem 0 1.25rem;
-  padding: 0.75rem 0.9rem;
-  border-radius: 4px;
-  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
-  background: color-mix(in srgb, currentColor 5%, transparent);
+  margin: 1.1rem 0 1.35rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel-solid) 75%, transparent);
   font-size: 0.92rem;
 }
 
 .version-bar.ok {
-  border-color: color-mix(in srgb, seagreen 45%, transparent);
-  background: color-mix(in srgb, seagreen 10%, transparent);
+  border-color: color-mix(in srgb, var(--ok) 45%, var(--line));
+  background: color-mix(in srgb, var(--ok) 10%, transparent);
 }
 
 .version-bar.behind {
-  border-color: color-mix(in srgb, darkorange 55%, transparent);
+  border-color: color-mix(in srgb, darkorange 55%, var(--line));
   background: color-mix(in srgb, darkorange 12%, transparent);
 }
 
 .version-bar.warn {
-  border-color: color-mix(in srgb, goldenrod 50%, transparent);
-  background: color-mix(in srgb, goldenrod 12%, transparent);
+  border-color: color-mix(in srgb, var(--warn) 45%, var(--line));
+  background: color-mix(in srgb, var(--warn) 12%, transparent);
 }
 
 .version-bar.err {
-  border-color: color-mix(in srgb, crimson 45%, transparent);
-  background: color-mix(in srgb, crimson 10%, transparent);
+  border-color: color-mix(in srgb, var(--err) 45%, var(--line));
+  background: color-mix(in srgb, var(--err) 10%, transparent);
 }
 
 .version-title {
   margin: 0 0 0.35rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .version-bar p {
