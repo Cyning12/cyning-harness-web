@@ -73,18 +73,37 @@
 - [x] `/obs`（或等价）可展示 timeline；与 status 对照有说明
 - [x] 默认不 ingest 有测或代码断言
 - [x] 空事件/WARN 可读
-- [ ] invoke 10+30+40；KPI+经验关账前填齐（本棒 10+30；40 由 00 另派）
+- [x] invoke 10+30+40；经验已回填（KPI 交 00 · 本棒不填）
 
 ---
 
 ### 自检结论（执行者）
-30 交付：evidence 策略 + `/obs` 对照/空态/WARN + 默认无 `--ingest` 测断言 + 显式 ingest 开关与页内警告 + README POINTER；`verify --graph` PASS；未改产品仓。
+
+| 命令 / 核对 | cwd | 退出码 / 结果 |
+|-------------|-----|----------------|
+| 读 `docs/evidence/hgm_consumer_20260728.md` | 仓根 | pass · §1 策略（默认 off / 显式 on）· §2 `/obs` · §3 复现 · §4 无阻塞产品结论 |
+| `/obs` ObsView：timeline↔status · 空事件 · CLI WARN · 显式 ingest「会写 events」 | `src/views/ObsView.vue` | pass · 同页对照 + 空态文案 + WARN 区 + `role=alert` |
+| 默认无 `--ingest` 测 | `tests/obsHandlers.test.ts` | pass · 默认 argv 不含；显式才含；resolveIngestFlag 缺省 false |
+| `npx @cyning/harness@2.17.0 verify --target . --task docs/tasks/active/task_web_obs_demo_hgm_consumer_v1.md --graph` | 仓根 | 0 · VERIFY PASS（落盘 40 前 WARN 缺 40） |
+| `pnpm lint` / `pnpm test` / `pnpm build` | 仓根 | 0 / 17 passed / build ok |
+| PR #13 | — | MERGED squash · `b1fabba` · https://github.com/Cyning12/cyning-harness-web/pull/13 |
+| invoke 10/30/40 | `docs/harness/invokes/by-task/web-obs-demo-hgm-consumer/` | pass · 本 close 补齐 40 |
+| README Phase D 指针 | README.md | pass · 链至 evidence · `/obs` 显式 ingest 说明 |
+| 产品仓改动？ | — | 否 |
+| **40 结论** | — | **pass** · 可关账预备；KPI / `task close` 交 00 |
+
+已知未测：本棒未重开 `pnpm dev` 浏览器点选 ingest（以 #13 合入代码 + evidence §2 curl 步骤 + 单测断言为准）。
 
 ### KPI（00）
 （待）
 
 ### 经验总结
-（待）
+
+1. **默认 off 须可测**：仅文档写「禁止静默 ingest」不够；须有 `buildHarnessCliArgs` / `getObsTimeline` 默认 argv **不含** `--ingest` 的断言，显式路径才含。
+2. **空 timeline 是合法态**：`event_count=0` + CLI WARN 应投影为可读空态，不可当失败崩溃；与 status 同页对照时两边 event_count 可暂时不一致（未 ingest）。
+3. **显式 ingest 必须双提醒**：UI 勾选后页内「会写 events」+ API 仅 `?ingest=1` 才追加旗标；status 路径永不带 `--ingest`。
+4. **缺 40 不挡 30、挡 CLOSE**：`verify` WARN「缺 40」允许 30 开工；required_invoke_hats 含 40 时关账预备棒必须补齐 invoke。
+5. **消费者侧 dogfood 可零改产品仓**：本 Phase 仅 Web/docs/测；产品反馈记「无阻塞」即可，字段统一类观察另开产品仓 issue。
 
 ---
 
@@ -93,3 +112,4 @@
 | 日期 | 说明 |
 |------|------|
 | 2026-07-28 | 00 起草 Phase D · 代签三闸 |
+| 2026-07-28 | 40 自检：勾选验收 · 经验回填 · CLOSE 预备 · 不填 KPI |
