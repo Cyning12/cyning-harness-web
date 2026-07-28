@@ -14,6 +14,7 @@
 4. **增量 · 自我升级**：[`docs/harness/guides/PLAN_web_obs_demo_self_upgrade_v1_zh.md`](docs/harness/guides/PLAN_web_obs_demo_self_upgrade_v1_zh.md)（钉版本单源 + upgrade 剧本 + 只读版本投影）
 4b. **下一棒 · 2.18.0 + Wiki Graph**：[`docs/harness/guides/PROMPT_upgrade_2_18_wiki_graph_v1_zh.md`](docs/harness/guides/PROMPT_upgrade_2_18_wiki_graph_v1_zh.md)（upgrade → 迁移 wiki_delta → 校验 → `/wiki-graph` → **经验/问题回填纪律包**）
 5. **升级剧本（维护者）**：[`docs/harness/guides/RUNBOOK_harness_upgrade_v1_zh.md`](docs/harness/guides/RUNBOOK_harness_upgrade_v1_zh.md)（干净 git → upgrade → bump pin → check → 三绿 → PR）
+5b. **研讨 · 沟通 Agent + 推广/MCP**：[`docs/harness/guides/PLAN_pm_eng_feasibility_agent_and_harness_adoption_v1_zh.md`](docs/harness/guides/PLAN_pm_eng_feasibility_agent_and_harness_adoption_v1_zh.md)（draft · 产品↔技术 Agent 骨架 · 新团队/非编码 Agent 接入）
 6. 30 仅闸后由 00 派发（Open Folder = 本仓根）
 
 ## 原则
