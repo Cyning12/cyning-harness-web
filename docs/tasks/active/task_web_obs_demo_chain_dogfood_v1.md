@@ -86,7 +86,9 @@
 
 ### 自检结论（执行者）
 
-（待）
+- 闸三行 approved · `verify` PASS（无 `--graph`）· 已落盘 30 invoke + `docs/evidence/chain_dogfood_20260728.md`
+- `/obs` live 与 CLI `status --json` 一致（`may_start_30: true` · `last_invoke=30`）；产品结论：无阻塞缺陷
+- 未改 Vue/API；40/CLOSE 待 00 另派
 
 ### KPI（00）
 

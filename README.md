@@ -84,5 +84,6 @@ Harness 接入产物（`init` · preset `harness-only`）：
 |---|---|
 | SPEC | `approved` · 2026-07-28 · skip_10_spec |
 | 下游闸 | **00 代签** |
-| 阶段 | A0 CLOSED → A CLOSED → **B live-obs** → C → D → E（F 默认不做） |
+| 阶段 | A0 CLOSED → A CLOSED → B CLOSED → **C dogfood** → D → E（F 默认不做） |
 | 契约 | `obs_status.v1` / `obs_timeline.v1`（B：live CLI；可 stub 切换） |
+| Phase C 证据 | [`docs/evidence/chain_dogfood_20260728.md`](docs/evidence/chain_dogfood_20260728.md) |
