@@ -49,6 +49,8 @@
 | 2026-07-28 ~12:03 | HG-AUDIT-R1 | web-obs-demo-ci-evidence | ci_evidence audit R1 pass | pass → approved | 00 |
 | 2026-07-28 ~12:03 | HG-GRAPH-MODULES | web-obs-demo-ci-evidence | 沿用 · graph_delta=none | approved（沿用） | 00 |
 | 2026-07-28 ~12:07 | （合入） | web-obs-demo-ci-evidence | quality（含 harness verify）绿 · merge #16 squash → https://github.com/Cyning12/cyning-harness-web/pull/16 | MERGED | 00 |
+| 2026-07-28 ~12:11 | （关账） | web-obs-demo-ci-evidence | PR #17 squash；KPI Task_KPI%=92；`task close` → `docs/tasks/done/` · CLOSE PASS | Phase E CLOSED | 00 |
+| 2026-07-28 ~12:12 | （终验交人） | epic A0–E | ACCEPTANCE → `ready_for_human`；00 收口摘要已填；active 空 · done 列齐；交维护者勾选终验 | ready_for_human | 00 |
 
 ---
 
