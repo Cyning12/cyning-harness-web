@@ -1,6 +1,6 @@
 # Task：Phase C · 帽链 dogfood（微改 + /obs 对照）
 
-> **状态**：`in_progress`  
+> **状态**：`done`  
 > **Phase**：`C`（依赖 Phase B CLOSED）  
 > **关联 SPEC**：[`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../../spec/SPEC-cyning-harness-web-obs-demo_v1.md) §2.6 / §4.2 / 附录 A Phase C  
 > **前置**：[`docs/tasks/done/task_web_obs_demo_live_obs_status_v1.md`](../done/task_web_obs_demo_live_obs_status_v1.md)  
@@ -48,12 +48,12 @@
 
 ## 范围
 
-- [ ] 开帽落盘本 task 的 10/30/40（profile **full**）
-- [ ] 30 微改（择一，极小）：README 增一行 dogfood 指针，或 `docs/evidence/chain_dogfood_20260728.md` 正文（推荐后者为主交付）
-- [ ] 记录：`gate-check`/`verify`/`status --json` 闸前后摘录（脱敏）写入 evidence
-- [ ] `/obs` 对照说明（截图式文字或 JSON 字段差异）
-- [ ] 产品缺陷 → `docs/evidence/` issue 草稿或「无阻塞缺陷」结论
-- [ ] PR squash 入 main
+- [x] 开帽落盘本 task 的 10/30/40（profile **full**）
+- [x] 30 微改（择一，极小）：README 增一行 dogfood 指针，或 `docs/evidence/chain_dogfood_20260728.md` 正文（推荐后者为主交付）
+- [x] 记录：`gate-check`/`verify`/`status --json` 闸前后摘录（脱敏）写入 evidence
+- [x] `/obs` 对照说明（截图式文字或 JSON 字段差异）
+- [x] 产品缺陷 → `docs/evidence/` issue 草稿或「无阻塞缺陷」结论
+- [x] PR squash 入 main
 
 ## 非范围
 
@@ -72,31 +72,60 @@
 
 ## 验收标准
 
-- [ ] `docs/evidence/chain_dogfood_*.md` 存在且含复现命令 + 闸前后对照
-- [ ] invoke 按 full/required 齐（至少 10,30,40）
-- [ ] 微改已 PR 合入；若触码则 quality 绿
-- [ ] 产品反馈：issue 草稿或无阻塞书面结论
-- [ ] KPI+经验关账前填齐
+- [x] `docs/evidence/chain_dogfood_*.md` 存在且含复现命令 + 闸前后对照
+- [x] invoke 按 full/required 齐（至少 10,30,40）
+- [x] 微改已 PR 合入；若触码则 quality 绿
+- [x] 产品反馈：issue 草稿或无阻塞书面结论
+- [x] KPI+经验关账前填齐（Task_KPI%=88）
 
 ---
 
 ## 实现备忘 / 自检 / KPI / 经验
 
-（子 Agent / 00 回填）
-
 ### 自检结论（执行者）
 
-- 闸三行 approved · `verify` PASS（无 `--graph`）· 已落盘 30 invoke + `docs/evidence/chain_dogfood_20260728.md`
-- `/obs` live 与 CLI `status --json` 一致（`may_start_30: true` · `last_invoke=30`）；产品结论：无阻塞缺陷
-- 未改 Vue/API；40/CLOSE 待 00 另派
+| 命令 / 核对 | cwd | 退出码 / 结果 |
+|-------------|-----|----------------|
+| 读 `docs/evidence/chain_dogfood_20260728.md` | 仓根 | pass · §1 复现命令 · §3 闸前后 · §4 `/obs` · §5 无阻塞 |
+| `npx @cyning/harness@2.17.0 gate-check --target . --task docs/tasks/active/task_web_obs_demo_chain_dogfood_v1.md` | 仓根 | 0 · 三闸 approved · 落盘 40 前 WARN 缺 40 |
+| `npx @cyning/harness@2.17.0 verify --target . --task …`（无 `--graph`） | 仓根 | 0 · VERIFY PASS |
+| `npx @cyning/harness@2.17.0 status … --json` | 仓根 | `may_start_30: true` · `last_invoke.hat_id=30`（落盘 40 前）· `reviews.CLOSE=false` |
+| PR #10 | — | MERGED squash · `3ec0198` · https://github.com/Cyning12/cyning-harness-web/pull/10 |
+| invoke 10/30/40 | `docs/harness/invokes/by-task/web-obs-demo-chain-dogfood/` | pass · 本 close 补齐 40 |
+| README Phase C 指针 | README.md | pass · 链至 evidence |
+| 触码？ | — | 否（docs-only）· 无需重跑 pnpm 三绿 |
+| **40 结论** | — | **pass** · 可关账预备；KPI / `task close` 交 00 |
+
+已知未测：本棒未重开 `pnpm dev` 浏览器点检（以 #10 合入 evidence §4 与 CLI 一致为准）。
 
 ### KPI（00）
 
-（待）
+| 项 | 值 |
+|----|-----|
+| **kpi_rubric** | `KPI_RUBRIC_v1_3` |
+| **kpi_aggregator** | `CLOSE` |
+| **Task_KPI%** | `88` |
+| **语义状态** | `pass` · Phase C dogfood 证据闭环；闸翻转观测弱（代签先于 30）记 warn 倾向但总分仍 pass |
+
+| 大维 | 档位 | 说明 |
+|------|------|------|
+| D1 交付 | pass | evidence/invoke10·30·40/自检/CLOSE 摘要齐 |
+| D2 判断 | warn | J-evidence pass；闸前后「翻转」弱（全程 may_start_30=true）已写入经验；未假称观测到闸变 |
+| D3 上下文 | pass | SPEC Phase C / full profile |
+| D4 合规 | pass | docs-only 微改；PR squash；无 allow-gap |
+| D5 结果 | pass | #10/#11 quality 绿；无阻塞产品缺陷结论 |
+
+**judgment_notes**：D2 warn 因 dogfood 设计上 00 先代签，未演示 pending→approved 投影差；证据诚实记录。Task_KPI% 取 88。
+
+---
 
 ### 经验总结
 
-（待）
+1. **代签先于翻转**：本轮 dogfood 由 00 先代签三闸再派 30，CLI/`/obs` 全程 `may_start_30: true`，可观测增量主要落在 `last_invoke` 与 invoke-gap WARN，而非闸状态翻转。
+2. **缺 40 不挡 30、挡 CLOSE**：`verify` WARN「缺 40」不挡开工；full profile 关账前必须补齐 40 invoke（本棒职责）。
+3. **live vs stub 键名**：stub 用 `schema`、CLI live 用 `schema_version`；对照时勿把 stub 当真值，前端需双读或后续统一契约（DRAFT-OBS-SCHEMA-KEY）。
+4. **证据优先于改码**：Phase C 主交付是 `docs/evidence/chain_dogfood_*` + README POINTER；未改 Vue/API 即可完成帽链对照，降低越 scope 风险。
+5. **后续 dogfood 可改剧本**：若要演示闸翻转，可专开「先 pending 再代签」微棒，与实现棒拆开。
 
 ---
 
@@ -105,3 +134,5 @@
 | 日期 | 说明 |
 |------|------|
 | 2026-07-28 | 00 起草 Phase C · 代签三闸 |
+| 2026-07-28 | 40 自检：勾选验收 · 经验回填 · CLOSE 预备 |
+| 2026-07-28 | 00 KPI Task_KPI%=88 · status=done · 准备 merge #11 + close |
