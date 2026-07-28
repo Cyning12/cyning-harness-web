@@ -48,11 +48,11 @@ Epic v1 收口：CI/脚本可跑 `harness verify`；至少 2 个负向自动化�
 
 ## 范围
 
-- [ ] GitHub Actions（或扩展 quality）：对仓根跑 `npx @cyning/harness@2.17.0 verify`（指定 active/done 样例 task 路径策略写清）
-- [ ] ≥2 负向自动化：例如无 task / CLI 失败投影 / 禁写闸（可扩现有 Vitest）
-- [ ] `docs/evidence/SUMMARY_obs_demo_20260728.md`：复现命令 + 小样本计数/耗时区间（脱敏）
-- [ ] 产品反馈：`docs/evidence/ISSUE_DRAFT_cyning_harness_*.md` 或「无阻塞」总表
-- [ ] README POINTER；PR + quality（含新步骤）绿
+- [x] GitHub Actions（或扩展 quality）：对仓根跑 `npx @cyning/harness@2.17.0 verify`（指定 active/done 样例 task 路径策略写清）
+- [x] ≥2 负向自动化：例如无 task / CLI 失败投影 / 禁写闸（可扩现有 Vitest）
+- [x] `docs/evidence/SUMMARY_obs_demo_20260728.md`：复现命令 + 小样本计数/耗时区间（脱敏）
+- [x] 产品反馈：`docs/evidence/ISSUE_DRAFT_cyning_harness_*.md` 或「无阻塞」总表
+- [x] README POINTER；PR + quality（含新步骤）绿
 
 ## 非范围
 
@@ -72,22 +72,27 @@ Epic v1 收口：CI/脚本可跑 `harness verify`；至少 2 个负向自动化�
 
 ## 验收标准
 
-- [ ] CI 或脚本可跑 harness verify 且文档可复现
-- [ ] ≥2 负向自动化绿
-- [ ] SUMMARY 证据包存在且可公开
-- [ ] 产品 issue 草稿或无阻塞书面结论
+- [x] CI 或脚本可跑 harness verify 且文档可复现
+- [x] ≥2 负向自动化绿
+- [x] SUMMARY 证据包存在且可公开
+- [x] 产品 issue 草稿或无阻塞书面结论
 - [ ] invoke 10+30+40；KPI+经验关账前填齐
 
 ---
 
 ### 自检结论（执行者）
-（待）
+
+- GATE_VERIFY 三闸 approved；`verify` PASS（active E；缺 40 WARN）。
+- quality.yml 挂 `harness verify`（done/hgm 样例）；README 策略表已写。
+- 负向 Vitest ≥2（本棒标「负向」5 条）· `pnpm lint/test/build` 本地绿。
+- SUMMARY + ISSUE_DRAFT（无阻塞总表）已落盘。
+- 40 / KPI / 经验关账：**待 00 派 40**。
 
 ### KPI（00）
 （待）
 
 ### 经验总结
-（待）
+（待 40 / CLOSE）
 
 ---
 
@@ -96,3 +101,4 @@ Epic v1 收口：CI/脚本可跑 `harness verify`；至少 2 个负向自动化�
 | 日期 | 说明 |
 |------|------|
 | 2026-07-28 | 00 起草 Phase E · 代签三闸 |
+| 2026-07-28 | 30 执行：CI verify · 负向 · SUMMARY · issue 草稿 · PR |

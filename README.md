@@ -65,6 +65,23 @@ pnpm test
 pnpm build
 ```
 
+### CI · harness verify（Phase E+）
+
+`quality` workflow 在 lint/test/build 之后执行：
+
+```bash
+npx --yes @cyning/harness@2.17.0 verify \
+  --target . \
+  --task docs/tasks/done/task_web_obs_demo_hgm_consumer_v1.md
+```
+
+| 策略 | 说明 |
+|------|------|
+| **task 路径** | 默认用 `docs/tasks/done/` 已 CLOSE 样例（帽链齐、闸稳） |
+| **勿用 active** | 进行中 task 可能缺 40 / 漂移，不适合作 CI 金样 |
+| **钉版本** | `@cyning/harness@2.17.0`；禁止 `--allow-*-gap` |
+| **证据** | [`docs/evidence/SUMMARY_obs_demo_20260728.md`](docs/evidence/SUMMARY_obs_demo_20260728.md) |
+
 薄观测 API（Vite middleware · 仅 Node 侧 · 只读）：
 
 - `GET /api/docs` · `GET /api/docs/content?path=…`
@@ -87,7 +104,9 @@ Harness 接入产物（`init` · preset `harness-only`）：
 |---|---|
 | SPEC | `approved` · 2026-07-28 · skip_10_spec |
 | 下游闸 | **00 代签** |
-| 阶段 | A0 CLOSED → A CLOSED → B CLOSED → C CLOSED → **D hgm-consumer** → E（F 默认不做） |
+| 阶段 | A0 CLOSED → A CLOSED → B CLOSED → C CLOSED → D CLOSED → **E ci-evidence**（F 默认不做） |
 | 契约 | `obs_status.v1` / `obs_timeline.v1`（B：live CLI；可 stub 切换；D：显式 ingest） |
 | Phase C 证据 | [`docs/evidence/chain_dogfood_20260728.md`](docs/evidence/chain_dogfood_20260728.md) |
 | Phase D 证据 | [`docs/evidence/hgm_consumer_20260728.md`](docs/evidence/hgm_consumer_20260728.md) |
+| Phase E SUMMARY | [`docs/evidence/SUMMARY_obs_demo_20260728.md`](docs/evidence/SUMMARY_obs_demo_20260728.md) |
+| 产品反馈 | [`docs/evidence/ISSUE_DRAFT_cyning_harness_obs_demo_feedback_20260728.md`](docs/evidence/ISSUE_DRAFT_cyning_harness_obs_demo_feedback_20260728.md) |
