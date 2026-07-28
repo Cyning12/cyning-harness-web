@@ -2,7 +2,7 @@
 
 | 项 | 内容 |
 |----|------|
-| **状态** | `active` · 维护者同意 **C + R3**（2026-07-28）· 单 task 覆盖 S1+S2 |
+| **状态** | `done` · S1+S2 已合入 PR #23 · S3 暂缓（latest==pinned） |
 | **日期** | 2026-07-28 |
 | **仓** | `cyning-harness-web`（本仓） |
 | **上游 epic** | [`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../../spec/SPEC-cyning-harness-web-obs-demo_v1.md)（A0–E 已 CLOSE） |
@@ -160,3 +160,4 @@
 | 日期 | 说明 |
 |------|------|
 | 2026-07-28 | 00 首稿 · epic 后增量 · 默认范围 C · 待维护者确认 |
+| 2026-07-28 | 维护者同意 C+R3 · task 合入 PR #23 · 状态 `done` |
