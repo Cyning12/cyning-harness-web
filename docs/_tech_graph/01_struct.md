@@ -31,7 +31,7 @@
 
 | human_gate_id | status | 签核人 | 日期 | 说明 |
 |---------------|--------|--------|------|------|
-| HG-GRAPH-MODULES | pending | | | A0 产出模块表；**00 在 PR 合入后代签** approved（30 不得自签） |
+| HG-GRAPH-MODULES | approved | 00（代签 · AUTH） | 2026-07-28 | PR #1 squash 合入后验：4 真实一级模块（web_ui/obs_api/harness_docs/evidence）+ 边界覆盖；依据 CHECK 台账 |
 
 ## 关联
 
