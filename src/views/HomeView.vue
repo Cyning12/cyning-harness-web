@@ -154,7 +154,8 @@ onMounted(() => {
     <h2>页面说明</h2>
     <ul>
       <li>
-        <strong>文档</strong>：只读打开 <code>docs/tasks/</code> 下的 Markdown，排版预览。
+        <strong>文档</strong>：只读打开 <code>docs/</code> 下的 Markdown（列表默认
+        <code>docs/tasks/</code>）；正文相对链接按本地路径语义跳转。
       </li>
       <li>
         <strong>运行状态</strong>：由服务端调用本地命令行工具读取状态（浏览器不直接跑命令）。
@@ -176,7 +177,7 @@ onMounted(() => {
     </p>
     <p v-if="loading" class="muted">加载示例中…</p>
     <p v-else-if="showcaseError" class="err">{{ showcaseError }}</p>
-    <MarkdownView v-else-if="showcase" :source="showcase" />
+    <MarkdownView v-else-if="showcase" :source="showcase" :base-path="SHOWCASE_PATH" />
   </section>
 </template>
 

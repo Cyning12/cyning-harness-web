@@ -250,14 +250,20 @@ describe('obs API · stub / live / 只读边界', () => {
     expect(result.code).toBe('NO_TASK')
   })
 
-  it('拒绝 docs/tasks 外路径与路径穿越', () => {
-    const out = resolveSafeTaskMd(repoRoot, 'docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md')
-    expect(out.ok).toBe(false)
-    if (out.ok) return
-    expect(out.code).toBe('PATH_OUT_OF_SCOPE')
+  it('可读 docs/spec 等互链路径；仍拒绝仓外穿越', () => {
+    const spec = resolveSafeTaskMd(
+      repoRoot,
+      'docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md',
+    )
+    expect(spec.ok).toBe(true)
 
     const traversal = resolveSafeTaskMd(repoRoot, 'docs/tasks/../../package.json')
     expect(traversal.ok).toBe(false)
+
+    const outside = resolveSafeTaskMd(repoRoot, 'README.md')
+    expect(outside.ok).toBe(false)
+    if (outside.ok) return
+    expect(outside.code).toBe('PATH_OUT_OF_SCOPE')
   })
 
   it('可读 docs/tasks 下至少一个 md', async () => {
