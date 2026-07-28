@@ -1,6 +1,6 @@
 # Task：Markdown 渲染组件 + 通用文案 + 首页示例
 
-> **状态**：`in_progress`  
+> **状态**：`done`  
 > **Phase**：`post-E`（epic A0–E 已 CLOSE · 增量 UX）  
 > **关联 SPEC**：[`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../../spec/SPEC-cyning-harness-web-obs-demo_v1.md)（只读边界不变）  
 > **落盘**：`docs/tasks/active/task_web_obs_demo_md_ux_v1.md`
@@ -82,7 +82,7 @@
 - [x] 首页有白话说明 + 样例文档渲染区
 - [x] 样例文件存在且内容面向外部读者（少黑话）
 - [x] `pnpm lint` → `test` → `build` 绿；PR quality 绿
-- [x] invoke 10+30+40；KPI+经验关账前填齐（**经验已填 · KPI 待 00**）
+- [x] invoke 10+30+40；KPI+经验已齐（Task_KPI%=91）
 
 ---
 
@@ -107,3 +107,4 @@
 |------|------|
 | 2026-07-28 | 00 起草 · 代签三闸 · 派 30 |
 | 2026-07-28 | 40 自检 · 勾选范围/验收 · 经验≥3 · CLOSE 摘要 · 补 invoke 40 |
+| 2026-07-28 | 00 KPI Task_KPI%=91 · status=done · 准备 merge #20 + close |
