@@ -9,16 +9,19 @@
 
 | slug | Phase | 文件 |
 |------|-------|------|
-| `web-obs-demo-ci-evidence` | E | [`active/task_web_obs_demo_ci_evidence_v1.md`](./active/task_web_obs_demo_ci_evidence_v1.md) |
+| — | — | （空 · epic A0–E 已 CLOSE · 待人类终验） |
 
-**done（最近）**
+**done（本 epic）**
 
 | slug | Phase | 文件 |
 |------|-------|------|
+| `web-obs-demo-ci-evidence` | E | [`done/task_web_obs_demo_ci_evidence_v1.md`](./done/task_web_obs_demo_ci_evidence_v1.md) |
 | `web-obs-demo-hgm-consumer` | D | [`done/task_web_obs_demo_hgm_consumer_v1.md`](./done/task_web_obs_demo_hgm_consumer_v1.md) |
 | `web-obs-demo-chain-dogfood` | C | [`done/task_web_obs_demo_chain_dogfood_v1.md`](./done/task_web_obs_demo_chain_dogfood_v1.md) |
 | `web-obs-demo-live-obs-status` | B | [`done/task_web_obs_demo_live_obs_status_v1.md`](./done/task_web_obs_demo_live_obs_status_v1.md) |
 | `web-obs-demo-scaffold-vite-shell` | A | [`done/task_web_obs_demo_scaffold_vite_shell_v1.md`](./done/task_web_obs_demo_scaffold_vite_shell_v1.md) |
 | `web-obs-demo-inform-bootstrap` | A0 | [`done/task_web_obs_demo_inform_bootstrap_v1.md`](./done/task_web_obs_demo_inform_bootstrap_v1.md) |
+
+**人类终验**：[`../harness/ACCEPTANCE_human_epic_checklist_v1.md`](../harness/ACCEPTANCE_human_epic_checklist_v1.md)（`ready_for_human`）
 
 Epic SPEC：[`../spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../spec/SPEC-cyning-harness-web-obs-demo_v1.md)

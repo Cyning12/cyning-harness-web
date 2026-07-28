@@ -2,12 +2,12 @@
 
 | 项 | 值 |
 |----|-----|
-| **状态** | `draft` · **仅在 A0–E 全部 CLOSE 且 00 宣告「需求完全完成」后**由人类勾选 |
+| **状态** | `ready_for_human` · **请维护者勾选下方 A–D 并签收** |
 | **关联 SPEC** | [`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../spec/SPEC-cyning-harness-web-obs-demo_v1.md) |
 | **过程闸** | 由 00 代签（[`auth/AUTH_00_human_gate_proxy_v1.md`](./auth/AUTH_00_human_gate_proxy_v1.md)）；**不替代本终验** |
 | **Phase F** | 默认不做；若升格须先改签 SPEC |
 
-> **用法**：00 在 epic 收口时把本节状态改为 `ready_for_human`，并填「00 收口摘要」；维护者逐项勾选后签 `accepted` / `rejected`。
+> **用法**：维护者逐项勾选后签 `accepted` / `rejected` / `accepted_with_followups`。
 
 ---
 
@@ -15,11 +15,11 @@
 
 | 字段 | 值 |
 |------|-----|
-| 宣告完成日 | （待） |
-| 已 CLOSE task 列表 | （待） |
-| 证据包指针 | `docs/evidence/`（待） |
-| 已知残留 / 否决风险 | （待） |
-| 建议人类重点抽查 | （待） |
+| 宣告完成日 | 2026-07-28 |
+| 已 CLOSE task 列表 | A0 `web-obs-demo-inform-bootstrap` · A `web-obs-demo-scaffold-vite-shell` · B `web-obs-demo-live-obs-status` · C `web-obs-demo-chain-dogfood` · D `web-obs-demo-hgm-consumer` · E `web-obs-demo-ci-evidence`（均在 `docs/tasks/done/`） |
+| 证据包指针 | [`docs/evidence/SUMMARY_obs_demo_20260728.md`](../evidence/SUMMARY_obs_demo_20260728.md) · [`chain_dogfood_20260728.md`](../evidence/chain_dogfood_20260728.md) · [`hgm_consumer_20260728.md`](../evidence/hgm_consumer_20260728.md) · [`ISSUE_DRAFT_…`](../evidence/ISSUE_DRAFT_cyning_harness_obs_demo_feedback_20260728.md) · [`CHECK_00_…`](../evidence/CHECK_00_gate_proxy_basis_20260728.md) |
+| 已知残留 / 否决风险 | Phase C dogfood 未演示闸 pending→approved 翻转（00 先代签）；stub/live JSON 键名 `schema` vs `schema_version`（非阻塞草稿）；未做浏览器点选显式 ingest 写盘演示 |
+| 建议人类重点抽查 | `pnpm dev` 三路由 + `/obs` live/stub/timeline；CI `quality` 含 harness verify；负向 Vitest；CHECK 台账与 AUTH 代签权 |
 
 ---
 
@@ -50,8 +50,8 @@
 
 - [ ] 过程人闸均有 CHECK 台账指针（`docs/evidence/CHECK_00_gate_proxy_basis_*.md`）
 - [ ] 无默认 `--allow-*-gap` 豁免滥用
-- [ ] 合入均为 PR squash（抽查 2–3 个 PR）
-- [ ] 00 未在本仓提交 Vue/业务实现（抽查 git log / PR author 角色）
+- [ ] 合入均为 PR squash（抽查 2–3 个 PR · 例 #4/#7/#13/#16）
+- [ ] 00 未在本仓提交 Vue/业务实现（抽查：实现 PR 由 30 子 Agent；00 仅 docs/闸/KPI）
 
 ## D. 人类签收
 
@@ -69,3 +69,4 @@
 | 日期 | 说明 |
 |------|------|
 | 2026-07-28 | 00 预置终验单；完成态前保持 draft |
+| 2026-07-28 | A0–E 全部 CLOSE · 状态改为 `ready_for_human` · 填 00 收口摘要 |
