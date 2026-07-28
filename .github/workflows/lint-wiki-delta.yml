@@ -1,0 +1,44 @@
+# Optional · wiki_delta 扫描（dogfood · @cyning/harness ≥2.20）
+
+# 改编自产品包 ci/samples/lint-wiki-delta.yml.example
+# 差异：版本从仓根 harness.pin.json 读取（本仓 pin 单源真值），勿写死 @2.20
+# 配套：产品 docs/RUNBOOK_upgrade_wiki_delta_v1_zh.md · 本仓 FEEDBACK_harness_2_20_0_*
+
+name: lint-wiki-delta
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main, 'task/**']
+  workflow_dispatch:
+
+jobs:
+  lint-wiki-delta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      # npx-only：关闭 packageManager 缓存（本仓 packageManager=pnpm，本 job 不跑 pnpm）
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+          package-manager-cache: false
+
+      - name: Check harness pin
+        run: node scripts/check-harness-pin.mjs
+
+      - name: task lint-wiki-delta
+        # 已迁完：硬失败。迁移中可改 continue-on-error: true
+        run: |
+          VER=$(node -p "require('./harness.pin.json').version")
+          npx --yes "@cyning/harness@${VER}" task lint-wiki-delta --target .
+
+      # 可选关账预检（本仓已绿；默认不跑以免拉长 CI——需要时取消注释）
+      # - name: lint-wiki-delta --strict
+      #   run: |
+      #     VER=$(node -p "require('./harness.pin.json').version")
+      #     npx --yes "@cyning/harness@${VER}" task lint-wiki-delta --target . --strict
