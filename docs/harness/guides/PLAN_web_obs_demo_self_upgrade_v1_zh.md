@@ -6,7 +6,7 @@
 | **日期** | 2026-07-28 |
 | **仓** | `cyning-harness-web`（本仓） |
 | **上游 epic** | [`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../../spec/SPEC-cyning-harness-web-obs-demo_v1.md)（A0–E 已 CLOSE） |
-| **纪律包** | `@cyning/harness` · 当前钉 **2.17.0** · `upgrade` CLI 已存在 |
+| **纪律包** | `@cyning/harness` · 钉见 `harness.pin.json`（目标 **≥2.18.0**）· `upgrade` CLI 已存在 |
 | **编排** | 00 统筹（不编码）→ 闸后派 30 → PR + CI |
 
 ---

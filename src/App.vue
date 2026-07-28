@@ -13,6 +13,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/">首页</RouterLink>
         <RouterLink to="/obs">运行状态</RouterLink>
         <RouterLink to="/docs">文档</RouterLink>
+        <RouterLink to="/wiki-graph">Wiki 图</RouterLink>
       </nav>
     </header>
     <main>

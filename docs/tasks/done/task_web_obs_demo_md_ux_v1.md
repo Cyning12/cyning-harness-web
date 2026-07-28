@@ -23,6 +23,8 @@
 | **git_branch** | `task/web-obs-demo-md-ux` |
 | **graph_delta** | `none` |
 | **graph_delta_note** | UI 文案与 md 渲染；不改模块边界 |
+| **wiki_delta** | `n/a` |
+| **wiki_delta_note** | harness-only · 无 WikiTrack（升级 2.18 存量迁移） |
 | **experience_capture** | `required` |
 | **kpi_rubric** | `KPI_RUBRIC_v1_3` |
 | **kpi_aggregator** | `CLOSE` |

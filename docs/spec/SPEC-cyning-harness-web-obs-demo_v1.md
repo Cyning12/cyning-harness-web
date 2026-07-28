@@ -6,7 +6,7 @@
 > **下游**：epic 已签 → **00 自主拆 task / 代签下游闸 / 派 30**（见 §0）→ 30 **仅编码**  
 > **方案参考（不替代本 SPEC）**：工作区 `docs/harness/guides/PLAN_cyning_harness_web_obs_demo_v1_zh.md`  
 > **叙事对照**：`ai_coding_governance/narrative/discipline_package_series/NOTE_篇3立项判断_对照cyning-harness_20260725_zh.md`  
-> **最低纪律包**：`@cyning/harness` ≥ **2.17.0**（缺口校验 PASS）  
+> **最低纪律包**：`@cyning/harness` ≥ **2.18.0**（wiki_delta / wiki export；钉见 `harness.pin.json`）  
 > **自主统筹入口**：工作区 `docs/harness/prompts/PROMPT_00_cyning_harness_web_autonomous_loop_v1_zh.md`
 
 ### Sign-off（维护者 · 仅 epic）
@@ -33,7 +33,7 @@
 
 **纪律**：00 是编排者，不是执行者。未 epic `approved` 前，00 不得派 30。
 
-### §0.1 · 执行闭环纪律（本仓强制 · 对齐 `@cyning/harness` ≥**2.17.0**）
+### §0.1 · 执行闭环纪律（本仓强制 · 对齐 `@cyning/harness` ≥**2.18.0**）
 
 > 下列为本 epic **自主 loop** 的可执行约束。括号内为产品包**实测能力**（00 对照 USER_GUIDE / TASK_TEMPLATE / close·status 行为）。
 

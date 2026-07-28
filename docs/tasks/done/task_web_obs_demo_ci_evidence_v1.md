@@ -24,6 +24,8 @@
 | **git_branch** | `task/web-obs-demo-ci-evidence` |
 | **graph_delta** | `none` |
 | **graph_delta_note** | CI/测/证据文档为主；不改模块边界则 none |
+| **wiki_delta** | `n/a` |
+| **wiki_delta_note** | harness-only · 无 WikiTrack（升级 2.18 存量迁移） |
 | **experience_capture** | `required` |
 | **kpi_rubric** | `KPI_RUBRIC_v1_3` |
 | **kpi_aggregator** | `CLOSE` |

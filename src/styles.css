@@ -7,6 +7,8 @@
   --accent: #0f6a5a;
   --panel: #fffdf8;
   --err: #8b2e2e;
+  --warn: #9a6700;
+  --radius: 6px;
   font-family: "IBM Plex Sans", "Source Han Sans SC", "Noto Sans SC", sans-serif;
 }
 

@@ -1,0 +1,69 @@
+{
+  "schema": "harness.wiki_graph.v1",
+  "root": "docs/coding_wiki",
+  "nodes": [
+    {
+      "id": "docs/coding_wiki/README.md",
+      "path": "docs/coding_wiki/README.md",
+      "title": "coding_wiki · LLM 读序"
+    },
+    {
+      "id": "docs/coding_wiki/context.md",
+      "path": "docs/coding_wiki/context.md",
+      "title": "coding_wiki · context"
+    },
+    {
+      "id": "docs/coding_wiki/obs_readonly.md",
+      "path": "docs/coding_wiki/obs_readonly.md",
+      "title": "Obs 只读边界"
+    },
+    {
+      "id": "docs/coding_wiki/stable.md",
+      "path": "docs/coding_wiki/stable.md",
+      "title": "coding_wiki · stable"
+    },
+    {
+      "id": "docs/coding_wiki/volatile.md",
+      "path": "docs/coding_wiki/volatile.md",
+      "title": "coding_wiki · volatile"
+    },
+    {
+      "id": "docs/coding_wiki/web_obs_demo.md",
+      "path": "docs/coding_wiki/web_obs_demo.md",
+      "title": "Web Obs Demo"
+    }
+  ],
+  "edges": [
+    {
+      "source": "docs/coding_wiki/obs_readonly.md",
+      "target": "docs/coding_wiki/web_obs_demo.md",
+      "kind": "wikilink"
+    },
+    {
+      "source": "docs/coding_wiki/obs_readonly.md",
+      "target": "docs/coding_wiki/volatile.md",
+      "kind": "wikilink"
+    },
+    {
+      "source": "docs/coding_wiki/obs_readonly.md",
+      "target": "docs/coding_wiki/stable.md",
+      "kind": "wikilink"
+    },
+    {
+      "source": "docs/coding_wiki/web_obs_demo.md",
+      "target": "docs/coding_wiki/stable.md",
+      "kind": "wikilink"
+    },
+    {
+      "source": "docs/coding_wiki/web_obs_demo.md",
+      "target": "docs/coding_wiki/context.md",
+      "kind": "wikilink"
+    },
+    {
+      "source": "docs/coding_wiki/web_obs_demo.md",
+      "target": "docs/coding_wiki/obs_readonly.md",
+      "kind": "wikilink"
+    }
+  ],
+  "warnings": []
+}

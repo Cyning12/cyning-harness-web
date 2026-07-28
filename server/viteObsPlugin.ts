@@ -5,6 +5,7 @@ import {
   getHarnessVersion,
   getObsStatus,
   getObsTimeline,
+  getWikiGraph,
   listTaskDocs,
   readTaskDoc,
   rejectWriteGate,
@@ -113,6 +114,13 @@ export function obsApiPlugin(repoRoot = process.cwd()): Plugin {
 
       if (url.pathname === '/api/obs/harness-version') {
         const result = await getHarnessVersion(root)
+        sendJson(res, result.ok ? 200 : httpStatusForErr(result.code), result)
+        return
+      }
+
+      if (url.pathname === '/api/obs/wiki-graph') {
+        const wikiRoot = url.searchParams.get('root')
+        const result = await getWikiGraph(root, { wikiRoot })
         sendJson(res, result.ok ? 200 : httpStatusForErr(result.code), result)
         return
       }

@@ -24,6 +24,8 @@
 | **git_branch** | `task/web-obs-demo-chain-dogfood` |
 | **graph_delta** | `none` |
 | **graph_delta_note** | 微改不触及模块边界（README 一行或 docs/evidence 注记）；若改码边界则改填 |
+| **wiki_delta** | `n/a` |
+| **wiki_delta_note** | harness-only · 无 WikiTrack（升级 2.18 存量迁移） |
 | **experience_capture** | `required` |
 | **kpi_rubric** | `KPI_RUBRIC_v1_3` |
 | **kpi_aggregator** | `CLOSE` |

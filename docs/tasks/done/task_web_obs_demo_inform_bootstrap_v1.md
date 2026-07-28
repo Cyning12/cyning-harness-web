@@ -26,6 +26,8 @@
 | **worktree_root** | （串行 · 仓根） |
 | **graph_delta** | `docs/_tech_graph/01_struct.md` · `docs/_tech_graph/00_main.md` |
 | **graph_delta_note** | A0 首建图谱骨架与一级模块表；非 `none` |
+| **wiki_delta** | `n/a` |
+| **wiki_delta_note** | harness-only · 无 WikiTrack（升级 2.18 存量迁移） |
 | **experience_capture** | `required` |
 | **kpi_rubric** | `KPI_RUBRIC_v1_3` |
 | **kpi_aggregator** | `CLOSE` |

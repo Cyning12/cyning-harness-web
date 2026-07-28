@@ -27,6 +27,8 @@
 | **worktree_root** | （串行 · 仓根） |
 | **graph_delta** | `docs/_tech_graph/00_main.md`（标注 live CLI 路径）；边界未变可仅注记 |
 | **graph_delta_note** | 触达 `obs_api`：stub→live CLI；模块表默认不改 |
+| **wiki_delta** | `n/a` |
+| **wiki_delta_note** | harness-only · 无 WikiTrack（升级 2.18 存量迁移） |
 | **experience_capture** | `required` |
 | **kpi_rubric** | `KPI_RUBRIC_v1_3` |
 | **kpi_aggregator** | `CLOSE` |

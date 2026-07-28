@@ -4,7 +4,7 @@
 |----|-----|
 | **授权真值** | [`docs/harness/auth/AUTH_00_human_gate_proxy_v1.md`](../harness/auth/AUTH_00_human_gate_proxy_v1.md) |
 | **epic SPEC** | [`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../spec/SPEC-cyning-harness-web-obs-demo_v1.md) · `approved` |
-| **纪律包** | `@cyning/harness@2.17.0` |
+| **纪律包** | `@cyning/harness`（钉见 [`harness.pin.json`](../harness.pin.json)；当前目标 **2.18.0**） |
 
 > 本文件为**滚动台账**：每条代签一行；证据指针须可打开。
 
@@ -77,3 +77,4 @@
 |------|------|
 | 2026-07-28 | 首建台账；录入 A0 双闸 + verify 复核 + AUTH 升格 |
 | 2026-07-28 | PR #1 合入；代签 HG-GRAPH-MODULES |
+| 2026-07-28 ~14:50 | （2.18 波） | web-harness-2-18-wiki-graph | upgrade+pin 2.18.0 · wiki_delta×8 · /wiki-graph · FEEDBACK/BACKFILL · Wave B 全绿 | 待 PR | 执行窗 |
