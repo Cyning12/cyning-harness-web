@@ -36,6 +36,7 @@
 | 2026-07-28 ~11:46 | HG-TASK-DRAFT | web-obs-demo-chain-dogfood | 通读 Phase C task：微改+evidence+/obs；profile full | pass → approved | 00 |
 | 2026-07-28 ~11:46 | HG-AUDIT-R1 | web-obs-demo-chain-dogfood | chain_dogfood audit R1 pass | pass → approved | 00 |
 | 2026-07-28 ~11:46 | HG-GRAPH-MODULES | web-obs-demo-chain-dogfood | 沿用 A0 · graph_delta=none | approved（沿用） | 00 |
+| 2026-07-28 ~11:49 | （合入） | web-obs-demo-chain-dogfood | `gh pr checks` 绿 · merge #10 squash → https://github.com/Cyning12/cyning-harness-web/pull/10 | MERGED | 00 |
 
 ---
 
