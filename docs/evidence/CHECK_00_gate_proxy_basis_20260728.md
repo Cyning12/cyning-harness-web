@@ -19,12 +19,8 @@
 | 2026-07-28 ~11:05 | （编排复核） | web-obs-demo-inform-bootstrap | `npx @cyning/harness@2.17.0 verify --target . --task docs/tasks/active/task_web_obs_demo_inform_bootstrap_v1.md` → PASS；`status --json` → `may_start_30: true` | 可派 30 | 00 |
 | 2026-07-28 ~11:08 | AUTH 升格 | epic | 维护者授权：过程人闸全权代签 + 检查依据强制落盘 + 00 仅派子 Agent + 终验交人 | 见 AUTH 文件 | 维护者→00 |
 | 2026-07-28 ~11:09 | （派工） | web-obs-demo-inform-bootstrap | 00 经 Cursor Task 派子 Agent 执行 30；本窗不写 Inform 交付物；Prompt 真值 `PROMPT_30_web_obs_demo_inform_bootstrap.md` | 已派 · 等 PR | 00 |
-
-### 待办（合入 A0 后补）
-
-| 时间 | gate_id | task_slug | 检查动作 | 结论 | 代签人 |
-|------|---------|-----------|----------|------|--------|
-| （待） | HG-GRAPH-MODULES | web-obs-demo-inform-bootstrap | 验 `docs/_tech_graph/01_struct.md` ≥3 真实模块 + 边界覆盖；PR 已 squash | （待） | 00 |
+| 2026-07-28 ~11:15 | （合入） | web-obs-demo-inform-bootstrap | `gh pr merge 1 --squash --delete-branch` → https://github.com/Cyning12/cyning-harness-web/pull/1 · 无 CI checks（A0 预期）· 远端补推 `main` 并设 default | MERGED | 00 |
+| 2026-07-28 ~11:16 | HG-GRAPH-MODULES | web-obs-demo-inform-bootstrap | 通读 `docs/_tech_graph/01_struct.md`：module_id=`web_ui`,`obs_api`,`harness_docs`,`evidence`（≥3 真实行、无模板示例）；`00_main`/`ONTOLOGY` 存在；对照 AUTH §3 | pass → **approved**（写入 01_struct 人签表） | 00 |
 
 ---
 
@@ -33,3 +29,4 @@
 | 日期 | 说明 |
 |------|------|
 | 2026-07-28 | 首建台账；录入 A0 双闸 + verify 复核 + AUTH 升格 |
+| 2026-07-28 | PR #1 合入；代签 HG-GRAPH-MODULES |

@@ -1,6 +1,6 @@
 # Task：Inform bootstrap · 模块表 + 消费者本体（A0）
 
-> **状态**：`in_progress`  
+> **状态**：`ready_to_close`  
 > **Phase**：`A0`（先于脚手架改码）  
 > **关联 SPEC**：[`docs/spec/SPEC-cyning-harness-web-obs-demo_v1.md`](../../spec/SPEC-cyning-harness-web-obs-demo_v1.md)（`approved` · skip_10_spec）  
 > **关联图谱**：本棒产出 `docs/_tech_graph/`（S0 骨架）  
@@ -52,20 +52,20 @@ Epic 已签收。绿野仓在脚手架（Phase A）改码前，先完成 **Infor
 
 ## 范围
 
-- [ ] 建立 `docs/_tech_graph/` S0 骨架（可自 `@cyning/harness` `graph/templates/` 复制后改写，勿整仓抄无关示例）
+- [x] 建立 `docs/_tech_graph/` S0 骨架（可自 `@cyning/harness` `graph/templates/` 复制后改写，勿整仓抄无关示例）
   - 至少：`01_struct.md`（真实一级模块表，**删除模板示例行**）
   - 至少：`00_main.md`（可手写简版 flowchart；可选 `.ai.md` / `.graph.yaml`）
   - 建议：`99_mermaid_protocol.md`（可 POINTER 产品模板要点）
-  - 可选：`02_version.md` 一行时间线（A0 起步）
-- [ ] `01_struct` 一级模块建议覆盖（可微调命名，须覆盖边界）：
+  - 可选：`02_version.md` 一行时间线（A0 起步）— **未做**（可选；本棒未建）
+- [x] `01_struct` 一级模块建议覆盖（可微调命名，须覆盖边界）：
   - `web_ui` — Vite/Vue 页面与路由（`src/**` 预期）
   - `obs_api` — 薄服务端/middleware（读盘 + spawn CLI）
   - `harness_docs` — `docs/tasks` · `docs/harness/**` · 落盘真值
   - `evidence` — `docs/evidence/**`（C–E 用）
-- [ ] 落盘 `docs/meta/ONTOLOGY_web_obs_demo_v1.md`（自产品 `ONTOLOGY_consumer_slice_v1.md` 改写）：术语 3–12 条 + 核心类/关系 3–7 + 边界声明（落盘真值 vs 飞行中；Web 只读不写闸）
-- [ ] README 增一小段 POINTER：Inform 真值路径（`_tech_graph` · ontology）
-- [ ] 分支 `task/web-obs-demo-inform-bootstrap` → PR → CI（若尚无 Actions，本棒**不强制**加 workflow；本地文件存在性自检即可）→ **squash merge** → 删已合并分支
-- [ ] 合入后回填 `### 自检结论`；00 在 `01_struct` 人签表代签 `HG-GRAPH-MODULES` + KPI/经验 → `task close`
+- [x] 落盘 `docs/meta/ONTOLOGY_web_obs_demo_v1.md`（自产品 `ONTOLOGY_consumer_slice_v1.md` 改写）：术语 3–12 条 + 核心类/关系 3–7 + 边界声明（落盘真值 vs 飞行中；Web 只读不写闸）
+- [x] README 增一小段 POINTER：Inform 真值路径（`_tech_graph` · ontology）
+- [x] 分支 `task/web-obs-demo-inform-bootstrap` → PR → CI（若尚无 Actions，本棒**不强制**加 workflow；本地文件存在性自检即可）→ **squash merge** → 删已合并分支（PR [#1](https://github.com/Cyning12/cyning-harness-web/pull/1) squash · 无 CI）
+- [ ] 合入后回填 `### 自检结论`；00 在 `01_struct` 人签表代签 `HG-GRAPH-MODULES` + KPI/经验 → `task close` — **部分完成**：40 已回填自检 + 经验草稿；`HG-GRAPH-MODULES=approved` 已由 00 代签；**KPI 与 `harness task close` 待 00**
 
 ## 非范围
 
@@ -91,13 +91,13 @@ Epic 已签收。绿野仓在脚手架（Phase A）改码前，先完成 **Infor
 
 ## 验收标准
 
-- [ ] `docs/_tech_graph/01_struct.md` 存在且 ≥3 行真实一级模块（非示例占位）
-- [ ] `docs/_tech_graph/00_main.md` 存在且描述本仓 Demo 主路径（Agent 落盘 → Web 只读投影）
-- [ ] `docs/meta/ONTOLOGY_web_obs_demo_v1.md` 术语 ≥3、类/关系 ≥3、边界声明含「Web 不写闸」
-- [ ] `01_struct` 人签表 `HG-GRAPH-MODULES` → **approved**（00 代签，合入后）
-- [ ] invoke：`docs/harness/invokes/by-task/web-obs-demo-inform-bootstrap/` 含 10（已有）+ 30 + 40
-- [ ] PR squash 入 `main`；证据指针（PR URL）写入自检或 CLOSE
-- [ ] `### KPI（00）` + `### 经验总结` 关账前填齐（`KPI_RUBRIC_v1_3`）
+- [x] `docs/_tech_graph/01_struct.md` 存在且 ≥3 行真实一级模块（非示例占位）
+- [x] `docs/_tech_graph/00_main.md` 存在且描述本仓 Demo 主路径（Agent 落盘 → Web 只读投影）
+- [x] `docs/meta/ONTOLOGY_web_obs_demo_v1.md` 术语 ≥3、类/关系 ≥3、边界声明含「Web 不写闸」
+- [x] `01_struct` 人签表 `HG-GRAPH-MODULES` → **approved**（00 代签，合入后）
+- [x] invoke：`docs/harness/invokes/by-task/web-obs-demo-inform-bootstrap/` 含 10（已有）+ 30 + 40
+- [x] PR squash 入 `main`；证据指针（PR URL）写入自检或 CLOSE
+- [ ] `### KPI（00）` + `### 经验总结` 关账前填齐（`KPI_RUBRIC_v1_3`）— **经验总结 40 已草稿 ≥3 条；KPI 待 00 填**
 
 ---
 
@@ -119,8 +119,8 @@ Epic 已签收。绿野仓在脚手架（Phase A）改码前，先完成 **Infor
 | `01_struct` 模块表 | ✅ | `web_ui` · `obs_api` · `harness_docs` · `evidence`；无模板示例行 |
 | ontology 切片 | ✅ | `docs/meta/ONTOLOGY_web_obs_demo_v1.md` |
 | README POINTER | ✅ | 增「Inform 真值（A0）」表 |
-| PR / merge | ⏳ | 30 开 PR；**squash merge 由 00** |
-| 图谱模块人签（01_struct） | ⏳ | `HG-GRAPH-MODULES=pending`；合入后 00 代签 approved |
+| PR / merge | ✅ | https://github.com/Cyning12/cyning-harness-web/pull/1 · squash MERGED |
+| 图谱模块人签（01_struct） | ✅ | `HG-GRAPH-MODULES=approved`（00 代签 · 2026-07-28） |
 
 ---
 
@@ -136,26 +136,49 @@ Epic 已签收。绿野仓在脚手架（Phase A）改码前，先完成 **Infor
 
 ### 自检结论（执行者）
 
-- **verify（开工前）**：`npx @cyning/harness@2.17.0 verify --target . --task docs/tasks/active/task_web_obs_demo_inform_bootstrap_v1.md` → **PASS**（闸 HG-TASK-DRAFT / HG-AUDIT-R1 approved；WARN：缺 40 invoke · graph_delta 路径当时未建 · 工作区未 clean — 均不挡 may_start_30）
-- **文件存在性**：`01_struct` · `00_main` · `99_mermaid_protocol` · `ONTOLOGY_web_obs_demo_v1` · README Inform POINTER — 已落盘
-- **模块表**：`web_ui` · `obs_api` · `harness_docs` · `evidence`（非示例行）
-- **本体**：术语 ≥5 · 类/关系 ≥5 · 边界含「Web 不写闸」与「落盘真值 vs 飞行中」
-- **人签**：`01_struct` 内 `HG-GRAPH-MODULES=pending`（30 **未**自签）
-- **越界检查**：未改 `package.json` / Vue / Vite / Express；未改 `cyning-harness` 产品仓
-- **PR URL**：（提交开 PR 后回填）
-- **CI**：若仓库尚无 GitHub Actions → 注明「无 CI checks」
+- **verify（开工前 · 30）**：`npx @cyning/harness@2.17.0 verify --target . --task docs/tasks/active/task_web_obs_demo_inform_bootstrap_v1.md` → **PASS**（闸 HG-TASK-DRAFT / HG-AUDIT-R1 approved；WARN：缺 40 invoke · graph_delta 路径当时未建 · 工作区未 clean — 均不挡 may_start_30）
+- **文件存在性（40 复核）**：`01_struct` · `00_main` · `99_mermaid_protocol` · `ONTOLOGY_web_obs_demo_v1` · README Inform POINTER — 均存在且可读
+- **模块表**：`web_ui` · `obs_api` · `harness_docs` · `evidence`（4 行真实一级模块；非示例行）
+- **本体**：术语 5 · 类/关系 5 · 边界含「Web 不写闸」与「落盘真值 vs 飞行中」
+- **人签**：`01_struct` 内 `HG-GRAPH-MODULES=approved`（00 代签 · PR #1 合入后）
+- **越界检查**：未改 `package.json` / Vue / Vite / Express；未改 `cyning-harness` 产品仓（40 本棒亦未改业务码）
+- **PR URL**：https://github.com/Cyning12/cyning-harness-web/pull/1 （**已 squash merge** 入 `main`）
+- **CI**：仓库尚无 GitHub Actions → **无 CI checks**（A0 不强制）
+- **invoke**：10 + 30 + 40 已齐（`invoke_20260728_40_…`）
+- **40 自检结论**：**pass**（可关账预备；KPI / `harness task close` 待 00）
 
 ---
 
 ### KPI（00）
 
-（`kpi_aggregator: CLOSE` · 关账回溯 · 至少 `Task_KPI%: N` 或 D1–D5 / 四维 1–5）
+| 项 | 值 |
+|----|-----|
+| **kpi_rubric** | `KPI_RUBRIC_v1_3` |
+| **kpi_aggregator** | `CLOSE` |
+| **Task_KPI%** | `92` |
+| **语义状态** | `pass` · A0 Inform 闭环（交付/闸/证据齐；无 CI 为约定内） |
+
+| 大维 | 档位 | 说明 |
+|------|------|------|
+| D1 交付 | pass | task/invoke10·30·40/自检/CLOSE 摘要齐；验收勾选与交付一致 |
+| D2 判断 | pass | J-gate/J-scope/J-evidence 正确；图谱闸拆出 task 表避免硬拒；无代签越权到终验 |
+| D3 上下文 | pass | SPEC A0 / GUIDANCE 边界 / AUTH·CHECK 指针可读 |
+| D4 合规 | pass | PR squash #1；无 allow-*-gap；无 Vue 越 Phase |
+| D5 结果 | pass | Inform 真值入 main；`HG-GRAPH-MODULES=approved`；关账预备 PR #2 |
+
+**judgment_notes**：无 warn/fail 大维。残留仅可选 `02_version.md` 未建（非阻塞）。
 
 ---
 
 ### 经验总结
 
-（`experience_capture: required` · ≥3 条或 ≥80 字）
+（`experience_capture: required` · 40 草稿 · 00 关账确认）
+
+1. **A0 与图谱闸拆开**：本 task 闸表不写 `HG-GRAPH-MODULES=pending`，避免产品硬拒 Inform 30；模块表由 30 写出、合入后 00 在 `01_struct` 人签表代签 — 适合「图谱即产出」棒。
+2. **Inform 先于脚手架**：先固定 `web_ui` / `obs_api` / `harness_docs` / `evidence` 边界与「Web 不写闸」，后续 `scaffold_*` 改码可直接答 `graph_delta`，减少 Phase A 边画边改。
+3. **无 CI 的 A0 验收靠文件真值**：本仓尚无 Actions 时，以模块表非空、ontology 术语/边界、PR squash 证据指针作 Verify；勿把「口头完成」或聊天当签收。
+4. **关账分工**：40 只做交付核对 + 经验草稿 + CLOSE 摘要；KPI 打分与 `harness task close` / 归档 `git mv` 必须留给 00，避免帽越权。
+5. **远程 default 分支**：绿野仓若误以 task 分支为 HEAD，00 须先推 `main` 再开 PR；否则 `gh pr create` 会失败。
 
 ---
 
@@ -164,3 +187,5 @@ Epic 已签收。绿野仓在脚手架（Phase A）改码前，先完成 **Infor
 | 日期 | 说明 |
 |------|------|
 | 2026-07-28 | 00 起草 A0 · 代签 HG-TASK-DRAFT / HG-AUDIT-R1 |
+| 2026-07-28 | 40 自检：勾选范围/验收 · 回填 PR #1 · 经验草稿 · invoke_40 · CLOSE 摘要 · 结论 pass |
+| 2026-07-28 | 00 KPI Task_KPI%=92 · 经验确认 · 准备 merge PR #2 + task close |
