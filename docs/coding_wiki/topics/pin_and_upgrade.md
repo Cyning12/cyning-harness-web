@@ -4,12 +4,12 @@
 
 ## 真值
 
-- Pin：[`harness.pin.json`](../../../harness.pin.json)（当前目标 **2.22.1**）
+- Pin：[`harness.pin.json`](../../../harness.pin.json)（当前目标 **2.22.2**）
 - 剧本：[`docs/harness/guides/RUNBOOK_harness_upgrade_v1_zh.md`](../../harness/guides/RUNBOOK_harness_upgrade_v1_zh.md)
 - 产品 wiki_delta 迁移：产品仓 `docs/RUNBOOK_upgrade_wiki_delta_v1_zh.md`（≥2.19 · `--strict` ≥2.20 · pin 样例 ≥2.21）
 - 产品 overlay：RUNBOOK §1.2 / §1.2.1（≥2.22）
 - 检查：`node scripts/check-harness-pin.mjs` · `node scripts/bump-harness-pin.mjs <ver>`
-- Dogfood：[`FEEDBACK_harness_2_20_0_…`](../../evidence/FEEDBACK_harness_2_20_0_from_web_obs_20260728.md) · [`FEEDBACK_harness_2_22_1_…`](../../evidence/FEEDBACK_harness_2_22_1_from_web_obs_20260728.md)
+- Dogfood：[`FEEDBACK_2_20`](../../evidence/FEEDBACK_harness_2_20_0_from_web_obs_20260728.md) · [`FEEDBACK_2_22_1`](../../evidence/FEEDBACK_harness_2_22_1_from_web_obs_20260728.md) · [`FEEDBACK_2_22_2`](../../evidence/FEEDBACK_harness_2_22_2_from_web_obs_20260728.md)
 
 ## 相关
 

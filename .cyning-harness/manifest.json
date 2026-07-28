@@ -1,7 +1,7 @@
 {
-  "version": "2.22.1",
+  "version": "2.22.2",
   "preset": "harness-only",
   "ide": ["cursor"],
-  "from_version": "2.20.0",
-  "upgraded_at": "2026-07-28T10:26:01Z"
+  "from_version": "2.22.1",
+  "upgraded_at": "2026-07-28T12:04:00Z"
 }
