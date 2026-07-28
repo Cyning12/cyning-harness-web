@@ -9,12 +9,13 @@
 
 | slug | Phase | 文件 |
 |------|-------|------|
-| `web-obs-demo-self-upgrade` | post-E · 自我升级 | [`active/task_web_obs_demo_self_upgrade_v1.md`](./active/task_web_obs_demo_self_upgrade_v1.md) |
+| （空） | — | self-upgrade 已 CLOSE |
 
 **done（本 epic）**
 
 | slug | Phase | 文件 |
 |------|-------|------|
+| `web-obs-demo-self-upgrade` | post-E · 自我升级 | [`done/task_web_obs_demo_self_upgrade_v1.md`](./done/task_web_obs_demo_self_upgrade_v1.md) |
 | `web-obs-demo-md-ux` | post-E | [`done/task_web_obs_demo_md_ux_v1.md`](./done/task_web_obs_demo_md_ux_v1.md) |
 | `web-obs-demo-ci-evidence` | E | [`done/task_web_obs_demo_ci_evidence_v1.md`](./done/task_web_obs_demo_ci_evidence_v1.md) |
 | `web-obs-demo-hgm-consumer` | D | [`done/task_web_obs_demo_hgm_consumer_v1.md`](./done/task_web_obs_demo_hgm_consumer_v1.md) |
