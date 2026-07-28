@@ -52,6 +52,10 @@
 | 2026-07-28 ~12:11 | （关账） | web-obs-demo-ci-evidence | PR #17 squash；KPI Task_KPI%=92；`task close` → `docs/tasks/done/` · CLOSE PASS | Phase E CLOSED | 00 |
 | 2026-07-28 ~12:12 | （终验交人） | epic A0–E | ACCEPTANCE → `ready_for_human`；00 收口摘要已填；active 空 · done 列齐；交维护者勾选终验 | ready_for_human | 00 |
 
+| 2026-07-28 ~12:22 | HG-TASK-DRAFT | web-obs-demo-md-ux | 通读 md-ux task：渲染+文案+首页样例 | pass → approved | 00 |
+| 2026-07-28 ~12:22 | HG-AUDIT-R1 | web-obs-demo-md-ux | md_ux audit R1 pass | pass → approved | 00 |
+| 2026-07-28 ~12:22 | HG-GRAPH-MODULES | web-obs-demo-md-ux | 沿用 · graph_delta=none | approved（沿用） | 00 |
+
 ---
 
 ## 修订记录

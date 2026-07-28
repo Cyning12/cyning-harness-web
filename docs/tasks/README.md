@@ -9,7 +9,7 @@
 
 | slug | Phase | 文件 |
 |------|-------|------|
-| — | — | （空 · epic A0–E 已 CLOSE · 待人类终验） |
+| `web-obs-demo-md-ux` | post-E | [`active/task_web_obs_demo_md_ux_v1.md`](./active/task_web_obs_demo_md_ux_v1.md) |
 
 **done（本 epic）**
 
