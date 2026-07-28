@@ -1,6 +1,6 @@
 /**
  * 仅 Node 侧 spawn harness CLI（禁止浏览器 npx）。
- * 默认不带 --ingest。
+ * 默认不带 --ingest；仅 timeline 且显式 ingest=true 时追加。
  */
 import { spawn } from 'node:child_process'
 
@@ -19,7 +19,7 @@ export type SpawnFn = (
   options: { cwd: string; timeoutMs: number },
 ) => Promise<SpawnResult>
 
-export type CliJsonOk = { ok: true; data: unknown }
+export type CliJsonOk = { ok: true; data: unknown; warnings?: string[] }
 export type CliJsonErr = {
   ok: false
   error: string
@@ -95,6 +95,14 @@ export function extractJsonPayload(stdout: string): unknown {
   }
 }
 
+/** 提取 stderr 中 WARN 行（供空事件/对照可读） */
+export function extractWarnLines(stderr: string): string[] {
+  return stderr
+    .split(/\r?\n/)
+    .map((l) => l.trim())
+    .filter((l) => l.startsWith('WARN:') || l.startsWith('WARN '))
+}
+
 function summarizeCliFailure(result: SpawnResult): { error: string; code: string; detail?: string } {
   if (result.timedOut) {
     return {
@@ -133,7 +141,46 @@ function truncate(s: string, max: number): string {
 export type HarnessSubcommand = 'status' | 'timeline'
 
 /**
- * 跑 `npx @cyning/harness@2.17.0 <status|timeline> … --json`（无 --ingest）。
+ * 组装 `npx @cyning/harness@2.17.0 <status|timeline> … --json` argv。
+ * 默认不含 `--ingest`；仅 timeline + ingest===true 时追加。
+ */
+export function buildHarnessCliArgs(options: {
+  subcommand: HarnessSubcommand
+  repoRoot: string
+  taskPath: string
+  ingest?: boolean
+}): string[] {
+  if (options.subcommand === 'status') {
+    return [
+      '--yes',
+      HARNESS_PACKAGE,
+      'status',
+      '--target',
+      options.repoRoot,
+      '--task',
+      options.taskPath,
+      '--json',
+    ]
+  }
+
+  const args = [
+    '--yes',
+    HARNESS_PACKAGE,
+    'timeline',
+    '--task',
+    options.taskPath,
+    '--target',
+    options.repoRoot,
+    '--json',
+  ]
+  if (options.ingest === true) {
+    args.push('--ingest')
+  }
+  return args
+}
+
+/**
+ * 跑 `npx @cyning/harness@2.17.0 <status|timeline> … --json`（默认无 --ingest）。
  */
 export async function runHarnessJson(options: {
   repoRoot: string
@@ -141,32 +188,18 @@ export async function runHarnessJson(options: {
   taskPath: string
   spawn?: SpawnFn
   timeoutMs?: number
+  /** 仅 timeline 生效；默认 false（禁静默 ingest） */
+  ingest?: boolean
 }): Promise<CliJsonResult> {
   const spawnFn = options.spawn ?? defaultSpawn
   const timeoutMs = options.timeoutMs ?? DEFAULT_CLI_TIMEOUT_MS
 
-  const args =
-    options.subcommand === 'status'
-      ? [
-          '--yes',
-          HARNESS_PACKAGE,
-          'status',
-          '--target',
-          options.repoRoot,
-          '--task',
-          options.taskPath,
-          '--json',
-        ]
-      : [
-          '--yes',
-          HARNESS_PACKAGE,
-          'timeline',
-          '--task',
-          options.taskPath,
-          '--target',
-          options.repoRoot,
-          '--json',
-        ]
+  const args = buildHarnessCliArgs({
+    subcommand: options.subcommand,
+    repoRoot: options.repoRoot,
+    taskPath: options.taskPath,
+    ingest: options.ingest,
+  })
 
   let result: SpawnResult
   try {
@@ -187,7 +220,10 @@ export async function runHarnessJson(options: {
 
   try {
     const data = extractJsonPayload(result.stdout)
-    return { ok: true, data }
+    const warnings = extractWarnLines(result.stderr)
+    return warnings.length > 0
+      ? { ok: true, data, warnings }
+      : { ok: true, data }
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err)
     return {

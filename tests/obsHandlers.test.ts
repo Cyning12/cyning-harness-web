@@ -7,11 +7,14 @@ import {
   listTaskDocs,
   readTaskDoc,
   rejectWriteGate,
+  resolveIngestFlag,
   resolveObsSource,
   resolveSafeTaskMd,
 } from '../server/obsHandlers'
 import {
+  buildHarnessCliArgs,
   extractJsonPayload,
+  extractWarnLines,
   type SpawnFn,
   type SpawnResult,
 } from '../server/harnessCli'
@@ -19,7 +22,7 @@ import {
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 
 const SAMPLE_TASK =
-  'docs/tasks/active/task_web_obs_demo_live_obs_status_v1.md'
+  'docs/tasks/active/task_web_obs_demo_hgm_consumer_v1.md'
 
 function mockSpawn(result: Partial<SpawnResult> & { stdout?: string }): SpawnFn {
   return async () => ({
@@ -28,6 +31,16 @@ function mockSpawn(result: Partial<SpawnResult> & { stdout?: string }): SpawnFn 
     stderr: result.stderr ?? '',
     timedOut: result.timedOut ?? false,
   })
+}
+
+function capturingSpawn(
+  result: Partial<SpawnResult> & { stdout?: string },
+  sink: { args?: string[] },
+): SpawnFn {
+  return async (args) => {
+    sink.args = args
+    return mockSpawn(result)(args, { cwd: repoRoot, timeoutMs: 1000 })
+  }
 }
 
 describe('obs API · stub / live / 只读边界', () => {
@@ -119,6 +132,96 @@ describe('obs API · stub / live / 只读边界', () => {
     expect(result.ok).toBe(true)
     if (!result.ok) return
     expect(result.data).toEqual(payload)
+  })
+
+  it('默认 timeline argv 不含 --ingest', async () => {
+    const sink: { args?: string[] } = {}
+    const payload = {
+      schema_version: 'obs_timeline.v1',
+      event_count: 0,
+      events: [],
+      ingested: false,
+    }
+    const spawn = capturingSpawn(
+      {
+        exitCode: 0,
+        stdout: JSON.stringify(payload),
+        stderr: 'WARN: 无 HGM 数据（该 task 无匹配事件）',
+      },
+      sink,
+    )
+    const result = await getObsTimeline(repoRoot, SAMPLE_TASK, {
+      source: 'live',
+      spawn,
+    })
+    expect(result.ok).toBe(true)
+    expect(sink.args).toBeDefined()
+    expect(sink.args).not.toContain('--ingest')
+    if (!result.ok) return
+    expect(result.warnings?.[0]).toMatch(/WARN/)
+  })
+
+  it('显式 ingest=true 才带 --ingest', async () => {
+    const sink: { args?: string[] } = {}
+    const payload = {
+      schema_version: 'obs_timeline.v1',
+      event_count: 1,
+      events: [{ kind: 'test' }],
+      ingested: true,
+    }
+    const spawn = capturingSpawn(
+      { exitCode: 0, stdout: JSON.stringify(payload) },
+      sink,
+    )
+    const result = await getObsTimeline(repoRoot, SAMPLE_TASK, {
+      source: 'live',
+      spawn,
+      ingest: true,
+    })
+    expect(result.ok).toBe(true)
+    expect(sink.args).toContain('--ingest')
+  })
+
+  it('buildHarnessCliArgs：status/timeline 默认无 ingest；显式才追加', () => {
+    const statusArgs = buildHarnessCliArgs({
+      subcommand: 'status',
+      repoRoot: '/tmp/repo',
+      taskPath: SAMPLE_TASK,
+      ingest: true,
+    })
+    expect(statusArgs).not.toContain('--ingest')
+
+    const tlDefault = buildHarnessCliArgs({
+      subcommand: 'timeline',
+      repoRoot: '/tmp/repo',
+      taskPath: SAMPLE_TASK,
+    })
+    expect(tlDefault).not.toContain('--ingest')
+
+    const tlIngest = buildHarnessCliArgs({
+      subcommand: 'timeline',
+      repoRoot: '/tmp/repo',
+      taskPath: SAMPLE_TASK,
+      ingest: true,
+    })
+    expect(tlIngest).toContain('--ingest')
+  })
+
+  it('resolveIngestFlag 默认 false；仅显式真值', () => {
+    expect(resolveIngestFlag(null)).toBe(false)
+    expect(resolveIngestFlag('')).toBe(false)
+    expect(resolveIngestFlag('0')).toBe(false)
+    expect(resolveIngestFlag('false')).toBe(false)
+    expect(resolveIngestFlag('1')).toBe(true)
+    expect(resolveIngestFlag('true')).toBe(true)
+    expect(resolveIngestFlag('yes')).toBe(true)
+  })
+
+  it('extractWarnLines 提取 WARN', () => {
+    const lines = extractWarnLines(
+      'noise\nWARN: 无 HGM 数据\nWARN: invoke hats gap · 缺 40\nok\n',
+    )
+    expect(lines).toEqual(['WARN: 无 HGM 数据', 'WARN: invoke hats gap · 缺 40'])
   })
 
   it('extractJsonPayload 容忍前缀噪声', () => {

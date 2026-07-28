@@ -16,12 +16,16 @@
       <li>合并前：<code>pnpm lint</code> → <code>pnpm test</code> → <code>pnpm build</code></li>
     </ol>
 
-    <h2>Phase B 边界</h2>
+    <h2>Phase B–D 边界</h2>
     <ul>
       <li>
         <code>/obs</code> 默认 live：服务端
         <code>npx @cyning/harness@2.17.0 status|timeline --json</code>（无
         <code>--ingest</code>）；可切 stub
+      </li>
+      <li>
+        Phase D：可选显式 timeline
+        <code>--ingest</code>（页内警告「会写 events」）；空事件 / WARN 可读
       </li>
       <li>在 <code>/obs</code> 选择 task 后点「重新加载」刷新投影</li>
       <li><code>/docs</code> 仅扫读 <code>docs/tasks/**</code></li>

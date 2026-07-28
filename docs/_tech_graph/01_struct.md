@@ -9,7 +9,7 @@
 | module_id | 名称 | 路径 glob | 依赖方向（仅指向谁） | 负责人/备注 |
 |-----------|------|-----------|----------------------|-------------|
 | `web_ui` | Web 只读 UI | `src/**` | → `obs_api` | Vite/Vue 页面与路由（`/` · `/obs` · `/docs`）；Phase A 已建 |
-| `obs_api` | 薄观测 API | `server/**` | → `harness_docs` · `evidence` | Vite middleware：读盘 md + live `status`/`timeline --json`（可 stub 切换）；**禁止**写闸 / 默认不 ingest |
+| `obs_api` | 薄观测 API | `server/**` | → `harness_docs` · `evidence` | Vite middleware：读盘 md + live `status`/`timeline --json`（可 stub 切换）；**禁止**写闸 / **默认不** ingest；仅显式 `?ingest=1` 才写 events |
 | `harness_docs` | Harness 落盘真值 | `docs/tasks/**` · `docs/harness/**` · `docs/spec/**` | —（被依赖） | task / invoke / review / auth / ACCEPTANCE；签收真值所在 |
 | `evidence` | 证据与台账 | `docs/evidence/**` | —（被依赖） | C–E dogfood / 检查台账；非飞行中日志 |
 

@@ -6,7 +6,7 @@ import {
   runHarnessJson,
 } from './harnessCli'
 
-export type ApiOk<T> = { ok: true; data: T }
+export type ApiOk<T> = { ok: true; data: T; warnings?: string[] }
 export type ApiErr = { ok: false; error: string; code: string; detail?: string }
 export type ApiResult<T> = ApiOk<T> | ApiErr
 
@@ -21,6 +21,14 @@ export type ObsSourceMode = 'live' | 'stub'
 export type ObsQueryOptions = {
   source?: ObsSourceMode
   spawn?: SpawnFn
+  /** 仅 timeline：显式 true 才传 CLI `--ingest`；默认 false */
+  ingest?: boolean
+}
+
+/** 解析 ?ingest=：仅 1/true/yes/on 为 true；缺省与其他值均为 false */
+export function resolveIngestFlag(raw: string | null | undefined): boolean {
+  const v = (raw ?? '').trim().toLowerCase()
+  return v === '1' || v === 'true' || v === 'yes' || v === 'on'
 }
 
 const TASKS_ROOT_SEGMENTS = ['docs', 'tasks'] as const
@@ -202,7 +210,9 @@ export async function getObsStatus(
       detail: cli.detail,
     }
   }
-  return { ok: true, data: cli.data }
+  return cli.warnings?.length
+    ? { ok: true, data: cli.data, warnings: cli.warnings }
+    : { ok: true, data: cli.data }
 }
 
 export async function getObsTimeline(
@@ -226,6 +236,7 @@ export async function getObsTimeline(
     subcommand: 'timeline',
     taskPath: required.data,
     spawn: options.spawn,
+    ingest: options.ingest === true,
   })
   if (!cli.ok) {
     return {
@@ -235,7 +246,9 @@ export async function getObsTimeline(
       detail: cli.detail,
     }
   }
-  return { ok: true, data: cli.data }
+  return cli.warnings?.length
+    ? { ok: true, data: cli.data, warnings: cli.warnings }
+    : { ok: true, data: cli.data }
 }
 
 /** 写闸 API 明确拒绝（边界测用） */
