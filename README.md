@@ -3,6 +3,7 @@
 > **定位**：Harness **过程可观测**单仓 Demo（dogfood / 教学）。  
 > **远程**：`git@github.com:Cyning12/cyning-harness-web.git`  
 > **Open Folder**：本目录根（独立 git 仓）。  
+> **App 版本**：`0.2.0`（UI 升级 · **无业务逻辑变更**）  
 > **纪律包**：`@cyning/harness`（版本真值见仓根 [`harness.pin.json`](harness.pin.json)；已 `init` · preset `harness-only`）
 
 ## 入口（epic 已签收 · 自主统筹）
